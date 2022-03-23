@@ -1,54 +1,28 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/reset.css" type="text/css" />
-    <!-- font awesome -->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-      integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/54abdc521e.js"
       crossorigin="anonymous"
-    />
-    <!--Import Google Icon Font-->
+    ></script>
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <!-- Compiled and minified CSS -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"
+      href="https://unpkg.com/flickity@2/dist/flickity.min.css"
     />
-    <link rel="stylesheet" href="../css/app.css" type="text/css" />
-    <link rel="shortcut icon" href="../img/logo.ico" type="image/x-icon" />
-    {{!  }}
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <!-- Compiled and minified JavaScript -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-    ></script>
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/animations.css" />
 
-    <script>
-      $(document).ready(function(){ $('.tooltipped').tooltip();
-      $('.dropdown-trigger').dropdown(); $('select').formSelect();
-      $('.sidenav1').sidenav(); $('.sidenav').sidenav();
-      $('.materialboxed').materialbox(); $('.modal').modal();
-      $('.parallax').parallax(); $('.tabs').tabs();
-      $('.datepicker').datepicker({ disableWeekends: true }) });
-    </script>
-    <title>Indominus Network</title>
+    <title>{{title}}</title>
   </head>
   <body>
-    <div class="header"></div>
-    <div>
-      {{{body}}}
-    </div>
-    {{!-- <div class="footer">
-      {{>footer}}
-    </div> --}}
-
-
+    {{{body}}}
   </body>
-</html>

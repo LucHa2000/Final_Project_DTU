@@ -1,0 +1,30 @@
+<nav class="navbar flex justify-between items-center py-3">
+  <div class="navbar__left flex flex-start items-center flex-1">
+    <div class="navbar__brand flex flex-start items-center">
+      <img
+        src="../assets/images/healthcare.png"
+        alt="logo"
+        class="navbar__logo w-[30px] h-[30px]"
+      />
+      <a class="text-xl fw-bold ml-4">MedicalS</a>
+    </div>
+    <div class="app-container__input navbar__search md:w-[600px] mx-5">
+      <input
+        type="search"
+        name="search"
+        id="search"
+        placeholder="Enter email, meeting..."
+        class="w-full hidden md:block"
+      />
+      <button type="submit">
+        <i class="fa-solid fa-magnifying-glass app-container__icon"></i>
+      </button>
+    </div>
+  </div>
+  <div class="navbar__right flex-2 flex items-center flex-end">
+    <a href="#" class="navbar__link">
+      <i class="app-container__icon fa-solid fa-bell mr-4"></i>
+    </a>
+    <div class="navbar__profile">Login</div>
+  </div>
+</nav>
