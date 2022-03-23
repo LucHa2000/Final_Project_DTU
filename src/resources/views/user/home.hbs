@@ -1,20 +1,251 @@
-<div class="homepage-container">
-  <div class="left">
-    <div class="top-list">
-      <a href="/" class="brand"><img src="../img/logo.svg" alt="" /></a>
-      <a href="">About</a>
+<div class="app-container flex flex-col homepage-container">
+  <nav class="navbar flex justify-between items-center py-3">
+    <div class="navbar__left flex flex-start items-center flex-1">
+      <div class="navbar__brand flex flex-start items-center">
+        <img
+          src="../assets/images/healthcare.png"
+          alt="logo"
+          class="navbar__logo w-[30px] h-[30px]"
+        />
+        <a class="text-xl fw-bold ml-4">MedicalS</a>
+      </div>
+      <div class="app-container__input navbar__search md:w-[600px] mx-5">
+        <input
+          type="search"
+          name="search"
+          id="search"
+          placeholder="Enter email, meeting..."
+          class="w-full hidden md:block"
+        />
+        <button type="submit">
+          <i class="fa-solid fa-magnifying-glass app-container__icon"></i>
+        </button>
+      </div>
     </div>
-    <div class="left-main">
-      <h2 class="main-title">Stay <span>COOL!</span> With<br />Social Chat</h2>
-      <p class="subtitle">Anyone willing to get acquainted and communicate can
-        use it for free.</p>
-      <a href="/auth" class="btn-active btn-login">Sign in now</a>
+    <div class="navbar__right flex-2 flex items-center flex-end">
+      <a href="#" class="navbar__link">
+        <i class="app-container__icon fa-solid fa-bell mr-4"></i>
+      </a>
+      <div class="navbar__profile">Login</div>
     </div>
-    <div class="left-foot">
-      &copy; 2021 by team 1 DTU. All right received
+  </nav>
+  <main class="app__main flex w-full">
+    <div class="sidenav max-w-[70px] mt-[100px]">
+      <ul class="sidenav__list flex flex-col justify-center">
+        <li class="sidenav__item sidenav__item">
+          <a href="#" class="sidenav__link"><i
+              class="fa-solid fa-calendar-days sidenav__icon sidenav__icon--active"
+            ></i></a>
+        </li>
+        <li class="sidenav__item sidenav__item">
+          <a href="#" class="sidenav__link"><i
+              class="sidenav__icon fa-solid fa-user-doctor"
+            ></i></a>
+        </li>
+        <li class="sidenav__item sidenav__item">
+          <a href="#" class="sidenav__link"><i
+              class="sidenav__icon fa-brands fa-rocketchat"
+            ></i></a>
+        </li>
+        <li class="sidenav__item sidenav__item">
+          <a href="#" class="sidenav__link"><i
+              class="sidenav__icon fa-solid fa-gear"
+            ></i></a>
+        </li>
+      </ul>
     </div>
-  </div>
-  <div class="right">
-    <img src="../uploads/Texting-pana.svg" alt="" />
-  </div>
+    <div class="app-section">
+      <h2 class="app-section__header">Appointments</h2>
+      <div class="app-section__content">
+        <div
+          class="app-section__status flex md:flex-row flex-col flex-start w-full my-3"
+        >
+          <div class="status__item mr-5">
+            <h3 class="status__number fw-bold text-2xl">1</h3>
+            <p class="status__type">Happening</p>
+          </div>
+          <div class="status__item mr-5">
+            <h3 class="status__number fw-bold text-2xl">1</h3>
+            <p class="status__type">Upcoming</p>
+          </div>
+          <div class="status__item mr-5">
+            <h3 class="status__number fw-bold text-2xl">24</h3>
+            <p class="status__type">Accepted</p>
+          </div>
+          <div class="status__item mr-5">
+            <h3 class="status__number fw-bold text-2xl">24</h3>
+            <p class="status__type">Canceled</p>
+          </div>
+          <div class="status__item mr-5">
+            <h3 class="status__number fw-bold text-2xl">150</h3>
+            <p class="status__type">Total Appoinments</p>
+          </div>
+        </div>
+        <div class="appointments">
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+          <div class="card">
+            <p class="card__date">December 10, 2020</p>
+            <h3 class="card__title">Web Designing</h3>
+            <h4 class="card__subtitle">Prototyping</h4>
+            <div class="card__content">
+              <p class="apointment__status">Happening</p>
+            </div>
+            <p class="card__date--countdown">0 Days Left</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
