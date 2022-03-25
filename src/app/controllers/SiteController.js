@@ -8,10 +8,12 @@ import {
   updateUser,
 } from "../service/SampleService";
 class SiteController {
+
   async index(req, res, next) {
     let data = await getListUsers();
     console.log(data);
     res.render("user/home");
+
   }
 }
 module.exports = new SiteController();
