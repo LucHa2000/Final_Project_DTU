@@ -1,20 +1,12 @@
-<div class="homepage-container">
-  <div class="left">
-    <div class="top-list">
-      <a href="/" class="brand"><img src="../img/logo.svg" alt="" /></a>
-      <a href="">About</a>
-    </div>
-    <div class="left-main">
-      <h2 class="main-title">Stay <span>COOL!</span> With<br />Social Chat</h2>
-      <p class="subtitle">Anyone willing to get acquainted and communicate can
-        use it for free.</p>
-      <a href="/auth" class="btn-active btn-login">Sign in now</a>
-    </div>
-    <div class="left-foot">
-      &copy; 2021 by team 1 DTU. All right received
-    </div>
-  </div>
-  <div class="right">
-    <img src="../uploads/Texting-pana.svg" alt="" />
-  </div>
-</div>
+<h1>hello</h1>
+
+<ul>
+    {{#each data}}
+    <li>
+        {{this.email}}
+    </li>
+    <li>
+        {{this.name}}
+    </li>
+    {{/each}}
+</ul>
