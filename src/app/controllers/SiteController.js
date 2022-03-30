@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../../config/db");
 class SiteController {
   index(req, res, next) {
-    res.render("auth/signup");
+    res.render("user/home");
   }
 }
 module.exports = new SiteController();

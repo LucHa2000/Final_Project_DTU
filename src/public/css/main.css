@@ -82,14 +82,19 @@ body {
   overflow: hidden;
   box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%),
     0 24px 20px -24px rgb(71 82 107 / 10%);
+  /* height: 2.5rem; */
 }
 
 .app-container__input input {
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   width: 100%;
-  font-size: 14px;
+  font-size: 14px !important;
   color: var(--main-color);
   font-weight: 500;
+  height: 2rem !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
 }
 
 .app-container__input input:focus {
@@ -103,7 +108,7 @@ body {
   align-items: center;
 }
 
-.sidenav__icon {
+.medicals__sidenav__icon {
   font-size: 1.5rem;
   padding: 0.75rem;
   border-radius: 9999px;
@@ -111,7 +116,7 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.sidenav__icon--active {
+.medicals__sidenav__icon--active {
   background-color: var(--main-color);
 
   color: var(--link-color-active);
@@ -151,7 +156,7 @@ body {
   height: 100vh;
 }
 
-.card {
+.medicals__card {
   background-color: palevioletred;
   padding: 16px;
   border-radius: 30px;
@@ -163,14 +168,14 @@ body {
   /* height: 250px; */
 }
 
-.card__date {
+.medicals__card__date {
   font-size: 14px;
   color: var(--secondary-color);
   opacity: 0.7;
   line-height: 16px;
 }
 
-.card__date--countdown {
+.medicals__card__date--countdown {
   background-color: rgba(255, 255, 255, 0.6);
   font-size: 12px;
   padding: 16px;
@@ -181,13 +186,13 @@ body {
   margin-left: auto;
 }
 
-.card__title {
+.medicals__card__title {
   line-height: 24px;
   font-weight: 700;
   text-align: center;
 }
 
-.card__subtitle {
+.medicals__card__subtitle {
   line-height: 24px;
   opacity: 0.7;
   text-align: center;
