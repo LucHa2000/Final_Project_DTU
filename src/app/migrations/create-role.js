@@ -14,9 +14,6 @@ module.exports = {
       permissionID: {
         type: Sequelize.INTEGER,
       },
-      userID: {
-        type: Sequelize.INTEGER,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

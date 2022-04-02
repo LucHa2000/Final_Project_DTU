@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Document.init(
     {
       title: DataTypes.STRING,
-      userID: DataTypes.INTEGER,
+      userID: DataTypes.STRING,
       description: DataTypes.STRING,
       file: DataTypes.STRING,
       isVerified: DataTypes.BOOLEAN,
