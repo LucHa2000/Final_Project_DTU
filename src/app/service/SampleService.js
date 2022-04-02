@@ -8,7 +8,7 @@ let getListUsers = () => {
       let listUsers = await db.User.findAll({ raw: true });
       resolve(listUsers); // == return listUsers
     } catch (e) {
-      console.log(e);
+      reject(e);
     }
   });
 };

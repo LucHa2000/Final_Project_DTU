@@ -2,10 +2,13 @@ const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
 const session = require("express-session");
+const app = express();
 const flash = require("connect-flash"); //flash session
 const cookieParser = require("cookie-parser");
-var exphbs = require("express-handlebars");
-const app = express();
+const exphbs = require("express-handlebars");
+//const flash = require("req-flash");
+app.use(flash());
+
 const bodyParser = require("body-parser");
 const route = require("./routes");
 const server = require("http").Server(app);
@@ -22,11 +25,11 @@ app.use(
     extended: true,
   })
 );
-app.use(cookieParser()); // use cookie
+app.use(cookieParser("SecretStringForCookies")); // use cookie
 app.use(
   session({
-    secret: "keyboard cat",
-
+    secret: "SecretStringForSession",
+    resave: true,
     saveUninitialized: true,
     cookie: {
       maxAge: 180 * 60 * 1000,
@@ -49,6 +52,7 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 //socket io in server
+
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(` Server run at http://localhost:${port}`);

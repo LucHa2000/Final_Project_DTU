@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Appointment.init(
     {
-      userID: DataTypes.INTEGER,
+      userID: DataTypes.STRING,
       description: DataTypes.STRING,
       name: DataTypes.STRING,
       date: DataTypes.DATE,

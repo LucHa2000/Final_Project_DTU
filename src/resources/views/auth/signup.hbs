@@ -1,4 +1,4 @@
-<div class="signup-container flex flex-row h-screen w-screen overflow-x-hidden">
+{{!-- <div class="signup-container flex flex-row h-screen w-screen overflow-x-hidden">
   <div class="signup__left flex items-center justify-center flex-1 bg-white">
     <div class="signup__main flex flex-col lg:w-1/2 md:w-1/2 w-3/4">
       <h1 class="font-bold lg:text-4xl py-2 text-2xl">
@@ -18,7 +18,61 @@
           placeholder="Enter your password"
           class="w-full p-3 rounded-lg border-gray border-2"
           value=""
-        />
+        /> --}}
+<div class="auth-bg">
+  <div class="auth-container">
+    <div class="left">
+      <div class="left-inner-container">
+        <div class="left-head">
+          <div class="left-card"><a href="/">
+              <span style="font-weight: 600;">INDOMINUS</span><br />NETWORK</a>
+          </div>
+          <hr class="left-hr" />
+          <div class="left-title">
+            <p class="sm-title">We are</p>
+            <h2 class="main-title">Invite only right now.</h2>
+            <p class="subtitle">10 Million+ people have joined our network.<br
+              />We invite you to join the trible</p>
+          </div>
+        </div>
+        <div class="left-foot">
+          <p>Already have an account?</p>
+          <a href="/auth">Sign in</a>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="right-inner-container">
+        <form action="/auth/registerAccount" method="POST">
+          <h4>Register</h4>
+          <label class="label" for="username">FullName*</label>
+          <input
+            id="last_name"
+            type="text"
+            class="validate"
+            name="name"
+            required
+          />
+          <span
+            class="helper-text"
+            data-error="This field cannot be left blank"
+            data-success=""
+          ></span>
+
+          <label class="label" for="username">Password*</label>
+          <input
+            id="password"
+            type="password"
+            class="validate"
+            name="password"
+            minlength="6"
+            required
+          />
+          <span
+            class="helper-text"
+            data-error="Password minimum 6 characters"
+            data-success=""
+          ></span>
 
         <button type="submit" class="signup__btn btn--primary w-full mt-3">
           Sign up

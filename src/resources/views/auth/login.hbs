@@ -29,22 +29,21 @@
     </div>
     <div class="right">
       <div class="right-inner-container">
-        <form method="POST" action="/auth/user_Login">
+        <form method="POST" action="/auth/login">
           <h4>Sign in</h4>
-          <label class="label" for="username">Username</label>
+          <label class="label" >Email </label>
           <input
-            id="user"
-            type="text"
+            id="email"
+            type="email"
             class="validate"
-            name="username"
+            name="email"
             value="{{Email}}"
-            placeholder="Enter your username"
+            placeholder="Enter your email"
             required
           />
           <span
             class="helper-text"
             data-error="This is must be email"
-            data-success=""
           ></span>
           <label class="label" for="password">Password</label>
           <input
@@ -53,7 +52,7 @@
             class="validate"
             name="password"
             required
-            placeholder="Enter password"
+            placeholder="Enter your password"
           />
           <span
             class="helper-text"
@@ -65,29 +64,20 @@
             data-sitekey="6LcaRC0cAAAAAGZJCCINa2WiMLhJ8P1EfJ8O4SPs"
           ></div>
           <div class="col s10 m10 push-l1" style="">
-            {{#if error_message}}
+        
               <div class="noti-login">
                 <div class="isa_error message-info" style="">
                   <i class="fa fa-times-circle"></i>
-                  <span>{{error_message}}</span>
+                  
                 </div>
               </div>
-            {{/if}}
-            {{!-- {{#if message}}
-              <div class="noti-login">
-                <div class="isa_info message-info" style="">
-                  <i class="fa fa-check"></i>
-                  <span>{{message}}</span>
-                </div>
-              </div>
-            {{/if}} --}}
           </div>
           <button class="btn-active btn-login" type="submit">Sign in
           </button>
         </form>
-        <label for="" style="text-align: right; margin: 1rem 0;"><a
+        {{!-- <label for="" style="text-align: right; margin: 1rem 0;"><a
             href="/auth/forgotPassword"
-          >Forgot Password?</a></label>
+          >Forgot Password?</a></label> --}}
       </div>
     </div>
   </div>

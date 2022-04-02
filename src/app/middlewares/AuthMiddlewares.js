@@ -1,56 +1,52 @@
-// var nodemailer = require("nodemailer"); //sendEmailConfirm
-// const Account = require("../models/Account");
-// class AuthMiddlewares {
-//     checkAccount(req, res, next) {
-//         if (!req.cookies.username) {
-//             res.redirect("/auth");
-//             return;
-//         } else {
-//             db.execute(
-//                 Account.findByTag("username", req.cookies.username),
-//                 function(err, result) {
-//                     if (err) throw err;
-//                     if (result.length == 0) {
-//                         res.redirect("/auth");
-//                         return;
-//                     } else {
-//                         next();
-//                     }
-//                 }
-//             );
-//         }
-//     }
-//     checkRoleAdmin(req, res, next) {
-//         db.execute(
-//             Account.findByTag("username", req.cookies.username),
-//             function(err, result) {
-//                 if (err) throw err;
-//                 if (result[0].acc_type_id == 1) {
-//                     res.locals.username = result[0].username;
-//                     res.locals.avatar = result[0].avatar;
-//                     next();
-//                 } else {
-//                     res.redirect("back");
-//                     return;
-//                 }
-//             }
-//         );
-//     }
-//     checkRoleUser(req, res, next) {
-//         db.execute(
-//             Account.findByTag("username", req.cookies.username),
-//             function(err, result) {
-//                 if (err) throw err;
-//                 if (result[0].acc_type_id == 2) {
-//                     res.locals.username = result[0].username;
-//                     res.locals.avatar = result[0].avatar;
-//                     next();
-//                 } else {
-//                     return;
-//                     res.redirect("back");
-//                 }
-//             }
-//         );
-//     }
-// }
-// module.exports = new AuthMiddlewares();
+const express = require("express");
+const router = express.Router();
+import {
+  getUserByEmailAndPassword,
+  getUserByEmail,
+  createNewUser,
+  sendMail,
+  getUserById,
+} from "../service/UserService";
+class AuthMiddlewares {
+  async checkAccount(req, res, next) {
+    if (!req.session.userID) {
+      res.redirect("/auth/login");
+      //return;
+    } else {
+      let user = await getUserById(req.session.userID);
+      if (user) {
+        next();
+      } else {
+        res.redirect("/auth/login");
+      }
+    }
+  }
+  checkRoleAdmin(req, res, next) {
+    if (req.session.roleID) {
+      if (req.session.roleID === 1) {
+        next();
+      } else {
+        res.redirect("/auth/login");
+      }
+    } else res.redirect("/auth/login");
+  }
+  checkRoleUser(req, res, next) {
+    if (req.session.roleID) {
+      if (req.session.roleID === 3) {
+        next();
+      } else {
+        res.redirect("/auth/login");
+      }
+    } else res.redirect("/auth/login");
+  }
+  checkRoleDoctor(req, res, next) {
+    if (req.session.roleID) {
+      if (req.session.roleID === 2) {
+        next();
+      } else {
+        res.redirect("/auth/login");
+      }
+    } else res.redirect("/auth/login");
+  }
+}
+module.exports = new AuthMiddlewares();

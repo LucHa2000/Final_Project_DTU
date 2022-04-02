@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Conversation.init(
     {
-      senderID: DataTypes.INTEGER,
-      recipientID: DataTypes.INTEGER,
+      senderID: DataTypes.STRING,
+      recipientID: DataTypes.STRING,
       content: DataTypes.STRING,
       image: DataTypes.STRING,
       icon: DataTypes.STRING,

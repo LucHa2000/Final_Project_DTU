@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       models.Document.hasMany(User);
 
       User.belongsTo(models.Role);
-      models.Role.hasMany(User);
+      models.Role.hasOne(User);
     }
   }
   User.init(
