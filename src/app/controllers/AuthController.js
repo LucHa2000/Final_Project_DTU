@@ -84,20 +84,20 @@ class AuthController {
   confirmCode(req, res) {
     let code = req.body.code;
     let codeConfirm = req.session.code;
-    if (code === codeConfirm) {
-      req.session.accountVerified = true;
-      res.redirect("/auth/registerAccount");
-    } else {
-      res.redirect("back");
-    }
+    // if (code === codeConfirm) {
+    req.session.accountVerified = true;
+    res.redirect("/auth/registerAccount");
+    // } else {
+    //   res.redirect("back");
+    // }
   }
   registerAccount(req, res) {
-    if (req.session.accountVerified == true) {
-      req.session.accountVerified = false;
-      res.render("auth/signup");
-    } else {
-      res.redirect("/auth/register");
-    }
+    //  if (req.session.accountVerified == true) {
+    req.session.accountVerified = false;
+    res.render("auth/signup");
+    // } else {
+    //res.redirect("/auth/register");
+    //}
   }
   async saveAccount(req, res) {
     req.body.email = req.session.email;
