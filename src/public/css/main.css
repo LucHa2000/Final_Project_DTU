@@ -216,3 +216,98 @@ body {
   height: 10px;
   border-radius: 10px;
 }
+
+/* ================== Sign in ================== */
+
+svg#freepik_stories-online-doctor:not(.animated) .animable {
+  opacity: 0;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--Shadow--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideRight;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--cross-icon--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) zoomIn;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--pulse-icon--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideRight;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--Character--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) fadeIn;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideUp;
+  animation-delay: 0s;
+}
+
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: inherit;
+  }
+}
+
+/* ================== Modal ================== */
+.modal__content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal__content::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 5px;
+}
+
+.modal--hidden {
+  display: none !important;
+}
+
+.modal__main {
+  animation: zoomIn;
+  animation-duration: 0.5s;
+}
