@@ -2,6 +2,7 @@ const siteRouter = require("./site");
 const authRouter = require("./auth");
 const adminRouter = require("./admin");
 const doctorRouter = require("./doctor");
+const callVideoRouter = require("./callVideo");
 const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
 
 function router(app) {
@@ -17,6 +18,7 @@ function router(app) {
     authMiddlewares.checkRoleDoctor,
     doctorRouter
   );
+  app.use("/callVideo", callVideoRouter);
   app.use("/auth", authRouter);
   app.use("/", siteRouter);
 }
