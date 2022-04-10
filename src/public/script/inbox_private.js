@@ -1,5 +1,5 @@
 var socket = io("http://localhost:4000");
-
+console.log("import inbox_private");
 var receiver = "";
 var sender = "";
 //listening private emotion

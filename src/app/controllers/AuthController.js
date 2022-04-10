@@ -18,15 +18,16 @@ class AuthController {
       req.body.email,
       req.body.password
     );
-    console.log(user);
+
     if (user) {
       const accountRole = user.roleID;
       const accountID = user.id;
+      const accountName = user.name;
 
       //save account to session
       req.session.userID = accountID;
       req.session.roleID = accountRole;
-
+      req.session.name = accountName;
       //console.log(req.session);
       if (accountRole === 1) {
         res.redirect("/admin");
