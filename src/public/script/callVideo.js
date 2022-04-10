@@ -21,7 +21,6 @@ $("#btnCall").click(() => {
     playStream("localStream", stream);
     const call = peer.call(id, stream);
     //start Call
-    let data = "message ne";
     call.on("stream", (remoteStream) => {
       playStream("remoteStream", remoteStream);
     });
@@ -29,11 +28,11 @@ $("#btnCall").click(() => {
 });
 
 //send Message to
-$("#btnSendMessage").click(() => {
-  const message = $("#contentMessage").val();
+// $("#btnSendMessage").click(() => {
+//   const message = $("#contentMessage").val();
 
-  console.log(message);
-});
+//   console.log(message);
+// });
 //answer call
 peer.on("call", (call) => {
   openStream().then((stream) => {
@@ -43,7 +42,6 @@ peer.on("call", (call) => {
       playStream("localStream", stream);
       call.on("stream", (remoteStream) => {
         playStream("remoteStream", remoteStream);
-        console.log(remoteStream);
       });
     }
   });
