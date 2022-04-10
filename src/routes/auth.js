@@ -7,9 +7,9 @@ const upload = multer({
 const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
 const authController = require("../app/controllers/AuthController");
 
-router.get("/login", authController.index);
+router.get("/login", authController.index); // => /auth/login
 router.post("/login", authController.login);
-router.get("/register", authController.registerPage);
+router.get("/register", authController.registerPage); // => /auth/register
 router.post("/register", authController.confirmEmailRegister);
 router.get("/code", authController.registerConfirmEmail);
 router.post("/code", authController.confirmCode);
