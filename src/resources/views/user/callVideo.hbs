@@ -1,0 +1,57 @@
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../user/callVideo.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/2.0.0-beta.3/peerjs.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col s6">
+       
+        <video id="localStream" width="300" controls></video>
+         <h3 id="myPeer">Your Id :</h3>
+      </div>
+      <div class="col s6">
+     
+        <video id="remoteStream" width="300" controls></video>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <div class="row">
+          <div class="input-field col s4">
+            <label for="autocomplete-input">Remote ID</label>
+            <input type="text" id="remoteId" >
+            <button id="btnCall" class="btn ">Call</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{!-- <div class="row">
+      <h5>Chatting</h5>
+        <div class="input-field col s4">
+            <label for="autocomplete-input">Your Message</label>
+            <input type="text" id="contentMessage" >
+            <button id="btnSendMessage" class="btn">Send</button>
+        </div>
+        <div class="input-field col s8">
+          <div class="chatting-container">
+            <p class="message-sender">hello!</p>
+            <p class="message-receiver">Hi !</p>
+          </div>
+        </div>
+    </div> --}}
+  </div>
+
+
+    <script type="text/javascript" src="../script/callVideo.js"></script> 
+</body>
+</html>

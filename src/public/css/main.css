@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+}
+
+:root {
+  --primary-color: #1a355b;
+  --app-container: #f3f6fd;
+  --main-color: #1f1c2e;
+  --secondary-color: #4a4a4a;
+  --link-color: #1f1c2e;
+  --link-color-hover: #c3cff4;
+  --link-color-active: #fff;
+  --link-color-active-bg: #1f1c2e;
+  --projects-section: #fff;
+  --message-box-hover: #fafcff;
+  --message-box-border: #e9ebf0;
+  --more-list-bg: #fff;
+  --more-list-bg-hover: #f6fbff;
+  --more-list-shadow: rgba(209, 209, 209, 0.4);
+  --button-bg: #1f1c24;
+  --search-area-bg: #fff;
+  --star: #1ff1c2e;
+  --message-btn: #fff;
+  --app-section: #fff;
+}
+
+.btn--primary {
+  background-color: var(--primary-color) !important;
+  color: #fff;
+  padding: 0.75rem 25px;
+  font-weight: bold;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+
+.btn--secondary {
+  background-color: #fff !important;
+  color: var(--primary-color);
+  padding: 0.75rem 25px;
+  font-weight: bold;
+  border: 1px solid var(--primary-color);
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 0.5rem;
+}
+
+.app-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--app-container);
+  padding: 0 2.5rem;
+  overflow: hidden;
+}
+
+.fw-bold {
+  font-weight: 700;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+.app-container__input {
+  display: flex;
+  align-items: center;
+  background-color: var(--search-area-bg);
+  padding: 0.2rem 0.75rem;
+  border-radius: 9999px;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%),
+    0 24px 20px -24px rgb(71 82 107 / 10%);
+  /* height: 2.5rem; */
+}
+
+.app-container__input input {
+  /* padding: 0.5rem; */
+  width: 100%;
+  font-size: 14px !important;
+  color: var(--main-color);
+  font-weight: 500;
+  height: 2rem !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+
+.app-container__input input:focus {
+  border: none;
+  outline: none;
+}
+
+.app-container__icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.medicals__sidenav__icon {
+  font-size: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  color: var(--main-color);
+  margin-bottom: 0.75rem;
+}
+
+.medicals__sidenav__icon--active {
+  background-color: var(--main-color);
+
+  color: var(--link-color-active);
+}
+
+.app-section {
+  background-color: var(--app-section);
+  width: 100%;
+  margin-top: 2rem;
+  margin-left: 1rem;
+  border-radius: 32px;
+  padding: 32px;
+  /* min-height: 85vh; */
+  min-height: 85vh;
+  height: 85vh;
+  overflow-y: hidden;
+}
+
+.app-section__header {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  opacity: 0.9;
+  color: var(--main-color);
+}
+
+.appointments {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 270px);
+  column-gap: 16px;
+  row-gap: 16px;
+  margin-top: 2rem;
+  overflow: auto;
+  overflow-y: scroll;
+  padding-bottom: 2rem;
+  height: 100vh;
+}
+
+.medicals__card {
+  background-color: palevioletred;
+  padding: 16px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+
+  /* height: 250px; */
+}
+
+.medicals__card__date {
+  font-size: 14px;
+  color: var(--secondary-color);
+  opacity: 0.7;
+  line-height: 16px;
+}
+
+.medicals__card__date--countdown {
+  background-color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  padding: 16px;
+  font-weight: 700;
+  border-radius: 9999px;
+  width: 70%;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.medicals__card__title {
+  line-height: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.medicals__card__subtitle {
+  line-height: 24px;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.apointment__status {
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  height: 10px;
+
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: gray;
+  height: 10px;
+  border-radius: 10px;
+}
+
+/* ================== Sign in ================== */
+
+svg#freepik_stories-online-doctor:not(.animated) .animable {
+  opacity: 0;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--Shadow--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideRight;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--cross-icon--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) zoomIn;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--pulse-icon--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideRight;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--Character--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) fadeIn;
+  animation-delay: 0s;
+}
+
+svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
+  animation: 1s 1 forwards cubic-bezier(0.36, -0.01, 0.5, 1.38) slideUp;
+  animation-delay: 0s;
+}
+
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: inherit;
+  }
+}
+
+/* ================== Modal ================== */
+.modal__content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal__content::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 5px;
+}
+
+.modal--hidden {
+  display: none !important;
+}
+
+.modal__main {
+  animation: zoomIn;
+  animation-duration: 0.5s;
+}

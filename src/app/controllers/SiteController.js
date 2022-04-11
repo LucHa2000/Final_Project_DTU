@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../config/db");
+import {
+  createNewUser,
+  getListUsers,
+  getUserById,
+  deleteUser,
+  updateUser,
+} from "../service/SampleService";
 class SiteController {
-    index(req, res, next) {
-            res.render("user/home");
-        }
-
+  index(req, res, next) {
+    res.render("user/home");
+  }
 }
 module.exports = new SiteController();
