@@ -41,6 +41,17 @@ module.exports = {
       },
       {
         id: uuidv4(),
+        name: "Zed",
+        phoneNumber: "0123211",
+        password: await hashUserPassword("123"),
+        status: 1,
+        roleID: 3,
+        email: "user1@gmail.com",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: uuidv4(),
         name: "Mark",
         phoneNumber: "0123211",
         password: await hashUserPassword("123"),
