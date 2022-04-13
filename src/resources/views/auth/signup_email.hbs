@@ -16,11 +16,8 @@
           class="w-full p-3 rounded-lg border-gray border-2"
         />
         <div class="col s10 m10 push-l1" style="">
-
-          <div class="isa_error message-info">
-            <span>{{error_email}}</span>
-          </div>
-
+         {{!-- message when register fail --}}
+        <h2 class="red-text text-darken-2">{{message}}</h2>
         </div>
 
         <button type="submit" class="signup__btn btn--primary w-full mt-3">

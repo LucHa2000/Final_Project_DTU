@@ -14,6 +14,15 @@
     />
     <link
       rel="stylesheet"
+<<<<<<< HEAD
+=======
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link
+      rel="stylesheet"
+>>>>>>> 5b3e473 (add chat)
       href="https://unpkg.com/flickity@2/dist/flickity.min.css"
     />
     <link
@@ -29,9 +38,24 @@
     <script src="./flickity.js"></script>
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/main.css" />
+<<<<<<< HEAD
     {{! <link rel="stylesheet" href="../css/styles.css" /> }}
 
     <title>Homepage</title>
+=======
+    <link rel="stylesheet" href="../css/animations.css" />
+    <script src="../script/modal.js" defer></script>
+
+       <script>
+      $(document).ready(function(){ $('.tooltipped').tooltip();
+      $('.dropdown-trigger').dropdown(); $('select').formSelect();
+      $('.sidenav1').sidenav(); $('.sidenav').sidenav();
+      $('.materialboxed').materialbox(); $('.modal').modal();
+      $('.parallax').parallax(); $('.tabs').tabs();
+      $('.datepicker').datepicker({ disableWeekends: true }) });
+    </script>
+    <title>{{title}}</title>
+>>>>>>> 5b3e473 (add chat)
   </head>
   <body>
     {{{body}}}

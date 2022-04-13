@@ -15,7 +15,8 @@
   <div class="row">
     <div class="col s12">
       <div class="row">
-        <h1>your account : {{account}}</h1>
+        <h1>Your Account :</h1>
+        <h1 class="account">{{account}}</h1>
         <div>
           <h1> Inbox for Other User : </h1>
           <ul>
@@ -23,6 +24,7 @@
               <li class="user-chat btn">
                 {{this.name}}
               </li>
+              <br>
             {{/each}}
               
           </ul>
@@ -36,28 +38,51 @@
       {{!-- chatting container --}}
       <div class="row chatting-container">
         <div class="row">
-    
             <h1 class="receiver-name">Receiver Name:  </h1>
         
             <div class="input-field col s6">
             <input placeholder="Placeholder" id="message-inbox" type="text" class="validate">
+            <a  class="waves-effect waves-light btn modal-trigger " href="#icon-modal">
+              <span class="material-icons material-icons-light">emoji_emotions</span>
+            </a>
             <label >Message</label>
             <button class="btn" id="send-message">send message</button>
         </div>
       </div>
+        <div class="row">
+          <h1>send image</h1>
+           <input type="file" id="uploadfile">
+        </div>
       </div>
       {{!-- display conversation --}}
       <div class="row">
         <div class="col s6">
           <h1>Conversation</h1>
           <div class="display-conversation-container">
-            <ul class="collection with-header">
-                <li class="collection-item message-sender">:Alvin</li>
-                <li class="collection-item message-receiver">rece:</li>
+            <ul class="collection with-header chat-container">
               </ul>
           </div>
         </div>
       </div>
   </div>
 
+</div>
+
+{{!-- modal icon --}}
+<div id="icon-modal" class="modal">
+  <div class="modal-content center">
+    <h4 class="center">Emoticon</h4>
+    <img class='image-emotion modal-close' src='../emoticon/angry-face-with-horns_1f47f.png' >
+    <img class='image-emotion modal-close' src='../emoticon/face-holding-back-tears_1f979.png' >
+    <img class='image-emotion modal-close' src='../emoticon/smiling-face-with-heart-eyes_1f60d.png' >
+    <img class='image-emotion modal-close' src='../emoticon/hot-face_1f975.png' >
+    <img class='image-emotion modal-close' src='../emoticon/cat-face_1f431.png'>
+    <img class='image-emotion modal-close' src='../emoticon/christmas-tree_1f384.png'>
+    <img class='image-emotion modal-close' src='../emoticon/fire_1f525.png' >
+    <img class='image-emotion modal-close' src='../emoticon/wrapped-gift_1f381.png' >
+    <img class='image-emotion modal-close' src='../emoticon/person-surfing_1f3c4.png'>
+    <img class='image-emotion modal-close' src='../emoticon/red-heart_2764-fe0f.png'>
+    <img class='image-emotion modal-close' src='../emoticon/foggy_1f301.png' >
+    <img class='image-emotion modal-close' src='../emoticon/sparkles_2728.png' >
+    </div>
 </div>

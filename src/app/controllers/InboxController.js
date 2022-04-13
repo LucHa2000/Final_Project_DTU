@@ -11,7 +11,7 @@ class InboxController {
   async index(req, res, next) {
     let users = await getListUsers();
     let account = req.session.name;
-
+    console.log(account);
     req.res.render("user/inbox", { users: users, account: account });
   }
 }
