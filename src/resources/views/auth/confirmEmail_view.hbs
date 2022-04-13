@@ -16,17 +16,8 @@
           class="w-full p-3 rounded-lg border-gray border-2"
         />
         <div class="col s10 m10 push-l1" style="">
-          {{#if error}}
-            <div class="isa_error message-info">
-              <i class="fa fa-times-circle"></i>
-              <span>{{error}}</span>
-            </div>
-            {{!-- {{else}}
-              <div class="isa_info message-info">
-                <i class="fa fa-check"></i>
-                <span>{{message}}</span>
-              </div> --}}
-          {{/if}}
+            {{!-- message when register fail --}}
+        <h2 class="red-text text-darken-2">{{message}}</h2>
         </div>
 
         <button type="submit" class="signup__btn btn--primary w-full mt-3">

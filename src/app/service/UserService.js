@@ -60,7 +60,7 @@ let getUserByEmailAndPassword = (email, password) => {
       if (user && comparePassword) {
         resolve(user);
       } else {
-        resolve({});
+        resolve();
       }
     } catch (e) {
       reject(e);

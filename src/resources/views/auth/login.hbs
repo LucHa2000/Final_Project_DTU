@@ -11,11 +11,14 @@
           Welcome to MedicalS
         </h1>
         <p class="">Welcome to MedicalS! Please enter your details.</p>
+        {{!-- message when login fail --}}
+        <h2 class="red-text text-darken-2">{{message}}</h2>
+        {{!-- message when register successful--}}
+        <h2  class="red-text text-darken-2">{{messageRegister}}</h2>
         <form method="POST" action="/auth/login" class="signin__form mt-6">
           <label for="email" class="text-xs font-bold">Email</label>
           <input id="email"
             name="email"
-            value="{{Email}}"
             placeholder="Enter your email"
             required type="email" placeholder="Enter your email" class="w-full p-3 rounded-lg border-gray border-2" />
           <label for="password" class="text-xs font-bold">Password</label>

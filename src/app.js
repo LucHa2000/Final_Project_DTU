@@ -15,6 +15,9 @@ const server = require("http").Server(app);
 const moment = require("moment");
 var io = require("socket.io")(server);
 const nodemailer = require("nodemailer");
+
+const socketServer = require("../src/public/script/socketServer");
+
 require("dotenv").config();
 //parsing middleware
 //parse application/s-www-form-urlencoded
@@ -57,5 +60,5 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(` Server run at http://localhost:${port}`);
 });
-
+socketServer.socketServer(io);
 route(app);
