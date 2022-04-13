@@ -9,7 +9,7 @@ import {
 } from "../service/SampleService";
 class SiteController {
   index(req, res, next) {
-    res.render("user/doctor-detail");
+    res.render("user/doctor-list");
   }
 }
 module.exports = new SiteController();
