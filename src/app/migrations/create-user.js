@@ -10,9 +10,6 @@ module.exports = {
       email: {
         type: Sequelize.STRING,
       },
-      name: {
-        type: Sequelize.STRING,
-      },
       lastName: {
         type: Sequelize.STRING,
       },
@@ -28,14 +25,17 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
       },
-      documentID: {
-        type: Sequelize.INTEGER,
+      resumeID: {
+        type: Sequelize.STRING,
       },
       roleID: {
         type: Sequelize.INTEGER,
       },
       status: {
         type: Sequelize.INTEGER,
+      },
+      balance: {
+        type: Sequelize.FLOAT,
       },
       createdAt: {
         allowNull: false,

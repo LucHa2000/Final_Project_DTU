@@ -1,15 +1,13 @@
 "use strict";
-
 const { query } = require("express");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.addConstraint("participants", {
-      fields: ["userID"],
+    queryInterface.addConstraint("messages", {
+      fields: ["appointmentID"],
       type: "foreign key",
-      name: "participant_user_association", // optional
+      name: "appointment_message_association", // optional
       references: {
-        table: "users",
+        table: "appointments",
         field: "id",
       },
       onDelete: "cascade",

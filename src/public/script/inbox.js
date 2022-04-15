@@ -16,7 +16,6 @@ $(document).ready(() => {
   });
 
   //listening new message
-
   socket.on("new-message-private", (data) => {
     //console.log(data);
     receiver = data.sender;
@@ -29,6 +28,20 @@ $(document).ready(() => {
     );
   });
 
+  //listening new icon
+  //listening private emotion
+  socket.on("new-message-private-emotion", (data) => {
+    // $("#container-chat-private").show();
+    receiver = data.sender;
+    $(".chat-container").append(
+      '<div class="message-container-receive"><img class="image-infor-focus text-message message-icon" src ="' +
+        data.message +
+        '"><h6 class="nameUser">' +
+        data.sender +
+        "</h6></div>"
+    );
+  });
+
   $(".user-chat").click(function (e) {
     //get sender and receiver
     receiver = $(this).text().trim();
@@ -36,6 +49,18 @@ $(document).ready(() => {
     //show chat container
     $(".inbox-container").show();
   });
+
+  $("#send-message").prop("disabled", true);
+  //check message change
+  $("#message-inbox").keyup(function () {
+    let content = $(this).val();
+    if (content != "") {
+      $("#send-message").prop("disabled", false);
+    } else {
+      $("#send-message").prop("disabled", true);
+    }
+  });
+
   //send message
   $("#send-message").click(function (e) {
     let message = $("#message-inbox").val();
@@ -45,7 +70,7 @@ $(document).ready(() => {
       sender: sender,
     };
     socket.emit("content-message", content);
-
+    //append message
     $(".chat-container").append(
       '<li class="collection-item"><h1>' +
         content.message +
@@ -53,6 +78,19 @@ $(document).ready(() => {
         content.sender +
         "</p></li>"
     );
+    //submit message to the server
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:4000/inbox/saveMessage",
+      data: content,
+      dataType: "json",
+      encode: true,
+    }).done(function (data) {
+      console.log(data);
+    });
+    $("#message-inbox").val("");
+    $("#send-message").prop("disabled", false);
   });
   //send file
   // $("#uploadfile").bind("change", function (e) {
@@ -73,22 +111,31 @@ $(document).ready(() => {
   // }
 
   //send icon
-
-  //send icon
-
   $(".image-emotion").click(function (event) {
-    var message = $(this).attr("src");
-    socket.emit("content-emotion", {
+    let message = $(this).attr("src");
+    let content = {
       message: message,
       receiver: receiver.trim(),
       sender: sender,
-    });
-    $("#chat-content").append(
+    };
+
+    socket.emit("content-emotion", content);
+    $(".chat-container").append(
       '<div class="message-container"><img class="image-infor-focus text-message message-icon" src="' +
         message +
         '">' +
         '<h6 class="nameUser">' +
         "You</h6></div>"
     );
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:4000/inbox/saveMessage",
+      data: content,
+      dataType: "json",
+      encode: true,
+    }).done(function (data) {
+      console.log(data);
+    });
   });
 });

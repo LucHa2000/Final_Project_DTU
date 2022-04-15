@@ -1,27 +1,26 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("conversations", {
+    await queryInterface.createTable("resumes", {
       id: {
         allowNull: false,
-
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      senderID: {
+      title: {
         type: Sequelize.STRING,
       },
-      recipientID: {
+      description: {
         type: Sequelize.STRING,
       },
-      content: {
+      attachments: {
         type: Sequelize.STRING,
       },
-      image: {
-        type: Sequelize.STRING,
+      isVerified: {
+        type: Sequelize.BOOLEAN,
       },
-      icon: {
-        type: Sequelize.STRING,
+      starNo: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -34,6 +33,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("conversations");
+    await queryInterface.dropTable("resumes");
   },
 };

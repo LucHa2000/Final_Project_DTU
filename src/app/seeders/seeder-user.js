@@ -19,7 +19,8 @@ module.exports = {
     return queryInterface.bulkInsert("users", [
       {
         id: uuidv4(),
-        name: "John",
+        firstName: "LAng",
+        lastName: "Ha",
         phoneNumber: "0321222112",
         password: await hashUserPassword("123"),
         status: 1,
@@ -30,7 +31,8 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        name: "Davit",
+        firstName: "Davit",
+        lastName: "Nguyen",
         phoneNumber: "0123211",
         password: await hashUserPassword("123"),
         status: 1,
@@ -41,7 +43,8 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        name: "Zed",
+        firstName: "Zed",
+        lastName: "Le",
         phoneNumber: "0123211",
         password: await hashUserPassword("123"),
         status: 1,
@@ -52,7 +55,8 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        name: "Mark",
+        firstName: "Mark",
+        lastName: "Lee",
         phoneNumber: "0123211",
         password: await hashUserPassword("123"),
         status: 1,

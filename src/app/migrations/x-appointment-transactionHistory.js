@@ -2,10 +2,10 @@
 const { query } = require("express");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.addConstraint("participants", {
+    queryInterface.addConstraint("transactionHistories", {
       fields: ["appointmentID"],
       type: "foreign key",
-      name: "participant_appointment_association", // optional
+      name: "appointment_transactionHistories_association", // optional
       references: {
         table: "appointments",
         field: "id",

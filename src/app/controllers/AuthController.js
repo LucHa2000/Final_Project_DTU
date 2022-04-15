@@ -41,7 +41,6 @@ class AuthController {
         //save account to session
         req.session.userID = accountID;
         req.session.roleID = accountRole;
-        req.session.name = accountName;
         //console.log(req.session);
         if (accountRole === 1) {
           res.redirect("/admin");
@@ -77,7 +76,10 @@ class AuthController {
   }
   //render confirm email page
   registerConfirmEmail(req, res) {
-    res.render("auth/confirmEmail_view");
+    res.render("auth/confirmEmail_view", {
+      message: req.session.errorConfirmCode,
+    });
+    req.session.errorConfirmCode = null;
   }
   //confirm email register
   async confirmEmailRegister(req, res) {
@@ -99,29 +101,31 @@ class AuthController {
         Random
       );
       //save session :code,email
-
-      // console.log(req.session);
-
+      req.session.code = Random;
+      req.session.email = req.body.email;
       res.redirect("/auth/code");
     }
   }
   confirmCode(req, res) {
     let code = req.body.code;
     let codeConfirm = req.session.code;
-    // if (code === codeConfirm) {
-    req.session.accountVerified = true;
-    res.redirect("/auth/registerAccount");
-    // } else {
-    //   res.redirect("back");
-    // }
+    if (code === codeConfirm) {
+      req.session.accountVerified = true;
+      req.session.code = null;
+      res.redirect("/auth/registerAccount");
+    } else {
+      req.session.errorConfirmCode =
+        "The code is wrong, please check the code again!";
+      res.redirect("back");
+    }
   }
   registerAccount(req, res) {
-    //  if (req.session.accountVerified == true) {
-    req.session.accountVerified = false;
-    res.render("auth/signup");
-    // } else {
-    //res.redirect("/auth/register");
-    //}
+    if (req.session.accountVerified == true) {
+      req.session.accountVerified = null;
+      res.render("auth/signup");
+    } else {
+      res.redirect("/auth/register");
+    }
   }
   async saveAccount(req, res) {
     req.body.id = uuidv4();
@@ -131,6 +135,30 @@ class AuthController {
       req.session.messageRegister = "Register Successfully !";
       res.redirect("/auth/login");
     } else res.redirect("/auth/register");
+  }
+  //forgot Password
+  forgotPasswordPage(req, res) {
+    res.render("auth/forgotPassword");
+  }
+  async sendPasswordToEmail(req, res) {
+    //check account
+    let userExists = await getUserByEmail(req.body.email);
+
+    if (userExists !== null) {
+      //sendmail
+      sendMail(
+        req.body.email,
+        "danchoiphonui27@gmail.com",
+        "danchoiphonui27",
+        Random
+      );
+      //save session :code,email
+      res.redirect("/auth/login");
+    } else {
+      //Email is does not exist
+      req.session.errorForgotPassword = "Account does not exist !";
+      res.redirect("back");
+    }
   }
 }
 module.exports = new AuthController();

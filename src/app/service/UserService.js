@@ -86,6 +86,24 @@ let getUserByEmail = (email) => {
   });
 };
 
+let getUserByName = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { name: name },
+        raw: true,
+      });
+      if (user) {
+        resolve(user);
+      } else {
+        resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 let getListUsers = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -102,9 +120,11 @@ let createNewUser = (data) => {
       let hashPassword = await hashUserPassword(data.password);
 
       await db.User.create({
+        id: data.id,
         email: data.email,
         password: hashPassword,
-        name: data.name,
+        firstName: data.firstName,
+        lastName: data.lastName,
         roleID: 3,
       });
 
@@ -181,4 +201,5 @@ module.exports = {
   compareUserPass,
   getUserByEmail,
   sendMail,
+  getUserByName,
 };

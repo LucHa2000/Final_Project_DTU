@@ -15,5 +15,7 @@ router.get("/code", authController.registerConfirmEmail);
 router.post("/code", authController.confirmCode);
 router.get("/registerAccount", authController.registerAccount);
 router.post("/registerAccount", authController.saveAccount);
+router.get("/forgotPassword", authController.forgotPasswordPage);
+router.post("/forgotPassword", authController.sendPasswordToEmail);
 //router.post("/login", siteController.index);
 module.exports = router;

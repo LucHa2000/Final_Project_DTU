@@ -14,11 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Appointment.init(
     {
-      userID: DataTypes.STRING,
-      description: DataTypes.STRING,
-      name: DataTypes.STRING,
+      patientID: DataTypes.STRING,
+      doctorID: DataTypes.STRING,
+      title: DataTypes.STRING,
       date: DataTypes.DATE,
-      link: DataTypes.STRING,
       isCanceled: DataTypes.BOOLEAN,
     },
     {
