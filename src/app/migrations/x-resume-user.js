@@ -6,11 +6,11 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     //addColumn
     queryInterface.addConstraint("users", {
-      fields: ["documentID"],
+      fields: ["resumeID"],
       type: "foreign key",
       name: "document_role_association", // optional
       references: {
-        table: "documents",
+        table: "resumes",
         field: "id",
       },
       onDelete: "cascade",

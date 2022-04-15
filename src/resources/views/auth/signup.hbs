@@ -10,13 +10,24 @@
         method="POST"
         class="signup__form mt-6"
       >
-        <label for="full_name" class="text-xs font-bold">Full Name *</label>
+        <label for="first_name" class="text-xs font-bold">FIrst Name *</label>
         <input
-          id="full_name"
-          name="name"
+          id="first_name"
+          name="firstName"
           required
           type="text"
-          placeholder="Enter your full name"
+          placeholder="Enter your first Name"
+          class="w-full p-3 rounded-lg border-gray border-2"
+          minlength="6"
+        />
+
+          <label for="last_name" class="text-xs font-bold">Last Name *</label>
+        <input
+          id="last_name"
+          name="lastName"
+          required
+          type="text"
+          placeholder="Enter your first Name"
           class="w-full p-3 rounded-lg border-gray border-2"
           minlength="6"
         />
@@ -34,6 +45,7 @@
           required
           type="password"
           placeholder="Enter your password"
+          minlength="8"
           class="w-full p-3 rounded-lg border-gray border-2"
         />
         <div class="col s10 m10 push-l1" style="">
@@ -41,7 +53,6 @@
           <div class="isa_error message-info">
             <span>{{error_email}}</span>
           </div>
-
         </div>
         <button type="submit" class="signup__btn btn--primary w-full mt-3">
           Sign up

@@ -7,20 +7,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.STRING,
       },
-      userID: {
+      patientID: {
         type: Sequelize.STRING,
       },
-      description: {
+      doctorID: {
         type: Sequelize.STRING,
       },
-      name: {
+      title: {
         type: Sequelize.STRING,
       },
       date: {
         type: Sequelize.DATE,
-      },
-      link: {
-        type: Sequelize.STRING,
       },
       isCanceled: {
         type: Sequelize.BOOLEAN,
