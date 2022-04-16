@@ -56,6 +56,20 @@ body {
   border-radius: 0.5rem;
 }
 
+.medials__errors {
+  color: red;
+  font-size: 14px;
+}
+
+.medicals__label {
+  color: #000;
+  font-weight: bold;
+}
+
+.medials__modal {
+  padding: 1.5rem 2.5rem;
+}
+
 .app-container {
   width: 100vw;
   height: 100vh;

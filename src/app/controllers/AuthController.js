@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 let salt = 5;
 
 let Random = Math.floor(Math.random() * 1000000 + 100).toString();
+import { response } from "express";
 import {
   getUserByEmailAndPassword,
   getUserByEmail,
@@ -26,6 +27,8 @@ class AuthController {
   }
   //login
   async login(req, res) {
+    // console.log("req.session.userId: ", req.session.userId);
+
     let captCha = req.body["g-recaptcha-response"];
     if (captCha) {
       let user = await getUserByEmailAndPassword(
@@ -88,12 +91,16 @@ class AuthController {
 
     if (userExists !== null) {
       //Email is already registered
-      req.session.errorRegister = "Email is already registered !";
-      res.redirect("/auth/register");
+      // req.session.errorRegister = "Email is already registered !";
+      // res.redirect("/auth/register");
+      res.send({
+        error: "Email này đã được sử dụng",
+      });
       //sendmail
     } else {
       req.session.code = Random;
       req.session.email = req.body.email;
+      console.log("code: ", req.session.code);
       sendMail(
         req.body.email,
         "danchoiphonui27@gmail.com",
@@ -103,7 +110,8 @@ class AuthController {
       //save session :code,email
       req.session.code = Random;
       req.session.email = req.body.email;
-      res.redirect("/auth/code");
+      // res.redirect("/auth/code");
+      res.send({ code: req.session.code });
     }
   }
   confirmCode(req, res) {
@@ -112,11 +120,13 @@ class AuthController {
     if (code === codeConfirm) {
       req.session.accountVerified = true;
       req.session.code = null;
-      res.redirect("/auth/registerAccount");
+      // res.redirect("/auth/registerAccount");
+      res.send({ ok: true });
     } else {
-      req.session.errorConfirmCode =
-        "The code is wrong, please check the code again!";
-      res.redirect("back");
+      // req.session.errorConfirmCode =
+      //   "The code is wrong, please check the code again!";
+      // res.redirect("back");
+      res.status(400).send({ message: "The code is not correct." });
     }
   }
   registerAccount(req, res) {
@@ -132,7 +142,8 @@ class AuthController {
     req.body.email = req.session.email;
     let createUser = await createNewUser(req.body);
     if (createUser) {
-      req.session.messageRegister = "Register Successfully !";
+      req.session.messageRegister =
+        "Đăng ký thành công, vui lòng đăng nhập để tiếp tục!";
       res.redirect("/auth/login");
     } else res.redirect("/auth/register");
   }
