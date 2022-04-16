@@ -1,6 +1,5 @@
 
-<script src="socket.io/socket.io.js"></script>
-<script src = "./script/inbox.js"></script>
+
 <style>
    .message-sender{
       text-align: right;
@@ -16,17 +15,19 @@
     <div class="col s12">
       <div class="row">
         <h1>Your Account :</h1>
-        <h1 class="account">{{account}}</h1>
+        <h1 class="accountName">{{account.firstName}} {{account.lastName}}</h1>
+        <h1 class="accountID">{{account.id}}</h1>
         <div>
-          <h1> Inbox for Other User : </h1>
+          <h1> Inbox for Other Appointments : </h1>
           <ul>
-            {{#each users}} 
-              <li class="user-chat btn">
-                {{this.name}}
+              <li class="user-chat btn" >
+                {{account.room}}
               </li>
-              <br>
-            {{/each}}
-              
+              <li class="user-chat btn " id="roomID" >
+                {{roomID}}
+              </li>
+            
+              <br>       
           </ul>
           
         </div>
@@ -38,8 +39,10 @@
       {{!-- chatting container --}}
       <div class="row chatting-container">
         <div class="row">
-            <h1 class="receiver-name">Receiver Name:  </h1>
-        
+            <div id="room-container">
+              <h1 class="">Room :  {{account.room}} </h1>
+              <h1 id="room-name"></h1>
+            </div>
             <div class="input-field col s6">
             <input placeholder="Placeholder" id="message-inbox" type="text" class="validate">
             <a  class="waves-effect waves-light btn modal-trigger " href="#icon-modal">
@@ -85,4 +88,7 @@
     <img class='image-emotion modal-close' src='../emoticon/foggy_1f301.png' >
     <img class='image-emotion modal-close' src='../emoticon/sparkles_2728.png' >
     </div>
+
+<script src="../socket.io/socket.io.js"></script>
+<script src = "../script/inbox.js"></script>
 </div>
