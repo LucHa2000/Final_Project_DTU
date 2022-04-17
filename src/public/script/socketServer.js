@@ -33,7 +33,6 @@ function socketServer(io) {
     });
 
     socket.on("user-chat", (data) => {
-      console.log(data);
       io.sockets.in(data.room).emit("server-send-chat", data);
     });
   });

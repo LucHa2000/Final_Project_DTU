@@ -1,4 +1,3 @@
-console.log("hello ban nef");
 let socket = io("http://localhost:4000");
 
 let room = "";
@@ -8,7 +7,7 @@ let roomID = "";
 
 $(document).ready(() => {
   //get room and sender
-  room = $(".user-chat").text().trim();
+  room = $("#roomName").text().trim();
   roomID = $("#roomID").text().trim();
   //send room to Server
   socket.emit("create-room", room);
@@ -42,16 +41,7 @@ $(document).ready(() => {
     };
     //emit to server
     socket.emit("user-chat", content);
-    //append message
-    // $(".chat-container").append(
-    //   '<li class="collection-item"><h1>' +
-    //     content.message +
-    //     '</h1><p class="nameUser red-text text-darken-2">' +
-    //     content.sender +
-    //     "of room " +
-    //     content.room +
-    //     "</p></li>"
-    // );
+
     //submit message to the server
 
     $.ajax({
@@ -70,7 +60,7 @@ $(document).ready(() => {
 
 //listening list rooms from Server
 socket.on("server-send-rooms", (data) => {
-  console.log(data);
+  // console.log(data);
 });
 
 //listening room now

@@ -7,6 +7,6 @@ const upload = multer({
 
 const InboxController = require("../app/controllers/InboxController");
 router.post("/saveMessage", InboxController.saveMessage);
-router.get("/:name", InboxController.displayChat);
+router.use("/:appointmentTitle", InboxController.displayChat);
 router.use("/", InboxController.index);
 module.exports = router;
