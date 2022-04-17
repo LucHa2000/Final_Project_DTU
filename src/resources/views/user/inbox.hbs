@@ -16,14 +16,14 @@
       <div class="row">
         <h1>Your Account :</h1>
         <h1 class="accountName">{{account.firstName}} {{account.lastName}}</h1>
-        <h1 class="accountID">{{account.id}}</h1>
+        <h1 class="accountID hide" >{{account.id}}</h1>
         <div>
-          <h1> Inbox for Other Appointments : </h1>
+          <h1> Room :  </h1>
           <ul>
-              <li class="user-chat btn" >
+              <li class="user-chat btn"  id="roomName">
                 {{account.room}}
               </li>
-              <li class="user-chat btn " id="roomID" >
+              <li class="user-chat btn hide" id="roomID" >
                 {{roomID}}
               </li>
             
@@ -40,8 +40,7 @@
       <div class="row chatting-container">
         <div class="row">
             <div id="room-container">
-              <h1 class="">Room :  {{account.room}} </h1>
-              <h1 id="room-name"></h1>
+              
             </div>
             <div class="input-field col s6">
             <input placeholder="Placeholder" id="message-inbox" type="text" class="validate">
@@ -63,6 +62,14 @@
           <h1>Conversation</h1>
           <div class="display-conversation-container">
             <ul class="collection with-header chat-container">
+              {{#each messages}}
+               <li class="collection-item">
+                <p class="nameUser red-text text-darken-2">
+               {{this.userName}}
+                </p> 
+               {{this.message}}
+                </li>
+              {{/each}}
               </ul>
           </div>
         </div>

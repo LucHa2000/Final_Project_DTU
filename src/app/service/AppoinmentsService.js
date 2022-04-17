@@ -28,9 +28,7 @@ let getAppointmentsByUserID = (userID, roleID) => {
 let getAppointmentsByTitle = (title) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let appointment;
-
-      appointment = await db.Appointment.findOne({
+      let appointment = await db.Appointment.findOne({
         where: { title: title },
         raw: true,
       });
