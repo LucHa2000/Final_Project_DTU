@@ -1,33 +1,61 @@
 const express = require("express");
 const router = express.Router();
 import {
-  getUserByEmailAndPassword,
-  getUserByEmail,
-  createNewUser,
-  sendMail,
-  getListUsers,
-  getUserByName,
-} from "../service/UserService";
-// import { saveConversation } from "../service/ConversationService";
+  createMessage,
+  getMessageByAppointmentID,
+} from "../service/MessageService";
+import {
+  getAppointmentsByUserID,
+  getAppointmentsByTitle,
+} from "../service/AppoinmentsService";
 class InboxController {
   async index(req, res, next) {
-    let users = await getListUsers();
-    let account = req.session.name;
-    req.res.render("user/inbox", { users: users, account: account });
+    let userID = req.session.userID;
+    let roleID = req.session.roleID;
+    let getGroupChat = await getAppointmentsByUserID(userID, roleID);
+
+    let account = {
+      id: req.session.userID,
+      lastName: req.session.lastName,
+      firstName: req.session.firstName,
+    };
+    console.log(getGroupChat);
+    res.render("user/inbox-list", {
+      appointments: getGroupChat,
+      account: account,
+    });
   }
   async saveMessage(req, res) {
-    // let getNameSender = await getUserByName(req.body.sender);
-    // let getNameReceiver = await getUserByName(req.body.receiver);
+    // message: message,
+    // senderID: senderID,
+    // senderName: senderName,
+    // room: room,
     // console.log(getNameSender, getNameReceiver);
-    // req.body.senderID = getNameSender.id;
-    // req.body.recipientID = getNameReceiver.id;
-    // let createConversation = await saveConversation(req.body);
+    // req.body.userID = req.body.senderID;
+    // id: data.id,
+    // appointmentID: data.appointmentID,
+    // userID: data.userID,
+    // message: data.message,
+    // let createConversation = await createMessage(req.body);
     // if (createConversation) {
     //   console.log("insert Success ! ");
     // } else console.log("insert Error ! ");
   }
-  displayChat(req, res) {
-    console.log(req.params.name);
+  async displayChat(req, res) {
+    // let userID = req.session.userID;
+    // let roleID = req.session.roleID;
+    let room = req.params.name;
+    let getRoomID = await getAppointmentsByTitle(room);
+    let account = {
+      id: req.session.userID,
+      lastName: req.session.lastName,
+      firstName: req.session.firstName,
+      room: room,
+    };
+    res.render("user/inbox", {
+      account: account,
+      roomID: getRoomID.id,
+    });
   }
 }
 module.exports = new InboxController();

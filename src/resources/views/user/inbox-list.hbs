@@ -1,0 +1,36 @@
+{{!-- 
+<script src="socket.io/socket.io.js"></script>
+<script src = "./script/inbox.js"></script> --}}
+<style>
+   .message-sender{
+      text-align: right;
+   }
+   .message-receiver{
+     text-align: left;
+   }
+</style>
+<div class="container"> 
+   <h1> Register</h1>
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h1>Your Account :</h1>
+        <h1 class="accountName">{{account.firstName}} {{account.lastName}}</h1>
+        <h1 class="accountID">{{account.id}}</h1>
+        <div>
+          <h1> Inbox for Other Appointments : </h1>
+          <ul>
+            {{#each appointments}} 
+              <li class="user-chat btn" id={{this.id}}>
+                <a href="/inbox/{{this.title}}"> {{this.title}}</a>   
+              </li>
+              <br>
+            {{/each}}
+              
+          </ul>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

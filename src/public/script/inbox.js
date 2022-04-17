@@ -1,54 +1,21 @@
+console.log("hello ban nef");
 let socket = io("http://localhost:4000");
 
-let receiver = "";
+let room = "";
 let sender = "";
+let roomID = "";
 // display chatting Area
 
 $(document).ready(() => {
-  $(".inbox-container").hide();
+  //get room and sender
+  room = $(".user-chat").text().trim();
+  roomID = $("#roomID").text().trim();
+  //send room to Server
+  socket.emit("create-room", room);
 
-  // send username to server
-  socket.emit("user-name", $(".account").text().trim());
-
-  //get list user Online
-  socket.on("listUserActive", (data) => {
-    console.log(data);
-  });
-
-  //listening new message
-  socket.on("new-message-private", (data) => {
-    //console.log(data);
-    receiver = data.sender;
-    $(".chat-container").append(
-      '<li class="collection-item"><h1>' +
-        data.message +
-        '</h1><h6 class="nameUser">' +
-        data.sender +
-        "</h6></li>"
-    );
-  });
-
-  //listening new icon
-  //listening private emotion
-  socket.on("new-message-private-emotion", (data) => {
-    // $("#container-chat-private").show();
-    receiver = data.sender;
-    $(".chat-container").append(
-      '<div class="message-container-receive"><img class="image-infor-focus text-message message-icon" src ="' +
-        data.message +
-        '"><h6 class="nameUser">' +
-        data.sender +
-        "</h6></div>"
-    );
-  });
-
-  $(".user-chat").click(function (e) {
-    //get sender and receiver
-    receiver = $(this).text().trim();
-    sender = $(".account").text().trim();
-    //show chat container
-    $(".inbox-container").show();
-  });
+  let senderID = $(".accountID").text().trim();
+  let senderName = $(".accountName").text().trim();
+  //show chat container
 
   $("#send-message").prop("disabled", true);
   //check message change
@@ -62,22 +29,29 @@ $(document).ready(() => {
   });
 
   //send message
+
   $("#send-message").click(function (e) {
     let message = $("#message-inbox").val();
+    //let room = $("#room-name").text();
     let content = {
       message: message,
-      receiver: receiver.trim(),
-      sender: sender,
+      senderID: senderID,
+      senderName: senderName,
+      room: room.trim(),
+      roomID: roomID.trim(),
     };
-    socket.emit("content-message", content);
+    //emit to server
+    socket.emit("user-chat", content);
     //append message
-    $(".chat-container").append(
-      '<li class="collection-item"><h1>' +
-        content.message +
-        '</h1><p class="nameUser red-text text-darken-2">' +
-        content.sender +
-        "</p></li>"
-    );
+    // $(".chat-container").append(
+    //   '<li class="collection-item"><h1>' +
+    //     content.message +
+    //     '</h1><p class="nameUser red-text text-darken-2">' +
+    //     content.sender +
+    //     "of room " +
+    //     content.room +
+    //     "</p></li>"
+    // );
     //submit message to the server
 
     $.ajax({
@@ -92,50 +66,26 @@ $(document).ready(() => {
     $("#message-inbox").val("");
     $("#send-message").prop("disabled", false);
   });
-  //send file
-  // $("#uploadfile").bind("change", function (e) {
-  //   console.log("change");
-  //   var data = e.originalEvent.target.files[0];
-  //   readThenSendFile(data);
-  // });
-  // function readThenSendFile(data) {
-  //   var reader = new FileReader();
-  //   reader.onload = function (evt) {
-  //     var msg = {};
-  //     //msg.username = username;
-  //     msg.file = evt.target.result;
-  //     //msg.fileName = data.name;
-  //     socket.emit("base64file", msg);
-  //   };
-  //   reader.readAsDataURL(data);
-  // }
+});
 
-  //send icon
-  $(".image-emotion").click(function (event) {
-    let message = $(this).attr("src");
-    let content = {
-      message: message,
-      receiver: receiver.trim(),
-      sender: sender,
-    };
+//listening list rooms from Server
+socket.on("server-send-rooms", (data) => {
+  console.log(data);
+});
 
-    socket.emit("content-emotion", content);
-    $(".chat-container").append(
-      '<div class="message-container"><img class="image-infor-focus text-message message-icon" src="' +
-        message +
-        '">' +
-        '<h6 class="nameUser">' +
-        "You</h6></div>"
-    );
+//listening room now
+socket.on("server-send-room-socket", (data) => {
+  $("#room-name").html(data);
+});
 
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:4000/inbox/saveMessage",
-      data: content,
-      dataType: "json",
-      encode: true,
-    }).done(function (data) {
-      console.log(data);
-    });
-  });
+//listening message from server
+socket.on("server-send-chat", (data) => {
+  $(".chat-container").append(
+    '<li class="collection-item"><h1>' +
+      '</h1><p class="nameUser red-text text-darken-2">' +
+      data.senderName +
+      "</p>" +
+      data.message +
+      "</li>"
+  );
 });

@@ -36,9 +36,11 @@ class AuthController {
       if (user) {
         const accountRole = user.roleID;
         const accountID = user.id;
-        const accountName = user.name;
-
+        const firstName = user.firstName;
+        const lastName = user.lastName;
         //save account to session
+        req.session.firstName = firstName;
+        req.session.lastName = lastName;
         req.session.userID = accountID;
         req.session.roleID = accountRole;
         //console.log(req.session);
