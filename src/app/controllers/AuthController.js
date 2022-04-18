@@ -102,7 +102,6 @@ class AuthController {
     } else {
       req.session.code = Random;
       req.session.email = req.body.email;
-      console.log("code: ", req.session.code);
       sendMail(
         req.body.email,
         "danchoiphonui27@gmail.com",
@@ -113,7 +112,8 @@ class AuthController {
       req.session.code = Random;
       req.session.email = req.body.email;
       // res.redirect("/auth/code");
-      res.send({ code: req.session.code });
+      console.log("code is: ", req.session.code);
+      res.send({ ok: true });
     }
   }
   confirmCode(req, res) {
@@ -128,7 +128,7 @@ class AuthController {
       // req.session.errorConfirmCode =
       //   "The code is wrong, please check the code again!";
       // res.redirect("back");
-      res.status(400).send({ message: "The code is not correct." });
+      res.send({ registerError: "Mã không đúng, vui lòng thử lại." });
     }
   }
   registerAccount(req, res) {

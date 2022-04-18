@@ -43,8 +43,11 @@
           <label class="medicals__label no-wrap">
             <input id="terms-checkbox" type="checkbox" />
             <span class="text-sm no-wrap">Tôi đồng ý với
-              <a class="font-bold underline" href="#ex1" rel="modal:open">Điều
-                khoản dịch vụ</a></span>
+              <a
+                class="font-bold underline"
+                href="#terms-modal"
+                rel="modal:open"
+              >Điều khoản dịch vụ</a></span>
           </label>
           <p class="medials__errors" id="terms-error"></p>
         </div>
@@ -56,7 +59,7 @@
         <a href="/auth/login" class="signup__link font-bold">Đăng nhập ngay</a>
       </p>
 
-      <div id="ex1" class="modal overflow-x-hidden medials__modal">
+      <div id="terms-modal" class="modal overflow-x-hidden medials__modal">
         <h3 class="modal__title font-bold text-xl mb-4">Điều khoản dịch vụ</h3>
         <div class="modal__content">
           <p>Các thông tin thông tin cá nhân của các thành viên, có thể được
@@ -84,27 +87,27 @@
       </div>
 
       <div id="codeModal" class="modal overflow-x-hidden">
-
-        {{!  }}
-        <div id="entercode-container">
-          <label for="code" class="medicals__label">Code</label>
+        <form
+          id="code-form"
+          action="/auth/code"
+          method="post"
+          class="signup__form mt-6"
+        >
+          <label for="email" class="text-xs font-bold">Code</label>
           <input
-            id="enterCodeInput"
-            type="text"
+            id="code"
+            type="Text"
             name="code"
-            placeholder="Nhập mã"
+            placeholder="Enter code"
             required="required"
             class="w-full p-3 rounded-lg border-gray border-2"
-            autocomplete="off"
           />
           <p class="medials__errors" id="code-error"></p>
-          <button
-            id="enterCodeButton"
-            class="signup__btn btn--primary w-full mt-3"
-          >
-            Tiếp tục
+          <button type="submit" class="signup__btn btn--primary w-full mt-3">
+            Continue
           </button>
-        </div>
+
+        </form>
         <form
           id="registerInfoForm"
           action="/auth/registerAccount"
@@ -829,20 +832,21 @@
 </div>
 <script>
   $('#registerEmail').change(function() { $('#registerErrors').text(''); });
-  $("#signupForm").on('submit', makeRequest); var registerCode = ''; function
-  makeRequest(e) { e.preventDefault(); this.blur(); if
-  ($('#terms-checkbox').is(':checked')) { $('#terms-error').text(''); var
-  registerErrors = ''; $.ajax({ url: '/auth/register', type: 'POST', data:
-  $('#signupForm').serialize(), success: function(data) { if (data.code) {
-  registerCode = data.code; $('#registerErrors').text('');
-  $('#codeModal').modal('show'); } if (data.error) { registerErrors =
-  data.error; $('#registerErrors').text(registerErrors); } }, error: function()
-  { $('#messageHere').html('Error occured'); } }); } else {
+  $("#signupForm").on('submit', makeRequest); function makeRequest(e) {
+  e.preventDefault(); this.blur(); if ($('#terms-checkbox').is(':checked')) {
+  $('#terms-error').text(''); var registerErrors = ''; $.ajax({ url:
+  '/auth/register', type: 'POST', data: $('#signupForm').serialize(), success:
+  function(data) { if (data.error) { registerErrors = data.error;
+  $('#registerErrors').text(registerErrors); } else {
+  $('#registerErrors').text(''); $('#codeModal').modal('show'); } }, error:
+  function() { $('#registerErrors').html('Error occured'); } }); } else {
   $('#terms-error').text('Bạn phải đồng ý với Điều khoản dịch vụ'); } }
-  $('#registerInfoForm').hide(); $('#enterCodeButton').on('click', function() {
-  console.log('registerCode', registerCode); console.log('is equal',
-  $('#enterCodeInput').val() == registerCode); if ($('#enterCodeInput').val() ==
-  registerCode) { $('#entercode-container').hide();
-  $('#registerInfoForm').show(); } else { $('#code-error').text(`Mã không đúng,
-  vui lòng thử lại`) } });
+  $('#code-form').on('submit', onSubmitCode); function onSubmitCode(e) {
+  e.preventDefault(); this.blur(); $.ajax({ url: '/auth/code', type: 'POST',
+  data: $('#code-form').serialize(), success: function(data) { if
+  (data.registerError) { $('#code-error').text(data.registerError) } else {
+  $('#code-form').hide(); $('#registerErrors').text('');
+  $('#registerInfoForm').modal('show'); } }, error: function() {
+  $('#code-error').text(`Đã xảy ra lỗi, vui lòng thử lại sau`); } }); }
+  $('#registerInfoForm').hide();
 </script>
