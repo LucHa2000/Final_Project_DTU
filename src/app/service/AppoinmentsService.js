@@ -43,7 +43,25 @@ let getAppointmentsByTitle = (title) => {
     }
   });
 };
+let getAppandMessage = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findAll({
+        include: db.Message,
+      });
+
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getAppointmentsByUserID: getAppointmentsByUserID,
   getAppointmentsByTitle,
+  getAppandMessage,
 };
