@@ -5,8 +5,8 @@ module.exports = {
     return queryInterface.bulkInsert("appointments", [
       {
         id: uuidv4(),
-        userID: "041e76db-ef33-43ad-869d-f3f6d6a56fdc",
-        doctorID: "0809ce59-e1bd-4534-9537-a68b174a6ecb",
+        userID: "3b877c31-dd06-41f5-b96f-600975efef97",
+        doctorID: "b90cecf2-3999-4b0d-a3cf-ba71a92f52cf",
         title: "ap1",
         date: new Date(),
         isCanceled: false,
@@ -15,8 +15,8 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        userID: "ac06291b-3c20-4ea6-9b6f-eb7c663790a6",
-        doctorID: "0809ce59-e1bd-4534-9537-a68b174a6ecb",
+        userID: "a73256a5-db2b-4b60-9889-00d9a527d9eb",
+        doctorID: "b90cecf2-3999-4b0d-a3cf-ba71a92f52cf",
         title: "app2",
         date: new Date(),
         isCanceled: false,
