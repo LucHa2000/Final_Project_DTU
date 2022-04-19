@@ -5,6 +5,7 @@ const doctorRouter = require("./doctor");
 const callVideoRouter = require("./callVideo");
 const inboxRouter = require("./inbox");
 const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
+const homepage = require("./home");
 
 function router(app) {
   app.use(

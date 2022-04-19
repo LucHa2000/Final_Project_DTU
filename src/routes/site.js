@@ -6,6 +6,8 @@ const upload = multer({
 });
 
 const siteController = require("../app/controllers/SiteController");
+const homeController = require("../app/controllers/HomeController");
 
+router.use("/homepage", homeController.index);
 router.use("/", siteController.index);
 module.exports = router;

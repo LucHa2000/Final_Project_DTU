@@ -1,0 +1,11 @@
+{{!-- {{#each data}}
+<h1> email: {{this.doctors.email}}</h1>
+<h1> name: {{this.clinics.name}}</h1>
+{{/each}} --}}
+{{#each doctors}}
+<h1>email: {{this.email}}</h1>
+<h1>name: {{doctors.Clinics.name}}</h1>
+{{/each}}
+{{#each clinics}}
+<h1>email: {{this.name}}</h1>
+{{/each}}
