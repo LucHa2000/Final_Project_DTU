@@ -5,7 +5,7 @@ const { query } = require("express");
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     queryInterface.addConstraint("appointments", {
-      fields: ["patientID"],
+      fields: ["userID"],
       type: "foreign key",
       name: "appointment_user_association", // optional
       references: {

@@ -4,6 +4,7 @@ let multer = require("multer");
 const upload = multer({
   dest: "src/public/uploads/",
 });
+
 const siteController = require("../app/controllers/SiteController");
 
 router.use("/", siteController.index);

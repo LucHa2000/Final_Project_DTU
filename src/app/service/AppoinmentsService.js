@@ -1,37 +1,67 @@
-const bcrypt = require("bcryptjs");
 const db = require("../models/index");
-let salt = bcrypt.genSaltSync(5);
-const nodemailer = require("nodemailer"); //sendEmailConfirm
 
 let getAppointmentsByUserID = (userID, roleID) => {
   return new Promise(async (resolve, reject) => {
     try {
-      //role of doctor
+      let appointment;
       if (roleID == 2) {
-        let appointment = await db.getAppointmentsByUserID.findAll({
-          where: { patientID: userID },
+        appointment = await db.Appointment.findAll({
+          where: { doctorID: userID },
+          raw: true,
+        });
+      } else if (roleID == 3) {
+        appointment = await db.Appointment.findAll({
+          where: { userID: userID },
           raw: true,
         });
       }
-      //role of user
-      else if (role == 3) {
-        let appointment = await db.getAppointmentsByUserID.findAll({
-          where: { patientID: userID },
-          raw: true,
-        });
-      }
-
       if (appointment) {
         resolve(appointment);
       } else {
-        resolve(null);
+        resolve([]);
       }
     } catch (e) {
       reject(e);
     }
   });
 };
+let getAppointmentsByTitle = (title) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findOne({
+        where: { title: title },
+        raw: true,
+      });
 
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+let getAppandMessage = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findAll({
+        include: db.Message,
+      });
+
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
-  getAppointmentsByUserID,
+  getAppointmentsByUserID: getAppointmentsByUserID,
+  getAppointmentsByTitle,
+  getAppandMessage,
 };
