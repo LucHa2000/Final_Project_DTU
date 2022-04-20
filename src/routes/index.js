@@ -3,6 +3,7 @@ const authRouter = require("./auth");
 const adminRouter = require("./admin");
 const doctorRouter = require("./doctor");
 const callVideoRouter = require("./callVideo");
+const paymentRouter = require("./payment");
 const inboxRouter = require("./inbox");
 const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
 
@@ -20,6 +21,7 @@ function router(app) {
     doctorRouter
   );
   app.use("/callVideo", callVideoRouter);
+  app.use("/payment", paymentRouter);
   app.use("/inbox", inboxRouter);
   app.use("/auth", authRouter);
   app.use("/", siteRouter);
