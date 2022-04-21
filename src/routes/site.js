@@ -6,6 +6,8 @@ const upload = multer({
 });
 
 const siteController = require("../app/controllers/SiteController");
+router.get("/clinics/:clinicId", siteController.displayDoctors);
+router.get("/detailDoctor/:doctorId", siteController.doctorDetail);
 
 router.use("/", siteController.index);
 module.exports = router;

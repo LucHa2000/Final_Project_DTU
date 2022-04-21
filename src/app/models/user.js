@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
 
       User.belongsTo(models.Role);
       models.Role.hasOne(User);
+
+      User.belongsTo(models.Clinic);
+      models.Clinic.hasOne(User);
     }
   }
   User.init(
@@ -25,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       phoneNumber: DataTypes.STRING,
       password: DataTypes.STRING,
       resumeID: DataTypes.STRING,
+      clinicID: DataTypes.STRING,
       roleID: DataTypes.INTEGER,
       status: DataTypes.INTEGER,
     },

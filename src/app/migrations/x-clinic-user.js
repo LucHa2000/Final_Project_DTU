@@ -4,12 +4,12 @@ const { query } = require("express");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    queryInterface.addConstraint("clinics", {
-      fields: ["userID"],
+    queryInterface.addConstraint("users", {
+      fields: ["clinicID"],
       type: "foreign key",
-      name: "clinic_user_association", // optional
+      name: "user_clinic_association", // optional
       references: {
-        table: "users",
+        table: "clinics",
         field: "id",
       },
       onDelete: "cascade",

@@ -5,7 +5,7 @@ const upload = multer({
   dest: "src/public/uploads/",
 });
 
-const doctorController = require("../app/controllers/DoctorController");
+const userController = require("../app/controllers/UserController");
 
-router.use("/:doctorId", doctorController.index);
+router.use("/", userController.index);
 module.exports = router;

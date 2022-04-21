@@ -7,6 +7,7 @@ let salt = 5;
 let Random = Math.floor(Math.random() * 1000000 + 100).toString();
 import { response } from "express";
 import {
+  updatePassword,
   getUserByEmailAndPassword,
   getUserByEmail,
   createNewUser,
@@ -151,7 +152,9 @@ class AuthController {
   }
   //forgot Password
   forgotPasswordPage(req, res) {
-    res.render("auth/forgotPassword");
+    const message = req.session.errorForgotPassword;
+    res.render("auth/forgotAccountPage", { message: message });
+    req.session.errorForgotPassword = null;
   }
   async sendPasswordToEmail(req, res) {
     //check account
@@ -166,10 +169,41 @@ class AuthController {
         Random
       );
       //save session :code,email
-      res.redirect("/auth/login");
+      req.session.codeForgotAccount = Random;
+      req.session.emailForgotAccount = req.body.email;
+      res.redirect("/auth/changePassword");
     } else {
       //Email is does not exist
-      req.session.errorForgotPassword = "Account does not exist !";
+      req.session.errorForgotPassword = "Tài Khoản Không Tồn Tại !";
+      res.redirect("back");
+    }
+  }
+
+  //change password
+  displayChangePassword(req, res) {
+    const code = req.session.codeForgotAccount;
+    const email = req.session.emailForgotAccount;
+    let message = req.session.messageCode;
+    if (code && email) {
+      res.render("auth/changePasswordPage", { message: message });
+      req.session.messageCode = null;
+    } else {
+      res.redirect("back");
+    }
+  }
+  async changePassword(req, res) {
+    if (req.body.code == req.session.codeForgotAccount) {
+      let email = req.session.emailForgotAccount;
+      let isUpdated = await updatePassword(email, req.body.password);
+      if (isUpdated) {
+        req.session.emailForgotAccount = null;
+        req.session.codeForgotAccount = null;
+        req.session.messageRegister =
+          "Thay đổi mật khẩu thành công, vui lòng đăng nhập để tiếp tục!";
+        res.redirect("/auth/login");
+      }
+    } else {
+      req.session.messageCode = "Sai Mã Code , Vui Lòng Nhập Lại";
       res.redirect("back");
     }
   }

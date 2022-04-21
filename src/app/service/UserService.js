@@ -175,7 +175,24 @@ let updateUser = (data) => {
     }
   });
 };
-
+let updatePassword = (email, newPassword) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { email: email.trim() },
+      });
+      if (user) {
+        user.password = await hashUserPassword(newPassword);
+        await user.save();
+        resolve("update password successfully !"); //return
+      } else {
+        resolve(); //return
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let deleteUser = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -202,4 +219,5 @@ module.exports = {
   getUserByEmail,
   sendMail,
   getUserByName,
+  updatePassword,
 };
