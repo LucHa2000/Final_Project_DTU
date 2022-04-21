@@ -28,6 +28,9 @@ module.exports = {
       resumeID: {
         type: Sequelize.STRING,
       },
+      clinicID: {
+        type: Sequelize.STRING,
+      },
       roleID: {
         type: Sequelize.INTEGER,
       },

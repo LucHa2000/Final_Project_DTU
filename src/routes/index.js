@@ -4,6 +4,7 @@ const adminRouter = require("./admin");
 const doctorRouter = require("./doctor");
 const callVideoRouter = require("./callVideo");
 const inboxRouter = require("./inbox");
+const userRouter = require("./user");
 const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
 
 function router(app) {
@@ -19,9 +20,10 @@ function router(app) {
     authMiddlewares.checkRoleDoctor,
     doctorRouter
   );
-  app.use("/callVideo", callVideoRouter);
-  app.use("/inbox", inboxRouter);
+  app.use("/callVideo", authMiddlewares.checkAccount, callVideoRouter);
+  app.use("/inbox", authMiddlewares.checkAccount, inboxRouter);
   app.use("/auth", authRouter);
+  app.use("/user", userRouter);
   app.use("/", siteRouter);
 }
 module.exports = router;
