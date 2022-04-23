@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+import { formatDate } from "../../util/dateNow";
 import { findAllClinicAnDoctorWithClinic } from "../service/ClinicService";
 import {
   getDoctorByClinicId,
-  getDoctorAndResumeById,
+  getDoctorAppointmentAndResumeById,
 } from "../service/DoctorService";
+import { getAppointmentsByUserID } from "../service/AppoinmentService";
 class SiteController {
   async index(req, res, next) {
     try {
@@ -36,14 +38,30 @@ class SiteController {
     res.render("user/doctorFollowClinic", { doctors: listDoctorsRender });
   }
   async doctorDetail(req, res, next) {
+    let timeWorks = [
+      { startTime: "08:00:00", endTime: "10:00:00" },
+      { startTime: "10:00:00", endTime: "12:00:00" },
+      { startTime: "13:00:00", endTime: "15:00:00" },
+      { startTime: "15:00:00", endTime: "17:00:00" },
+      { startTime: "18:00:00", endTime: "20:00:00" },
+      { startTime: "20:00:00", endTime: "22:00:00" },
+    ];
     const doctorId = req.params.doctorId;
-    let doctor = await getDoctorAndResumeById(doctorId);
+    let result = await getDoctorAppointmentAndResumeById(doctorId);
+    let doctor = result[0];
 
-    doctor.resumeTitle = doctor["Resume.title"];
+    let doctorSchedules = result[1];
     doctor.resumeDescription = doctor["Resume.description"];
     doctor.resumeStarNo = doctor["Resume.starNo"];
-    //res.send(doctor);
-    res.render("user/detailDoctor", { doctor: doctor });
+
+    for (let i = 0; i < timeWorks.length; i++) {
+      for (let j = 0; j < doctorSchedules.length; j++) {
+        if (doctorSchedules[j].startTime == timeWorks[i].startTime) {
+          timeWorks.splice(i, 1);
+        }
+      }
+    }
+    res.render("user/detailDoctor", { doctor: doctor, timeWorks: timeWorks });
   }
 }
 module.exports = new SiteController();

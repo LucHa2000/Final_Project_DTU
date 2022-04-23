@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       userID: DataTypes.STRING,
       doctorID: DataTypes.STRING,
       title: DataTypes.STRING,
-      date: DataTypes.DATE,
+      startTime: DataTypes.TIME,
+      endTime: DataTypes.TIME,
+      date: DataTypes.DATEONLY,
       isCanceled: DataTypes.BOOLEAN,
     },
     {

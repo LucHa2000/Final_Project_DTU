@@ -16,8 +16,14 @@ module.exports = {
       title: {
         type: Sequelize.STRING,
       },
+      startTime: {
+        type: Sequelize.TIME,
+      },
+      endTime: {
+        type: Sequelize.TIME,
+      },
       date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
       },
       isCanceled: {
         type: Sequelize.BOOLEAN,

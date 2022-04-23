@@ -108,11 +108,33 @@
                
                 </p>
 
-                <a href="/detailDoctor/{{this.id}}" style="color:red">Đặt Ngay</a>
+                {{!-- <a href="/detailDoctor/{{this.id}}" style="color:red">Đặt Ngay</a> --}}
               </div>
             </div>
-            <div class="app-container__section__content flex-1">
-              Số sao :      {{doctor.resumeStarNo}}
+             <div class="app-container__section__content flex-1">
+              <form action="" method="post" class="app-container__form">
+                <h3 class="app-container__form__header">
+                  LỊCH TƯ VẤN QUA VIDEO
+                </h3>
+                <input type="text" value="{{doctor.id}}" hidden="true">
+                <div class="app-container__form__content flex flex-wrap">
+                  <div class="app-container__form__section">
+                    {{!-- time render --}}
+                    {{#each timeWorks}}
+                    <button
+                      class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
+                      type="submit"
+                    >
+                      {{this.startTime}} -  {{this.endTime}}
+                    </button>
+            
+                    {{/each}}
+                  </div>
+                  <div class="app-container__form__section mt-5">
+                    <p class="">GIÁ TƯ VẤN QUA VIDEO: $5m USD</p>
+                  </div>
+                </div>
+              </form>
             </div>
           </section>
              <section
