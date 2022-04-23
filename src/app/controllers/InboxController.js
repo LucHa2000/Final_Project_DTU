@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 import {
   getAppointmentsByUserID,
   getAppointmentsByTitle,
-} from "../service/AppoinmentsService";
+} from "../service/AppoinmentService";
 import {
   createMessage,
   getMessageAndAppointmentByAppointmentIDandTile,
