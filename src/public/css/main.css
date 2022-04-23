@@ -31,6 +31,8 @@ body {
   --star: #1ff1c2e;
   --message-btn: #fff;
   --app-section: #fff;
+  --secondary-text: #65676b;
+  --media-inner-border: rgba(0, 0, 0, 0.1);
 }
 
 .btn--primary {
@@ -131,7 +133,7 @@ body {
 }
 
 .medicals__sidenav__icon--active {
-  background-color: var(--main-color);
+  background-color: var(--primary-color);
 
   color: var(--link-color-active);
 }
@@ -240,6 +242,48 @@ body {
   background: gray;
   height: 10px;
   border-radius: 10px;
+}
+
+.medicals__carousel-cell {
+  box-shadow: 2px 4px 12px rgb(0 0 0 / 8%);
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.medicals__carousel-cell:hover {
+  transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
+}
+
+.app-section__hero {
+  background: linear-gradient(rgba(60, 104, 167, 0.8), rgba(26, 53, 91, 0.8)),
+    url("../img/hero-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.medicals__inbox-list {
+  border-right: 1px solid var(--media-inner-border);
+  padding-right: 1rem;
+}
+
+.medicals__inbox-list__item {
+  padding: 1.2rem;
+  border-radius: 10px;
+  /* margin-bottom: 1rem; */
+}
+
+.medicals__inbox-list__item:hover {
+  background-color: #f5f5f5;
+}
+
+.medicals__inbox-list__item--active {
+  background-color: #f5f5f5;
+}
+
+.medicals__inbox-list__item__desc {
+  font-size: 14px;
+  color: var(--secondary-text);
 }
 
 /* ================== Sign in ================== */
