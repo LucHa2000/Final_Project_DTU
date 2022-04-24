@@ -28,6 +28,9 @@ module.exports = {
       resumeID: {
         type: Sequelize.STRING,
       },
+      gender: {
+        type: Sequelize.BOOLEAN,
+      },
       clinicID: {
         type: Sequelize.STRING,
       },
@@ -39,6 +42,9 @@ module.exports = {
       },
       balance: {
         type: Sequelize.FLOAT,
+      },
+      address: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

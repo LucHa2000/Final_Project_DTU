@@ -6,6 +6,12 @@ const upload = multer({
 });
 
 const userController = require("../app/controllers/UserController");
+const { route } = require("./site");
 
+router.post(
+  "/changeAccount",
+  upload.single("image"),
+  userController.changeAccount
+);
 router.use("/", userController.index);
 module.exports = router;
