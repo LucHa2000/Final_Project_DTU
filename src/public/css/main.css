@@ -524,3 +524,7 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
 .flickity-page-dots .dot.is-selected {
   opacity: 1;
 }
+
+.Activity {
+  color: rgb(18, 233, 18);
+}

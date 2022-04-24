@@ -46,8 +46,9 @@
     />
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/app.css" />
 
-    <title>Homepage</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="../css/animations.css" />
 
     <script>
@@ -58,11 +59,22 @@
       $('.materialboxed').materialbox(); $('.modal').modal();
       $('.parallax').parallax(); $('.tabs').tabs();
       $('.datepicker').datepicker({ disableWeekends: true }) });
+      $('.tooltipped').tooltip(); $('.scrollspy').scrollSpy();
+      $('.timepicker').timepicker();
     </script>
-    <title>{{title}}</title>
+    
   </head>
   <body>
     {{{body}}}
+     <div class="footer">
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"
+    ></script>
+    <script>
+      $(document).ready(function(){ var getText = $(".message-info span").text()
+      if(getText != ""){ $(".message-info").css("display", "block"); } });
+    </script>
   </body>
 </html> --}}
 <html lang='en'>

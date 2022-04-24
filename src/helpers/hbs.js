@@ -33,7 +33,11 @@ module.exports = {
   followGroup: (a) => (a == 1 ? "leave" : "join"),
   btnStatus: (a) => (a == 0 ? "block" : "check"),
   btnStatusHidden: (a) => (a == 1 ? "btn-status--hidden" : ""),
-  accType: (a) => (a == 1 ? "Admin " : "User"),
+  accType: (a) => {
+    if (a == 1) return "Quản trị viên";
+    else if (a == 2) return "Bác sĩ";
+    else if (a == 3) return "Người dùng";
+  },
   sortable: (field, sort) => {
     const sortType = field == sort.column ? sort.type : "default";
     const icons = {
