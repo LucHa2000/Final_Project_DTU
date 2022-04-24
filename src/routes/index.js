@@ -12,18 +12,35 @@ function router(app) {
     "/admin",
     authMiddlewares.checkAccount,
     authMiddlewares.checkRoleAdmin,
+    authMiddlewares.addInfoAuthencation,
     adminRouter
   );
   app.use(
     "/doctor",
     authMiddlewares.checkAccount,
     authMiddlewares.checkRoleDoctor,
+    authMiddlewares.addInfoAuthencation,
     doctorRouter
   );
-  app.use("/callVideo", authMiddlewares.checkAccount, callVideoRouter);
-  app.use("/inbox", authMiddlewares.checkAccount, inboxRouter);
+  app.use(
+    "/callVideo",
+    authMiddlewares.checkAccount,
+    authMiddlewares.addInfoAuthencation,
+    callVideoRouter
+  );
+  app.use(
+    "/inbox",
+    authMiddlewares.checkAccount,
+    authMiddlewares.addInfoAuthencation,
+    inboxRouter
+  );
   app.use("/auth", authRouter);
-  app.use("/user", authMiddlewares.checkAccount, userRouter);
+  app.use(
+    "/user",
+    authMiddlewares.checkAccount,
+    authMiddlewares.addInfoAuthencation,
+    userRouter
+  );
   app.use("/", authMiddlewares.addInfoAuthencation, siteRouter);
 }
 module.exports = router;
