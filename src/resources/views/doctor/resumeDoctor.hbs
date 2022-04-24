@@ -1,0 +1,37 @@
+
+<div class="main-profile" style="display: flex">
+      <div class="left-container">
+    {{>nav_doctor}}
+  </div>
+  <div class="right-container">
+      <h1>Edit Profile</h1>
+  <br>
+  <h1>Xu Của bạn : {{account.balance}} Xu</h1>
+  <br>
+
+  <br>
+        <a href="/auth/forgotAccount" class="btn btn-primary">Thay Đổi Mật Khẩu</a>
+  <div class="container"> 
+      <div class="row">
+      <form class="col s12" method="post" action="/doctor/changeResume">
+        <input  name="id" type="text" value="{{resume.id}}" hidden >
+        <div class="row">
+          <div class="input-field col s12">
+            <input  value="{{resume.title}}" name="title"  type="text" class="validate">
+            <label for="">Tiêu Đề</label>
+          </div>
+        </div>
+        <div class="row">
+        <div class="input-field col s12">
+          <textarea style="width:350px; height:80px;" cols="42" rows="5"  id="description" class="materialize-textarea" name="description">
+              {{resume.description}}
+          </textarea>
+          <label for="description">Mô Tả</label>
+        </div>
+      </div>
+        <button onclick="return confirm('Bạn có chắc là bạn muốn thay đổi thông tin cá nhân của mình ?')" type="submit" class=""> Xác Nhận Thay Đổi</button>
+      </form>
+    </div>
+  </div>
+  </div>  
+</div>

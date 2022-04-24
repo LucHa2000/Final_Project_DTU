@@ -1,21 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { v4: uuidv4 } = require('uuid');
-const bcrypt = require('bcryptjs');
+const { v4: uuidv4 } = require("uuid");
+const bcrypt = require("bcryptjs");
 let salt = 5;
 
 let Random = Math.floor(Math.random() * 1000000 + 100).toString();
-import { response } from 'express';
+import { response } from "express";
 import {
   updatePassword,
   getUserByEmailAndPassword,
   getUserByEmail,
   createNewUser,
   sendMail,
-} from '../service/UserService';
+} from "../service/UserService";
 class AuthController {
   index(req, res) {
-    res.render('auth/login', {
+    res.render("auth/login", {
       message: req.session.errorLogin,
       messageRegister: req.session.messageRegister,
     });
@@ -30,9 +30,12 @@ class AuthController {
   async login(req, res) {
     // console.log("req.session.userId: ", req.session.userId);
 
-    let captCha = req.body['g-recaptcha-response'];
+    let captCha = req.body["g-recaptcha-response"];
     if (captCha) {
-      let user = await getUserByEmailAndPassword(req.body.email, req.body.password);
+      let user = await getUserByEmailAndPassword(
+        req.body.email,
+        req.body.password
+      );
 
       if (user) {
         const accountRole = user.roleID;
@@ -40,48 +43,50 @@ class AuthController {
         const firstName = user.firstName;
         const lastName = user.lastName;
         const image = user.image;
+        const resumeID = user.resumeID;
         //save account to session
         req.session.firstName = firstName;
         req.session.lastName = lastName;
         req.session.userID = accountID;
         req.session.roleID = accountRole;
         req.session.image = image;
+        req.session.resumeID = resumeID;
         //console.log(req.session);
         if (accountRole === 1) {
-          res.redirect('/admin');
+          res.redirect("/admin");
         }
         if (accountRole === 2) {
-          res.redirect('/doctor');
+          res.redirect("/");
         }
 
         if (accountRole === 3) {
-          res.redirect('/');
+          res.redirect("/");
         }
       } else {
         //return message
-        req.session.errorLogin = 'Email or password is wrong please re-enter !';
-        res.redirect('back');
+        req.session.errorLogin = "Email or password is wrong please re-enter !";
+        res.redirect("back");
       }
     } else {
       //return message
-      req.session.errorLogin = 'Please confirm captcha !';
-      res.redirect('back');
+      req.session.errorLogin = "Please confirm captcha !";
+      res.redirect("back");
     }
   }
   logout(req, res) {
     req.session.destroy();
-    res.redirect('/');
+    res.redirect("/");
   }
   // register page
   registerPage(req, res) {
-    res.render('auth/signup_email', { message: req.session.errorRegister });
+    res.render("auth/signup_email", { message: req.session.errorRegister });
     if (req.session.errorRegister) {
       req.session.errorRegister = null;
     }
   }
   //render confirm email page
   registerConfirmEmail(req, res) {
-    res.render('auth/confirmEmail_view', {
+    res.render("auth/confirmEmail_view", {
       message: req.session.errorConfirmCode,
     });
     req.session.errorConfirmCode = null;
@@ -96,18 +101,23 @@ class AuthController {
       // req.session.errorRegister = "Email is already registered !";
       // res.redirect("/auth/register");
       res.send({
-        error: 'Email này đã được sử dụng',
+        error: "Email này đã được sử dụng",
       });
       //sendmail
     } else {
       req.session.code = Random;
       req.session.email = req.body.email;
-      sendMail(req.body.email, 'danchoiphonui27@gmail.com', 'danchoiphonui27', Random);
+      sendMail(
+        req.body.email,
+        "danchoiphonui27@gmail.com",
+        "danchoiphonui27",
+        Random
+      );
       //save session :code,email
       req.session.code = Random;
       req.session.email = req.body.email;
       // res.redirect("/auth/code");
-      console.log('code is: ', req.session.code);
+      console.log("code is: ", req.session.code);
       res.send({ ok: true });
     }
   }
@@ -123,15 +133,15 @@ class AuthController {
       // req.session.errorConfirmCode =
       //   "The code is wrong, please check the code again!";
       // res.redirect("back");
-      res.send({ registerError: 'Mã không đúng, vui lòng thử lại.' });
+      res.send({ registerError: "Mã không đúng, vui lòng thử lại." });
     }
   }
   registerAccount(req, res) {
     if (req.session.accountVerified == true) {
       req.session.accountVerified = null;
-      res.render('auth/signup');
+      res.render("auth/signup");
     } else {
-      res.redirect('/auth/register');
+      res.redirect("/auth/register");
     }
   }
   async saveAccount(req, res) {
@@ -139,14 +149,15 @@ class AuthController {
     req.body.email = req.session.email;
     let createUser = await createNewUser(req.body);
     if (createUser) {
-      req.session.messageRegister = 'Đăng ký thành công, vui lòng đăng nhập để tiếp tục!';
-      res.redirect('/auth/login');
-    } else res.redirect('/auth/register');
+      req.session.messageRegister =
+        "Đăng ký thành công, vui lòng đăng nhập để tiếp tục!";
+      res.redirect("/auth/login");
+    } else res.redirect("/auth/register");
   }
   //forgot Password
   forgotPasswordPage(req, res) {
     const message = req.session.errorForgotPassword;
-    res.render('auth/forgotAccountPage', { message: message });
+    res.render("auth/forgotAccountPage", { message: message });
     req.session.errorForgotPassword = null;
   }
   async sendPasswordToEmail(req, res) {
@@ -155,15 +166,20 @@ class AuthController {
 
     if (userExists !== null) {
       //sendmail
-      sendMail(req.body.email, 'danchoiphonui27@gmail.com', 'danchoiphonui27', Random);
+      sendMail(
+        req.body.email,
+        "danchoiphonui27@gmail.com",
+        "danchoiphonui27",
+        Random
+      );
       //save session :code,email
       req.session.codeForgotAccount = Random;
       req.session.emailForgotAccount = req.body.email;
-      res.redirect('/auth/changePassword');
+      res.redirect("/auth/changePassword");
     } else {
       //Email is does not exist
-      req.session.errorForgotPassword = 'Tài Khoản Không Tồn Tại !';
-      res.redirect('back');
+      req.session.errorForgotPassword = "Tài Khoản Không Tồn Tại !";
+      res.redirect("back");
     }
   }
 
@@ -173,10 +189,10 @@ class AuthController {
     const email = req.session.emailForgotAccount;
     let message = req.session.messageCode;
     if (code && email) {
-      res.render('auth/changePasswordPage', { message: message });
+      res.render("auth/changePasswordPage", { message: message });
       req.session.messageCode = null;
     } else {
-      res.redirect('back');
+      res.redirect("back");
     }
   }
   async changePassword(req, res) {
@@ -187,12 +203,12 @@ class AuthController {
         req.session.emailForgotAccount = null;
         req.session.codeForgotAccount = null;
         req.session.messageRegister =
-          'Thay đổi mật khẩu thành công, vui lòng đăng nhập để tiếp tục!';
-        res.redirect('/auth/login');
+          "Thay đổi mật khẩu thành công, vui lòng đăng nhập để tiếp tục!";
+        res.redirect("/auth/login");
       }
     } else {
-      req.session.messageCode = 'Sai Mã Code , Vui Lòng Nhập Lại';
-      res.redirect('back');
+      req.session.messageCode = "Sai Mã Code , Vui Lòng Nhập Lại";
+      res.redirect("back");
     }
   }
 }

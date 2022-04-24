@@ -4,8 +4,14 @@ let multer = require("multer");
 const upload = multer({
   dest: "src/public/uploads/",
 });
-
 const doctorController = require("../app/controllers/DoctorController");
-
-router.use("/:doctorId", doctorController.index);
+router.post(
+  "/changeAccount",
+  upload.single("image"),
+  doctorController.changeAccountDoctor
+);
+router.post("/changeResume", doctorController.changeResume);
+router.use("/workHistory", doctorController.workHistory);
+router.use("/resume", doctorController.doctorResume);
+router.use("/", doctorController.index);
 module.exports = router;
