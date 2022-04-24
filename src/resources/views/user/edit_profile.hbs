@@ -1,3 +1,47 @@
+<h1>Edit Profile</h1>
+<h1>Xu Của bạn : </h1>
+ <br>
+      <a href="/auth/forgotAccount" class="btn btn-primary">Thay Đổi Mật Khẩu</a>
 <div class="container"> 
-    hello
+    <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input  id="first_name" type="text" value="{{account.firstName}}" class="validate">
+          <label for="first_name">Họ</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" name="lastName" value="{{account.lastName}}" type="text" class="validate">
+          <label for="last_name">Tên</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value="{{account.email}}"  type="email" class="validate">
+          <label for="disabled">Địa chỉ Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="phoneNumber" name="phoneNumber" type="number" class="validate" value="{{account.phoneNumber}}">
+          <label for="phoneNumber">Số điện thoại</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <img src="{{account.image}}" style="width:5%" alt="">
+          <div class="file-field input-field">
+                <div class="btn">
+                  <span>File</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" name="image" type="text">
+                </div>
+          </div>
+        </div>
+      </div>
+      <button onclick="return confirm('Bạn có chắc là bạn muốn thay đổi thông tin cá nhân của mình ?')" type="submit" class=""> Thay Đổi</button>
+    </form>
+  </div>
 </div>

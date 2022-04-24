@@ -48,5 +48,18 @@ class AuthMiddlewares {
       }
     } else res.redirect("/auth/login");
   }
+  addInfoAuthencation(req, res, next) {
+    if (req.session.userID) {
+      res.locals.firstName = req.session.firstName;
+      res.locals.lastName = req.session.lastName;
+      res.locals.image = req.session.image;
+      res.locals.roleID = req.session.roleID;
+      res.locals.userID = req.session.userID;
+      console.log("nem ne" + res.locals.firstName);
+      next();
+    } else {
+      next();
+    }
+  }
 }
 module.exports = new AuthMiddlewares();

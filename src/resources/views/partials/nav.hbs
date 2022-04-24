@@ -27,8 +27,24 @@
     <a href="#" class="medicals__navbar__link">
       <i class="app-container__icon fa-solid fa-bell mr-4"></i>
     </a>
-    <div class="medicals__navbar__profile">
+    <div class="medicals__navbar__profile" style="display:flex">
+       {{!-- check login --}}
+    {{#if userID}}
+    <div class="authConfirm-container">
+      <img style="width:5%" src="{{image}}"> 
+      <p>{{firstName}} {{lastName}}</p>
+      <a href="/user">Trang Cá Nhân</a>
+      <a href="/auth/logout">Đăng xuất</a>
+    </div>
+    {{else}}      
+    <div class="authNotConfirm-container">
       <a href="/auth/login">Đăng nhập</a>
+    </div>
+     {{/if}} 
+       <!-- Dropdown Structure -->
+        
     </div>
   </div>
 </div>
+  {{!-- dropdown login --}}
+ 
