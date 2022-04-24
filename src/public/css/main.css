@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
 }
 
@@ -58,7 +58,7 @@ body {
   border-radius: 0.5rem;
 }
 
-.medials__errors {
+.medicals__errors {
   color: red;
   font-size: 14px;
 }
@@ -96,8 +96,7 @@ body {
   border-radius: 9999px;
   justify-content: space-between;
   overflow: hidden;
-  box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%),
-    0 24px 20px -24px rgb(71 82 107 / 10%);
+  box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%);
   /* height: 2.5rem; */
 }
 
@@ -226,8 +225,7 @@ body {
   margin-bottom: 2rem;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%),
-    0 24px 20px -24px rgb(71 82 107 / 10%);
+  box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%);
   /* height: 2.5rem; */
 }
 
@@ -256,7 +254,7 @@ body {
 
 .app-section__hero {
   background: linear-gradient(rgba(60, 104, 167, 0.8), rgba(26, 53, 91, 0.8)),
-    url("../img/hero-bg.jpg");
+    url('../img/hero-bg.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
