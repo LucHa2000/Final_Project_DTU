@@ -38,7 +38,7 @@
               <a href="">@{{this.username}}</a>
                </div>
             <div class="post-comment-content">{{this.comment_content}}</div>
-            <a class="modal-trigger btn-active btn btn-reply btn-comment-function" href="#reply-modal"  data-id ={{this.comment_id}}>Reply</a>
+          <a class="modal-trigger n-active btn btn-reply btn-comment-function" href="#reply-modal"  data-id ={{this.comment_id}}>Reply</a>
             <a onclick="return confirm('Are you sure delete this comment ?')" class="btn btn-active btn-comment-function" href ="/comment/{{this.comment_id}}/delete">Delete</a>
             {{!-- reply comment --}}
             {{#each this.reply}}

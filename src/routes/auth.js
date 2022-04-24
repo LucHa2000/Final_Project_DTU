@@ -19,5 +19,6 @@ router.get("/forgotAccount", authController.forgotPasswordPage);
 router.post("/forgotAccount", authController.sendPasswordToEmail);
 router.get("/changePassword", authController.displayChangePassword);
 router.post("/changePassword", authController.changePassword);
+router.get("/logout", authController.logout);
 //router.post("/login", siteController.index);
 module.exports = router;

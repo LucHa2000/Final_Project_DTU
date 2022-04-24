@@ -23,7 +23,7 @@ function router(app) {
   app.use("/callVideo", authMiddlewares.checkAccount, callVideoRouter);
   app.use("/inbox", authMiddlewares.checkAccount, inboxRouter);
   app.use("/auth", authRouter);
-  app.use("/user", userRouter);
-  app.use("/", siteRouter);
+  app.use("/user", authMiddlewares.checkAccount, userRouter);
+  app.use("/", authMiddlewares.addInfoAuthencation, siteRouter);
 }
 module.exports = router;
