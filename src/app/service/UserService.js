@@ -161,12 +161,13 @@ let updateUser = (data) => {
       if (user) {
         user.firstName = data.firstName;
         user.lastName = data.lastName;
-        user.address = data.address;
+        //user.address = data.address;
         user.phoneNumber = data.phoneNumber;
-        user.gender = data.gender;
-        user.roleID = data.roleID;
+        //user.gender = data.gender;
+        //user.roleID = data.roleID;
+        user.image = data.image;
         await user.save();
-        resolve(); //return
+        resolve("update done !"); //return
       } else {
         resolve(); //return
       }

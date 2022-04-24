@@ -1,13 +1,17 @@
 <h1>Edit Profile</h1>
-<h1>Xu Của bạn : </h1>
+<br>
+<h1>Xu Của bạn : {{account.balance}} Xu</h1>
+<br>
+<a href="" class="btn btn-primary"> Nạp Xu</a>
  <br>
       <a href="/auth/forgotAccount" class="btn btn-primary">Thay Đổi Mật Khẩu</a>
 <div class="container"> 
     <div class="row">
-    <form class="col s12">
+    <form class="col s12" method="post" action="/user/changeAccount" enctype="multipart/form-data">
+      <input  name="id" type="text" value="{{account.id}}" hidden >
       <div class="row">
         <div class="input-field col s6">
-          <input  id="first_name" type="text" value="{{account.firstName}}" class="validate">
+          <input  id="first_name" name="firstName"type="text" value="{{account.firstName}}" class="validate">
           <label for="first_name">Họ</label>
         </div>
         <div class="input-field col s6">
@@ -27,21 +31,26 @@
           <label for="phoneNumber">Số điện thoại</label>
         </div>
       </div>
-      <div class="row">
+       <div class="row">
         <div class="input-field col s12">
-          <img src="{{account.image}}" style="width:5%" alt="">
-          <div class="file-field input-field">
-                <div class="btn">
-                  <span>File</span>
-                  <input type="file">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" name="image" type="text">
-                </div>
-          </div>
+          <input id="address" name="address" type="text" class="validate" value="{{account.address}}">
+          <label for="address">Địa Chỉ</label>
         </div>
       </div>
-      <button onclick="return confirm('Bạn có chắc là bạn muốn thay đổi thông tin cá nhân của mình ?')" type="submit" class=""> Thay Đổi</button>
+         <div class="row">
+        <img src="../uploads/{{account.image}}" alt="" width="50px">
+        <div class="file-field input-field col s5 m6">
+            <div class="btn btn-active">
+            <span>Change avatar</span>
+            <input type="file" name="image">
+                </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" value="{{account.image}}" name="img_old">
+            </div>
+        </div>
+    </div>
+    
+      <button onclick="return confirm('Bạn có chắc là bạn muốn thay đổi thông tin cá nhân của mình ?')" type="submit" class=""> Xác Nhận Thay Đổi</button>
     </form>
   </div>
 </div>
