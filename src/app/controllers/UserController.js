@@ -5,8 +5,8 @@ class UserController {
   async index(req, res, next) {
     const userId = req.session.userID;
     let account = await getUserById(userId);
-    // res.render('user/edit_profile', { account: account });
-    res.render('user/profile', { account: account });
+    res.render('user/edit_profile', { account: account });
+    // res.render('user/profile', { account: account });
   }
   async changeAccount(req, res, next) {
     if (!req.file) {
