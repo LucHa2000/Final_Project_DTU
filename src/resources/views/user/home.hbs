@@ -79,11 +79,11 @@
             
             <div class="app-container__section__content">
               <div
-                class="main-carousel mt-4 px-2"
+                class="main-carousel mt-4 px-2 py-3"
                 data-flickity='{ "groupCells": true, "autoPlay": true, "cellAlign": "left"  }'
               >
                 {{#each clinics}}
-                  <div
+                  {{!-- <div
                     class="carousel-cell medicals__carousel-cell w-[250px] h-[250px] p-3 m-2 rounded-lg flex flex-col justify-between"
                   >
                     <a href="/clinics/{{this.id}}">
@@ -101,7 +101,16 @@
                         </p>
                       </div>
                     </a>
-                  </div>
+                  </div> --}}
+                  <a href="/clinics/{{this.id}}" class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 m-4  ">
+                    <img
+                      src={{this.image}}
+                      alt="image"
+                      class="carousel-cell__image w-full h-[200px]"
+                    />
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 mt-2 ">{{this.name}}</h5>
+                    <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                  </a>
                 {{/each}}
               </div>
             </div>
@@ -131,7 +140,7 @@
                 data-flickity='{ "groupCells": true, "autoPlay": true, "cellAlign": "left"  }'
               >
                 {{#each doctors}}
-                  <div
+                  {{!-- <div
                     class="carousel-cell medicals__carousel-cell  w-[250px] h-[250px] p-3 m-2 rounded-lg flex flex-col justify-between"
                   >
                     <a href="/detailDoctor/{{this.id}}">
@@ -153,7 +162,16 @@
                         </p>
                       </div>
                     </a>
-                  </div>
+                  </div> --}}
+                  <a href="/detailDoctor/{{this.id}}" class="block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 m-4  ">
+                    <img
+                      src={{this.image}}
+                      alt="image doctor"
+                      class="carousel-cell__image w-[200px] h-[200px] rounded-full"
+                    />
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 mt-2 ">{{this.firstName}} {{this.lastName}}</h5>
+                    <p class="font-normal text-gray-700">{{this.clinicName}}</p>
+                  </a>
                 {{/each}}
               </div>
             </div>

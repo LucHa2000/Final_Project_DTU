@@ -1,101 +1,110 @@
-{{>header}}
-<div class="container-user profile-container">
-  {{>shortcuts}}
-  <main id="main">
-    <ul class="personal-info">
-      <li class="personal-info-item" style="color: #000;">{{account.bio}}</li>
-      <li class="personal-info-item">Job: {{account.job}}</li>
-      <li class="personal-info-item">Full Name: {{ mergeName account.last_name account.first_name}} </li>
-      <li class="personal-info-item">Gender:{{convertGender account.gender}} </li>
-      <li class="personal-info-item">Birthday: {{ convertDate account.birthday}}</li>
-    </ul>
-    {{#each posts}}
-    <div id="to-scroll-when-comment" class="post-card">
-      <div class="post-info">
-        <div class="left">
-          <img src="../uploads/{{this.userpost_img}}" alt="" class="post-info-avatar">
-          <span class="post-info-username">@{{this.username}}</span>
-          <span  class="post-info-username "><img style="height : 16px" class='image-emotion-react-post modal-close' src='../emoticon/{{iconRulePost this.post_status}}' ></span>
+<div class="app-container flex flex-col homepage-container">
+  {{>nav}}
+  <main class="app__main flex w-full">
+    <div class="medicals__sidenav max-w-[70px] mt-[100px]">
+      <ul class="medicals__sidenav__list flex flex-col justify-center">
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="#" class="medicals__sidenav__link"><i
+              class="fa-solid fa-calendar-days medicals__sidenav__icon"
+            ></i></a>
+        </li>
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="/" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon  fa-solid fa-user-doctor"
+            ></i></a>
+        </li>
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="/inbox" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon fa-brands fa-rocketchat"
+            ></i></a>
+        </li>
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="/user" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon medicals__sidenav__icon--active fa-solid fa-gear"
+            ></i></a>
+        </li>
+      </ul>
+    </div>
+    <div class="app-section overflow-y-scroll">
+      <h2 class="app-section__header">Trang cá nhân</h2>
+      <div class="app-section__content">
+        <div >
+          <input  name="id" type="text" value="{{account.id}}" hidden >
+          <div class="is-row flex items-center justify-center">
+           
+              <div class="relative">
+                <img id="profile-avatar" class="w-36 h-36 rounded-full" src="../uploads/{{account.image}}" alt="">
+                
+              </div>
+            
+            
+          </div>
+          <div class="is-row">
+            <div class=" is-one-third ">
+              <label class="block mb-2 text-sm font-medium text-gray-900 font-bold">Xu của bạn</label>
+              <div class="relative">
+                  <p class="">{{account.balance}}</p>
+              </div>
+              <a href="#" class="btn--primary mt-2 block text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center">Nạp thêm xu</a>
+            </div>
+            
+            
+          </div>
+            <hr class="divider--dash">
+          <div class="is-row">
+            <div class="is-one-third ">
+              <label class="block mb-2 text-sm font-medium text-gray-900 font-bold">Tên</label>
+              <div class="relative">
+                <p id="first-name" name="firstName" class="">{{account.firstName}}</p>
+              </div>
+            </div>
+            <div class="is-one-third ">
+              <label class="block mb-2 text-sm font-medium text-gray-900 font-bold">Họ</label>
+              <div class="relative">
+                <p id="first-name" name="firstName" class="">{{account.lastName}}</p>
+              </div>
+            </div>
+            <div class="is-one-third ">
+              <label class="block mb-2 text-sm font-medium text-gray-900 font-bold">Email</label>
+              <div class="relative">
+                <p id="first-name" name="firstName" class="">{{account.email}}</p>
+              </div>
+            </div>
+            
+          </div>
+          <div class="is-row">
+            <div class="is-one-third">
+              <label class="block mb-2 text-sm font-medium text-gray-900 font-bold">Số điện thoại</label>
+              <div class="relative">
+                <p id="first-name" name="firstName" class="">{{account.phoneNumber}}</p>
+              </div>
+            </div>
+            <div class="is-one-third ">
+              <label class="block mb-2 text-sm font-medium text-gray-900 font-bold">Địa chỉ</label>
+              <div class="relative">
+                <p id="first-name" name="firstName" class="">{{account.address}}</p>
+              </div>
+            </div>
+            <div class="is-one-third ">
+              
+            </div>
+          </div>
+          
+          <div class="is-row flex justify-end">
+            <button class="btn--primary mr-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5   py-2.5 text-center" type="button" data-modal-toggle="update-profile-confirm-modal">
+              Cập nhật
+            </button>
+        
+          </div>
+          
+          
+          
         </div>
-         
-        <a class='dropdown-trigger btn btn-active function-more-post'data-id="{{this.post_id}}" href='#' data-target='manament-newsfeed'>...</a>
-      </div>
-      <span class="post-info-date">{{converDateNewsfeed this.post_date}}</span>
-      <div class="post-content">
-        <h2>{{this.post_content}}</h2>
-        <div class="post-img">
-          <img src="../uploads/{{nonImage this.post_img}}">
+
         </div>
-      </div>
-      <div class="post-footer">
-        <div class="post-reacts">
-          <a data-id ={{this.post_id}} class=" modal-trigger btn-react"  href="#icon-modal">
-            <img src="../emoticon/{{ emotionReact this.react_img}}" style=""  alt="">
-          </a>
-          <a id="link-post" class=" modal-trigger btn-react"  href="/post/{{this.post_id}}">
-            <img src="../emoticon/cmt-icon.png" style=""  alt="">
-          </a>
-           <a  class=" modal-trigger btn-react"  onclick="copyToClipboard('#link-post')">
-            <img src="../emoticon/share-icon.png" style=""  alt="">
-          </a> 
-          {{!-- <p><span>@nhandang, @havietluc</span> and <span>3</span> others liked this post</p> --}}
-        </div>
-         <p style="text-align: left;margin-top:10px"> <span>{{this.countReact}}</span> reacted this post</p>
+        
       </div>
     </div>
-    {{/each}}
-    {{!-- modal react icon --}}
-<div id="icon-modal" class="modal" style="background : transparent">
-  <div class="modal-fixed-footer center ">
-    {{!-- <h4 class="center">Emoticon</h4> --}}
-    <a href="" class="btn-react-heart">
-      <img   class='image-emotion-react-post modal-close' src='../emoticon/red-heart_2764-fe0f.png'>
-    </a>
-    <a href="" class="btn-react-like">
-       <img class='image-emotion-react-post modal-close' src='../emoticon/like-react.png' >
-    </a>
-   <a href="" class="btn-react-smile">
-      <img class='image-emotion-react-post modal-close' src='../emoticon/haha-react.png' >
-   </a>
-   
-    </div>
+  </main>
 </div>
-  <!-- Dropdown Structure -->
-    <ul id='manament-newsfeed' class='dropdown-content'>
-    <li><a onclick="return confirm('Are you sure delete this post ?')" href="" class="btn-post-delete"><i class="material-icons">view_module</i>Delete</a></li>
-    <li><a href="" class="btn-post-edit"><i class="material-icons">cloud</i>Edit</a></li>
-    <li><a href="" class="btn-switch"><i class="material-icons">sun</i>Switch Status</a></li>
-  </ul>
-<script>
- $(document).ready(function(){
-    $(".function-more-post").on("click", function(){
-        var dataId = $(this).attr("data-id");
-          $(".btn-post-delete").attr("href", "/post/"+dataId+"/delete")
-    });
-        $(".function-more-post").on("click", function(){
-        var dataId = $(this).attr("data-id");
-        $(".btn-post-edit").attr("href", "/post/"+dataId +"/edit"); // Set herf value
-    });
-       $(".function-more-post").on("click", function(){
-        var dataId = $(this).attr("data-id");
-        $(".btn-switch").attr("href", "/post/"+dataId +"/switch"); // Set herf value
-    });
-});
-</script>
-<script>
- $(document).ready(function(){
-    $(".btn-react").on("click", function(){
-        var dataId = $(this).attr("data-id");
-          $(".btn-react-heart").attr("href", "/post/react/1/"+dataId)
-    });
-       $(".btn-react").on("click", function(){
-        var dataId = $(this).attr("data-id");
-          $(".btn-react-like").attr("href", "/post/react/2/"+dataId)
-    });
-      $(".btn-react").on("click", function(){
-        var dataId = $(this).attr("data-id");
-          $(".btn-react-smile").attr("href", "/post/react/3/"+dataId)
-    });
-});
-</script>
-<script src="../script/share_post.js"></script>
+

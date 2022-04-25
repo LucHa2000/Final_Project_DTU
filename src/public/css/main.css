@@ -44,6 +44,9 @@ body {
   font-weight: bold;
   text-align: center;
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn--secondary {
@@ -86,6 +89,36 @@ body {
 
 .fw-medium {
   font-weight: 500;
+}
+
+.is-half {
+  width: 50%;
+}
+
+.is-full {
+  width: 100%;
+}
+
+.is-one-third {
+  width: calc(100% / 3);
+}
+
+.is-one-quarter {
+  width: 25%;
+}
+
+.is-row {
+  width: 100%;
+  margin: 2rem 0;
+  display: flex;
+}
+
+hr.divider--dash {
+  border-top: 3px dashed var(--primary-color);
+}
+
+.medicals__input-field {
+  margin-right: 1rem;
 }
 
 .app-container__input {
