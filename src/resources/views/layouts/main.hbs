@@ -77,6 +77,75 @@
     </script>
   </body>
 </html> --}}
+
+
+{{!-- <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/54abdc521e.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    ></script>
+    <script
+      src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+    />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <title>Homepage</title>
+    <link rel="stylesheet" href="../css/animations.css" />
+
+    <script>
+      $(document).ready(function(){ $('.tooltipped').tooltip();
+      $('.dropdown-trigger').dropdown(); $('select').formSelect();
+      $('.sidenav1').sidenav(); $('.sidenav').sidenav();
+        $('.dropdown-trigger').dropdown();
+      $('.materialboxed').materialbox(); $('.modal').modal();
+      $('.parallax').parallax(); $('.tabs').tabs();
+      $('.datepicker').datepicker({ disableWeekends: true }) });
+    </script>
+    <title>{{title}}</title>
+  </head>
+  <body>
+    {{{body}}}
+  </body>
+</html> --}}
 <html lang='en'>
   <head>
     <meta charset='UTF-8' />
@@ -122,6 +191,7 @@
     <link rel='stylesheet' href='../css/reset.css' />
     <link rel='stylesheet' href='../css/main.css' />
     <link rel='stylesheet' href='../css/animations.css' />
+    <link rel='stylesheet' href='../css/app.css' />
     <title>Homepage</title>
 
     <script>
@@ -135,5 +205,12 @@
   </head>
   <body>
     {{{body}}}
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"
+    ></script>
+    <script>
+      $(document).ready(function(){ var getText = $(".message-info span").text()
+      if(getText != ""){ $(".message-info").css("display", "block"); } });
+    </script>
   </body>
 </html>

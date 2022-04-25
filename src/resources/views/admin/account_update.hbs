@@ -1,0 +1,82 @@
+{{>header_admin}}
+<div class="container ">
+    <h4 class="center">Cập nhật tài khoản</h4>
+    <div class="paper_container z-depth-1">
+ <form class="col s12"  method="POST" action="/account/{{account.id}}/edit">
+      <div class="row">
+        <div class="input-field col s12 ">
+          <input  id="firstName" type="text" class="validate" name="firstName" value="{{account.firstName}}">
+          <label for="firstName">Họ</label>
+        </div>
+        <div class="input-field col s12 ">
+          <input  id="lastName" type="text" class="validate" name="lastName" value="{{account.lastName}}">
+          <label for="lastName">Tên</label>
+        </div>
+      </div>
+          {{!-- <input type="Number"  hidden name="account_status" value="{{accounts.account_status}}">
+          <input type="Number"  hidden name="accountType" value="{{accounts.accountType}}"> --}}
+      <div class="row">
+        <div class="input-field col s12 ">
+          <input id="email" type="email" class="validate" name="email" value="{{account.email}}" required="required">
+          <label for="email">Email</label>
+            <span class="helper-text" data-error="This field cannot be left blank" data-success=""></span>
+      </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 ">
+          <input id="phoneNumber" type="tel" class="validate" name="phoneNumber" value="{{account.phoneNumber}}" required="required">
+          <label for="phoneNumber">Số điện thoại</label>
+            <span class="helper-text" data-error="This field must be phone number" data-success=""></span>
+        </div>
+      </div>
+       <div class="row">
+        <div class="input-field col s12 ">
+          <input id="address" type="Text" class="validate" name="address" value="{{account.address}}">
+          <label for="address">Địa chỉ</label>
+        </div>
+      </div>
+      <div class="input-field col s10 m10 push-l1">
+                <div class=""><label for="">Loại tài khoản*</label>
+                  <label>
+                    <input name="roleID" type="radio" value="1" {{checked account.roleID 1}}/>
+                    <span>Admin</span>
+                  </label>
+                  <label>
+                    <input name="roleID" type="radio" value="2" {{checked account.roleID 2}}/>
+                    <span>Bác sĩ</span>
+                  </label>
+                  <label>
+                    <input name="roleID" type="radio" value="3" {{checked account.roleID 3}}/>
+                    <span>Người dùng</span>
+                  </label>
+                </div>
+              </div>
+       {{!-- <div class="row">
+        <div class="input-field col s12 ">
+        <input id="password"type="password" class="validate" name="password" required="required" minlength="6"
+                  autocomplete="new-password"/>
+          <label for="password">Mật khẩu</label>
+            <span class="helper-text" data-error="This field cannot be left blank" data-success=""></span>
+        </div>
+      </div>
+       <div class="row">
+        <div class="input-field col s12 ">
+        <input id="confirm-password"type="password" class="validate" name="password" required="required" />
+          <label for="confirm-password">Nhập lại mật khẩu</label>
+                            <span class="helper-text" data-error="Those passwords didn't match. Try again." data-success=""></span>
+
+        </div>
+      </div> --}}
+       <button onclick="" class="btn waves-effect waves-light btnCreate" type="submit">Update
+    <i class="material-icons right createIcon">send</i>
+      </button>
+    </form> 
+
+    </div>
+     <br>
+  </div>
+  {{>footer_admin}}
+
+
+
+  

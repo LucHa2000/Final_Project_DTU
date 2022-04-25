@@ -27,11 +27,22 @@ module.exports = {
   converDateNewsfeed: (a) => moment(a).format("LLL"),
   iconRulePost: (a) => (a == 1 ? "world-icon.png" : "locked-icon.png"),
   sum: (a) => (a == a ? a + 1 : a), //create helpers
-  convertGender: (a) => (a == 1 ? "Male" : "Female"),
-  status: (a) => (a == 1 ? "Activity" : "Block"),
+  convertGender: (a) => (a == 1 ? "Nam" : "Nữ"),
+  status: (a) => {
+    if (a == 1) return "Hoạt động";
+    if (a == 0) return "Khóa";
+    if (a == 2) return "Bận";
+  },
   followCustomer: (a) => (a == 1 ? "unfollow" : "follow"),
   followGroup: (a) => (a == 1 ? "leave" : "join"),
-  btnStatus: (a) => (a == 0 ? "block" : "check"),
+  btnStatus: (a) => {
+    if (a == 1) return "check";
+    if (a == 0) return "block";
+    if (a == 2) return "remove";
+  },
+  checked: (a, b) => {
+    if (a == b) return "checked";
+  },
   btnStatusHidden: (a) => (a == 1 ? "btn-status--hidden" : ""),
   accType: (a) => {
     if (a == 1) return "Quản trị viên";

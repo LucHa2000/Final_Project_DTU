@@ -7,7 +7,10 @@ const upload = multer({
 
 const accountController = require("../app/controllers/AccountController");
 
+router.get("/delete/:id", accountController.deleteAccount);
+router.get("/:id", accountController.pageUpdate);
+router.get("/:status/:id", accountController.changeStatus);
 router.post("/storeAccount", accountController.storeAccount);
-router.use("/", accountController.index);
+router.post("/:id/edit", accountController.newAccount);
 
 module.exports = router;
