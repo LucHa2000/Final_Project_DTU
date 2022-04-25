@@ -1,259 +1,207 @@
-{{>header_admin}}
 
-<div class="admin-container create-container">
-  <div class="container">
-    <div class="row">
-      <div class="col s12 push-l3">
-        <ul class="tabs">
-          <li class="tab col s3"><a href="#add-account">ADD ACCOUNT</a></li>
-          <li class="tab col s3"><a
-              class="active"
-              href="#account-management"
-            >ACCOUNT MANAGEMENT</a></li>
-        </ul>
-      </div>
-      <div id="add-account" class="col s12">
-        <div class="paper_container z-depth-1">
-          <form class="col s12" action="/admin/register" method="POST" autocomplete="off">
-            <h4 class="center"></h4>
+{{>header_admin}}
+ 
+<div class="create-container">
+<div class=" container">
+      <div class="row">
+    <div class="col s12 push-l3">
+      <ul class="tabs ">
+        <li class="tab col s3"><a href="#addproduct">THÊM TÀI KHOẢN</a></li>
+        <li class="tab col s3"><a class="active" href="#listproduct">QUẢN LÝ TÀI KHOẢN</a></li>
+      
+      </ul>
+    </div>
+    <div id="addproduct" class="">
+      <div class="paper_container z-depth-1">
+
+    <form class="col s12" action="/account/storeAccount" method="POST" autocomplete="off">
+            <h4 class="center">Nhập thông tin</h4>
             <div class="row">
-              <div class="input-field col s10 m10 push-l1">
-                <input
-                  id="username"
-                  type="text"
-                  class="validate"
-                  name="username"
-                  required="required"
-                  autocomplete="off"
-                />
-                <label for="username">Username*</label>
-                <span
-                  class="helper-text"
-                  data-error="This field is required!"
-                  data-success=""
-                ></span>
+              <div class="mb-6">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="email">Email*</label>
+                <input id="email" type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="email" required="required" />
+                <span class="helper-text" data-error="Email is invalid!" data-success=""></span>
               </div>
               <div class="input-field col s10 m10 push-l1">
-                <input
-                  id="email"
-                  type="email"
-                  class="validate"
-                  name="email"
-                  required="required"
-                />
-                <label for="email">Email*</label>
-                <span
-                  class="helper-text"
-                  data-error="Email is invalid!"
-                  data-success=""
-                ></span>
+                <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Họ</label>
+                <input id="firstName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="firstName" />
+                <span class="helper-text" data-error="This field is required!" data-success=""></span>
+              </div>
+               <div class="input-field col s10 m10 push-l1">
+                  <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên*</label>
+                <input id="lastName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="lastName" required="required" />
+                <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tên*</label>
+                <span class="helper-text" data-error="This field is required!" data-success=""></span>
               </div>
               <div class="input-field col s10 m10 push-l1">
-                <input
-                  id="firstname"
-                  type="text"
-                  class="validate"
-                  name="firstName"
-                  required="required"
-                />
-                <label for="first-name">First name*</label>
-                <span
-                  class="helper-text"
-                  data-error="This field is required!"
-                  data-success=""
-                ></span>
-              </div>
-              <div class="input-field col s10 m10 push-l1">
-                <input
-                  id="last-name"
-                  type="text"
-                  class="validate"
-                  name="lastName"
-                  required="required"
-                />
-                <label for="last-name">Last name*</label>
-                <span
-                  class="helper-text"
-                  data-error="This field is required!"
-                  data-success=""
-                ></span>
-              </div>
-              <div class="input-field col s10 m10 push-l1">
-                <input
-                  id="birthday"
-                  type="text"
-                  class="datepicker"
-                  name="birthday"
-                  required="required" format='yyyy-mm-dd'
-                />
-                <label for="birthday">Birthday*</label>
-                <span
-                  class="helper-text"
-                  data-error="This field is required!"
-                  data-success=""
-                ></span>
-              </div>
-              <div class="input-field col s10 m10 push-l1">
-                <div class=""><label for="">Gender*</label>
+                <div class=""><label for="">Giới tính*</label>
                   <label>
                     <input name="gender" type="radio" value="1" checked />
-                    <span>Male</span>
+                    <span>Nam</span>
                   </label>
                   <label>
                     <input name="gender" type="radio" value="2" />
-                    <span>Female</span>
+                    <span>Nữ</span>
                   </label>
                 </div>
               </div>
               <div class="input-field col s10 m10 push-l1">
-                <label for="bio">Bio</label>
-                <textarea
-                  class="materialize-textarea"
-                  name="bio"
-                  id="bio"
-                  cols="30"
-                  rows="10"
-                ></textarea>
+                <label for="birthday" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Số điện thoại</label>
+                <input id="phoneNumber" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="phoneNumber" required="required" />
+                
+                <span class="helper-text" data-error="This field is required!" data-success=""></span>
               </div>
               <div class="input-field col s10 m10 push-l1">
-                <input id="job" type="text" class="validate" name="job" />
-                <label for="job">Job</label>
+                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Địa chỉ</label>
+                <input id="address" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="address" />
+                
+                <span class="helper-text" data-error="This field is required!" data-success=""></span>
               </div>
               <div class="input-field col s10 m10 push-l1">
-                <input id="password" type="password" class="validate" name="password" required="required" minlength="6" autocomplete="new-password" >
-                <label for="password">Password*</label>
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mật khẩu*</label>
+                <input id="password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="password" required="required" minlength="6"
+                  autocomplete="new-password">
+                
                 <span class="helper-text" data-error="Invalid password, minimum length: 8" data-success=""></span>
               </div>
               <div class="input-field col s10 m10 push-l1">
-                <input id="confirm-password" type="password" class="validate" required="required"  >
-                <label for="confirm-password">Confirm*</label>
+                <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nhập lại mật khẩu*</label>
+                <input id="confirm-password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="required">
+                
                 <span class="helper-text" data-error="Those passwords didn't match. Try again." data-success=""></span>
               </div>
-            </div>
-            
-       
-            <div class="row">
-              <div class="col s12 m12 mr-bottom center">
-                <button
-                  class="btn btn-active waves-effect waves-light center"
-                  type="submit"
-                >ADD
-                </button>
+              <div class="input-field col s10 m10 push-l1">
+                <div class=""><label for="">Loại tài khoản*</label>
+                  <label>
+                    <input name="roleID" type="radio" value="1" checked />
+                    <span>Admin</span>
+                  </label>
+                  <label>
+                    <input name="roleID" type="radio" value="2" />
+                    <span>Bác sĩ</span>
+                  </label>
+                  <label>
+                    <input name="roleID" type="radio" value="3" />
+                    <span>Người dùng</span>
+                  </label>
+                </div>
               </div>
             </div>
-          </form>
-        </div>
+
+
+             <div class="row">
+               <div class="input-field col s10 m10 push-l1 mr-bottom">
+                <button class=" btn waves-effect waves-light btnCreate" type="submit">Tạo
+            <i class="material-icons right createIcon">send</i>
+                 </button>
+               </div>
       </div>
-      <div id="account-management" class="col s12">
-        <div class="paper_container z-depth-1">
-          <table class="centered responsive-table right highlight">
-            <thead style="font-weight: 600;">
-              <tr>
-                <th>No</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Birthday</th>
-                <th>Gender</th>
-                <th>Job</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody id="myTable">
+          </form>
+      </div>
+
+    </div>
+    <div id="listproduct" class=""><br>
+      <div class="paper_container z-depth-1">
+
+     <a href="/account/trash" data-target="" class="sidenav-trigger btn-floating pulse cyan">
+     <i class="material-icons">delete</i>
+    </a>
+           <h7 class="">({{counts}})</h7>
+       {{>search}} 
+      <table class="centered responsive-table right highlight">
+        <thead>
+          <tr>           
+            <th>No</th>   
+            <th>Email</th>
+            <th>Họ Tên</th>  
+            <th>Giới tính</th>  
+            <th>Số điện thoại</th>  
+            <th>Địa chỉ</th>  
+            <th>Loại tài khoản</th>  
+            <th>Trạng thái</th>  
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
               {{#each accounts}}
-                <tr>
-                  <td></td>
-                  <td>{{this.username}}</td>
-                  <td class="">{{this.email}}</td>
-                  <td class="">{{this.first_name}}</td>
-                  <td>{{this.last_name}}</td>
-                  <td>{{convertDate this.birthday}}</td>
-                  <td>{{this.gender}}</td>
-                  <td>{{this.job}}</td>
-                  <td>{{this.acc_type_id}}</td>
-                  <td>
-                    <a
-                      data-position="top"
-                      data-tooltip="Status"
-                      href="/admin/{{this.acc_status}}/{{this.username}}"
-                      class="btn btn-small 
-                        {{btnStatus this.acc_status}} {{btnStatusHidden this.acc_type_id}}
-                        tooltipped blue-grey button-radius"
-                    ><i class="material-icons">{{btnStatus
-                          this.acc_status
-                        }}</i></a>&nbsp;
-                    <a
-                      data-position="top"
-                      data-tooltip="Update"
-                      href="/admin/{{this.username}}"
-                      class="btn btn-small tooltipped yellow darken-3 button-radius"
-                    ><i class="material-icons">system_update_alt</i></a>&nbsp;
-                    <a  onclick="return confirm('Are you sure you want to delete this account?')"
-                      data-position="top"
-                      data-tooltip="Delete"
-                      data-id="{{this.username}}"
-                      class="waves-effect waves-light btn btn-small tooltipped modal-trigger btn_delete red {{accType this.acc_type_id}}"
-                      href="/admin/account/delete/{{this.username}}"
-                    ><i class="material-icons">delete</i></a>
-                  </td>
+            <tr>
+                <td>{{sum @index}}</td>
+                <td>{{{this.email}}}</td>
+                <td>{{{this.firstName}}} {{{this.lastName}}} </td>
+                <td>{{{convertGender this.gender}}} </td>
+                <td>{{{this.phoneNumber}}}</td>
+                <td>{{{this.address}}}</td>
+                <td class="">{{{ accType this.roleID}}}</td>
+                <td class="{{{ btnStatus this.status}}}">{{{ status this.status}}}</td>
+                <td>   
+                <td>   
+                  <a data-position="top" data-tooltip="Status" href="/account/{{{this.status}}}/{{{this.id}}}" class="{{btnStatus this.account_status}} tooltipped btn btn-small   blue-grey "><i class="material-icons  ">{{btnStatus this.status}}</i></a>
+                  <a data-position="top" data-tooltip="Update" href="/account/{{{this.id}}}" class="btn btn-small tooltipped  yellow darken-3 button-radius "><i class="material-icons">system_update_alt</i></a>
+
+                <!-- Modal Trigger -->
+                <a data-position="top" data-tooltip="Update"  data-list="{{this.list_id}}" data-id="{{{this.id}}}" class=" tooltipped waves-effect waves-light btn modal-trigger btn_delete red  {{accType this.accountType}}" href="#modal1"><i class="material-icons">delete</i></a>
+                </td>
                 </tr>
-              {{else}}
+           
+             {{else}}
                 <tr>
                   <td colspan="6" class="center text-center">
-                    Empty!
+                      Không có tài khoản
                   </td>
                 </tr>
-              {{/each}}
-            </tbody>
-          </table>
-          {{>pagination}}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4 class="center">DELETE ACCOUNT?</h4>
-    <p class="center">Do you really want to delete this account? This process
-      cannot be undone.</p>
-  </div>
-  <div class="modal-footer">
-    <a
-      class="modal-close waves-effect waves-green btn-flat delete-agree text-darken-2 red-text"
-    >Yes</a>
-    <a class="modal-close waves-effect waves-green btn-flat grey-text">No
-    </a>
-  </div>
-</div>
-<script>
-  $(document).ready(function(){
-    $(".btn_delete").on("click", function(){
-        var dataId = $(this).attr("data-id");
-          $(".delete-agree").attr("href", "/admin/delete/"+dataId); // Set herf value
-    });
-  });
-</script>
-<script>
-  function checkPasswordMatch(){
-    var password = $('#password').val();
-    var confirmPassword = $('#confirm-password').val();
-    if (password != confirmPassword)
-      confirmPasswordEl.setCustomValidity("Those passwords didn't match. Try again.");
-    else 
-      confirmPasswordEl.setCustomValidity("Password match.");
-  }
-  $(document).ready(function () {
-    $('#password').onchange = checkPasswordMatch;
-    $('#confirm-password').keyup(checkPasswordMatch);
-    $(".btn_delete").on("click", function(){
-        var dataId = $(this).attr("data-id");
-          $(".delete-agree").attr("href", "/admin/delete/"+dataId); // Set herf value
-    });
-  });
+   
+            {{/each}}   
+        </tbody>
+         </table> 
+         
+  <!-- Modal Trigger -->
 
-  $(document).ready(function(){
-    $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
-  });
+
+  
+  {{>pagination}}
+ 
+          
+      </div>
+
+    </div>
+   
+  </div>
+
+</div>
+</div>
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4 class="center">Xóa tài khoản</h4>
+      <p class="center">Bạn có muốn xóa tài khoản này không ?</p>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn-flat delete-agree text-darken-2 red-text">Xóa bỏ</a>
+      <a class="modal-close waves-effect waves-green btn-flat  grey-text">Hủy</a>
+    </div>
+  </div>    
+<script>
+ $(document).ready(function(){
+    $(".btn_delete").on("click", function(){
+        var dataId = $(this).attr("data-id");
+          $(".delete-agree").attr("href", "/account/delete/"+dataId); // Set herf value
+    });
+});
 </script>
+
+   <script>
+      var password = document.getElementById("password")
+      var confirm_password = document.getElementById("confirm_password");
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords don't match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+    </script>
+   {{>footer_admin}}
+

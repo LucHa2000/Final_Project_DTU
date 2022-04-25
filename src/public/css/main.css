@@ -524,3 +524,17 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
 .flickity-page-dots .dot.is-selected {
   opacity: 1;
 }
+
+.check {
+  color: rgb(18, 233, 18);
+}
+.remove {
+  color: #FFD700;
+}
+.btnCreate{
+  color: #fff !important;
+  background-color: 2bbbad !important;
+}
+.createIcon{
+  color: white !important;
+}

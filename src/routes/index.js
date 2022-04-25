@@ -7,6 +7,7 @@ const inboxRouter = require("./inbox");
 const paymentRouter = require("./payment");
 const userRouter = require("./user");
 const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
+const accountRouter = require("./account");
 
 function router(app) {
   app.use(
@@ -15,6 +16,12 @@ function router(app) {
     authMiddlewares.checkRoleAdmin,
     authMiddlewares.addInfoAuthencation,
     adminRouter
+  );
+  app.use(
+    "/account",
+    authMiddlewares.checkAccount,
+    authMiddlewares.checkRoleAdmin,
+    accountRouter
   );
   app.use(
     "/doctor",
