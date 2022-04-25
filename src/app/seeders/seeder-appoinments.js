@@ -5,8 +5,8 @@ module.exports = {
     return queryInterface.bulkInsert("appointments", [
       {
         id: uuidv4(),
-        userID: "11fa15eb-e1b5-46ad-ad78-823a9e384317",
-        doctorID: "0ceeabed-67f5-49a2-a8e1-95c9bc4b2b1a",
+        userID: "d83e9fbe-abf6-42e4-90cf-aa782dc0b5fa",
+        doctorID: "5c5c3fd5-5e5c-48f3-bf06-0dfd9c689db1",
         title: "appointment_day_122",
         date: new Date(),
         startTime: "13:00",
@@ -17,10 +17,11 @@ module.exports = {
       },
       {
         id: uuidv4(),
-        userID: "5b7f2d52-9049-4f8f-8ace-481b488eb165",
-        doctorID: "0ceeabed-67f5-49a2-a8e1-95c9bc4b2b1a",
+        userID: "369ebab6-348e-4e6d-b263-849946fec966",
+        doctorID: "5c5c3fd5-5e5c-48f3-bf06-0dfd9c689db1",
         date: new Date(),
-        startTime: "8:00",
+        title: "appointment_day_212",
+        startTime: "08:00",
         endTime: "10:00",
         isCanceled: false,
         createdAt: new Date(),

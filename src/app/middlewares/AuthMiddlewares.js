@@ -7,6 +7,7 @@ import {
   sendMail,
   getUserById,
 } from "../service/UserService";
+import { getNotificationByUserID } from "../service/NotificationService";
 class AuthMiddlewares {
   async checkAccount(req, res, next) {
     if (!req.session.userID) {
@@ -48,20 +49,26 @@ class AuthMiddlewares {
       }
     } else res.redirect("/auth/login");
   }
-  addInfoAuthencation(req, res, next) {
-    if (req.session.userID) {
-      res.locals.firstName = req.session.firstName;
-      res.locals.lastName = req.session.lastName;
-      res.locals.image = req.session.image;
-      res.locals.userID = req.session.userID;
-      if (req.session.roleID === 2) {
-        res.locals.adminLogin = true;
-      } else if (req.session.roleID === 3) {
-        res.locals.userLogin = true;
+  async addInfoAuthencation(req, res, next) {
+    try {
+      if (req.session.userID) {
+        res.locals.firstName = req.session.firstName;
+        res.locals.lastName = req.session.lastName;
+        res.locals.image = req.session.image;
+        res.locals.userID = req.session.userID;
+        let notifications = await getNotificationByUserID(req.session.userID);
+        res.locals.notifications = notifications;
+        if (req.session.roleID === 2) {
+          res.locals.adminLogin = true;
+        } else if (req.session.roleID === 3) {
+          res.locals.userLogin = true;
+        }
+        next();
+      } else {
+        next();
       }
-      next();
-    } else {
-      next();
+    } catch (err) {
+      console.log(err);
     }
   }
   checkLogin(req, res, next) {
