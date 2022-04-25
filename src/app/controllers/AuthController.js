@@ -6,6 +6,7 @@ let salt = 5;
 
 let Random = Math.floor(Math.random() * 1000000 + 100).toString();
 import { response } from "express";
+
 import {
   updatePassword,
   getUserByEmailAndPassword,
@@ -44,6 +45,7 @@ class AuthController {
         const lastName = user.lastName;
         const image = user.image;
         const resumeID = user.resumeID;
+
         //save account to session
         req.session.firstName = firstName;
         req.session.lastName = lastName;

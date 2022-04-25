@@ -18,13 +18,28 @@
     </div>
   </div>
   <div class='medicals__navbar__right flex-2 flex items-center flex-end'>
-    <a href='#' class='medicals__navbar__link'>
-      <i class='app-container__icon fa-solid fa-bell mr-4'></i>
-    </a>
+   
     <div class='medicals__navbar__profile' style='display:flex'>
       {{! check login }}
 
       {{#if userID}}
+            <div id="displayNotification" class="modal">
+              {{#each notifications}}
+              <div id="notification-container">
+                  <h1 style="color:red">{{this.title}}</h1> 
+                  <button style="color:blue">Xem</button>
+                  <p>{{this.content}}</p>  
+              </div>
+              {{/each}}
+            </a>
+            </div>
+
+            <!-- Link to open the modal -->
+            <a href='#displayNotification' class='medicals__navbar__link' rel="modal:open">
+              <i class='app-container__icon fa-solid fa-bell mr-4'></i>
+              {{!-- <p id="totalNotification">0</p> --}}
+            </a>
+           
           {{#if userLogin}}
               <a
                 id='dropdownDefault'
@@ -108,4 +123,6 @@
     </div>
   </div>
 </div>
-{{! dropdown login }}
+
+    <script src="../socket.io/socket.io.js"></script>
+    <script src = "../script/notification.js"></script>

@@ -30,11 +30,16 @@ function socketServer(io) {
       io.sockets.emit("server-send-rooms", rooms);
       //send room when switch , just emit user send request switch room
       socket.emit("server-send-room-socket", data);
+      //send notification
+      io.sockets.emit("server-send-notification-message", "ban co 1 tin nhan");
     });
 
     socket.on("user-chat", (data) => {
       io.sockets.in(data.room).emit("server-send-chat", data);
     });
+
+    //send notification
+    socket.emit("server-send-notification-message");
   });
 }
 
