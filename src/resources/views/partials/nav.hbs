@@ -25,37 +25,79 @@
       {{! check login }}
 
       {{#if userID}}
-
-        <a
-          id='dropdownDefault'
-          data-dropdown-toggle='dropdown'
-          class='cursor-pointer'
-          type='button'
-        >
-          <img class='w-[30px] h-[30px] rounded-full' src='{{image}}' />
-        </a>
-
-        <div
-          id='dropdown'
-          class='hidden z-10 w-44 bg-white rounded-lg divide-y divide-gray-100 shadow'
-        >
-          <ul class='py-1 text-sm text-white bg-[#1a355b]' aria-labelledby='dropdownDefault'>
-
-            <li>
+          {{#if userLogin}}
               <a
-                href='/user'
-                class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-              >Trang cá nhân</a>
-            </li>
-            <li>
-              <a
-                href='/auth/logout'
-                class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
-              >Đăng xuất</a>
-            </li>
-          </ul>
-        </div>
+                id='dropdownDefault'
+                data-dropdown-toggle='dropdown'
+                class='cursor-pointer'
+                type='button'
+              >
+                <img class='w-[30px] h-[30px] rounded-full' src='../uploads/{{image}}' />
+              </a>
 
+              <div
+                id='dropdown'
+                class='hidden z-10 w-44 bg-white rounded-lg divide-y divide-gray-100 shadow'
+              >
+                <ul class='py-1 text-sm text-white bg-[#1a355b]' aria-labelledby='dropdownDefault'>
+
+                  <li>
+                    <a
+                      href='/user'
+                      class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >Trang cá nhân</a>
+                  </li>
+                  <li>
+                    <a
+                      href='/auth/logout'
+                      class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >Đăng xuất</a>
+                  </li>
+                </ul>
+              </div>
+             {{else}}
+                <a
+                id='dropdownDefault'
+                data-dropdown-toggle='dropdown'
+                class='cursor-pointer'
+                type='button'
+              >
+                <img class='w-[30px] h-[30px] rounded-full' src='../uploads/{{image}}' />
+              </a>
+
+              <div
+                id='dropdown'
+                class='hidden z-10 w-44 bg-white rounded-lg divide-y divide-gray-100 shadow'
+              >
+                <ul class='py-1 text-sm text-white bg-[#1a355b]' aria-labelledby='dropdownDefault'>
+
+                  <li>
+                    <a
+                      href='/doctor'
+                      class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >Trang cá nhân</a>
+                  </li>
+                    <li>
+                    <a
+                      href='/doctor/workHistory'
+                      class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >Lịch sử làm việc</a>
+                  </li>
+                    <li>
+                    <a
+                      href='/doctor/resume'
+                      class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >Hồ sơ</a>
+                  </li>
+                  <li>
+                    <a
+                      href='/auth/logout'
+                      class='block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                    >Đăng xuất</a>
+                  </li>
+                </ul>
+              </div>
+              {{/if}}
       {{else}}
         <div class='authNotConfirm-container'>
           <a href='/auth/login'>Đăng nhập</a>

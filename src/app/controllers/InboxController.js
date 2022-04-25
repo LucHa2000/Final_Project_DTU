@@ -37,7 +37,9 @@ class InboxController {
     } else console.log("insert Error ! ");
   }
   async displayChat(req, res) {
-    console.log(req.params);
+    let userID = req.session.userID;
+    let roleID = req.session.roleID;
+    let allRooms = await getAppointmentsByUserID(userID, roleID);
     let room = req.params.appointmentTitle;
     try {
       let result = await getMessageAndAppointmentByAppointmentIDandTile(room);
@@ -46,6 +48,7 @@ class InboxController {
         id: req.session.userID,
         lastName: req.session.lastName,
         firstName: req.session.firstName,
+        avatar: req.session.image,
         room: room,
       };
 
@@ -56,8 +59,11 @@ class InboxController {
         account: account,
         roomID: appointment.id,
         messages: messages,
+        rooms: allRooms,
       });
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 module.exports = new InboxController();
