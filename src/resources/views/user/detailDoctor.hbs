@@ -80,30 +80,34 @@
                 {{!-- <a href="/detailDoctor/{{this.id}}" style="color:red">Đặt Ngay</a> --}}
               </div>
             </div>
-             <div class="app-container__section__content flex-1">
-              <form action="" method="post" class="app-container__form">
+            <div class="app-container__section__content flex-1">
+              
                 <h3 class="app-container__form__header">
                   LỊCH TƯ VẤN QUA VIDEO
                 </h3>
-                <input type="text" value="{{doctor.id}}" hidden="true">
+                
                 <div class="app-container__form__content flex flex-wrap">
                   <div class="app-container__form__section">
                     {{!-- time render --}}
                     {{#each timeWorks}}
-                    <button
-                      class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
-                      type="submit"
-                    >
-                      {{this.startTime}} -  {{this.endTime}}
-                    </button>
-            
+                    <form action="/booking/bookingform" method="post" class="app-container__form">
+                      <input type="text" name="timeStart" value="{{this.startTime}}" hidden="true">
+                      <input type="text" name="timeEnd" value="{{this.endTime}}" hidden="true">
+                      <input type="text" name="doctorID" value="{{this.id}}" hidden="true">
+                      <input type="text" name="serviceFee" value="{{this.serviceFee}}" hidden="true">
+                      <button
+                        class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
+                        type="submit"
+                      >
+                        {{this.startTime}} -  {{this.endTime}}
+                      </button>
+                    </form>
                     {{/each}}
                   </div>
                   <div class="app-container__form__section mt-5">
-                    <p class="">GIÁ TƯ VẤN QUA VIDEO: $5m USD</p>
+                    <p class="">GIÁ TƯ VẤN QUA VIDEO: {{serviceFee.fee}}</p>
                   </div>
                 </div>
-              </form>
             </div>
           </section>
              <section

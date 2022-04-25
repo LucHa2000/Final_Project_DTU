@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 import { formatDate } from "../../util/dateNow";
 import { findAllClinicAnDoctorWithClinic } from "../service/ClinicService";
+import { getServiceByDoctorId } from "../service/ServiceService";
 import {
   getDoctorByClinicId,
   getDoctorAppointmentAndResumeById,
@@ -38,22 +39,51 @@ class SiteController {
     res.render("user/doctorFollowClinic", { doctors: listDoctorsRender });
   }
   async doctorDetail(req, res, next) {
-    let timeWorks = [
-      { startTime: "08:00:00", endTime: "10:00:00" },
-      { startTime: "10:00:00", endTime: "12:00:00" },
-      { startTime: "13:00:00", endTime: "15:00:00" },
-      { startTime: "15:00:00", endTime: "17:00:00" },
-      { startTime: "18:00:00", endTime: "20:00:00" },
-      { startTime: "20:00:00", endTime: "22:00:00" },
-    ];
     const doctorId = req.params.doctorId;
+    let serviceFee = await getServiceByDoctorId(doctorId);
+    let timeWorks = [
+      {
+        id: doctorId,
+        startTime: "08:00:00",
+        endTime: "10:00:00",
+        serviceFee: serviceFee.fee,
+      },
+      {
+        id: doctorId,
+        startTime: "10:00:00",
+        endTime: "12:00:00",
+        serviceFee: serviceFee.fee,
+      },
+      {
+        id: doctorId,
+        startTime: "13:00:00",
+        endTime: "15:00:00",
+        serviceFee: serviceFee.fee,
+      },
+      {
+        id: doctorId,
+        startTime: "15:00:00",
+        endTime: "17:00:00",
+        serviceFee: serviceFee.fee,
+      },
+      {
+        id: doctorId,
+        startTime: "18:00:00",
+        endTime: "20:00:00",
+        serviceFee: serviceFee.fee,
+      },
+      {
+        id: doctorId,
+        startTime: "20:00:00",
+        endTime: "22:00:00",
+        serviceFee: serviceFee.fee,
+      },
+    ];
     let result = await getDoctorAppointmentAndResumeById(doctorId);
     let doctor = result[0];
-
     let doctorSchedules = result[1];
     doctor.resumeDescription = doctor["Resume.description"];
     doctor.resumeStarNo = doctor["Resume.starNo"];
-
     for (let i = 0; i < timeWorks.length; i++) {
       for (let j = 0; j < doctorSchedules.length; j++) {
         if (doctorSchedules[j].startTime == timeWorks[i].startTime) {
@@ -61,7 +91,11 @@ class SiteController {
         }
       }
     }
-    res.render("user/detailDoctor", { doctor: doctor, timeWorks: timeWorks });
+    res.render("user/detailDoctor", {
+      doctor: doctor,
+      timeWorks: timeWorks,
+      serviceFee: serviceFee,
+    });
   }
 }
 module.exports = new SiteController();

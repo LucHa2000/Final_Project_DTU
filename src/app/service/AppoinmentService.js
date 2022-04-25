@@ -1,5 +1,6 @@
 const db = require("../models/index");
 
+import { formatDate } from "../../util/dateNow";
 let getAppointmentsByUserID = (userID, roleID) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -60,8 +61,18 @@ let getAppandMessage = () => {
     }
   });
 };
+let checkingAvailableTime = (time, appointment) => {
+  let date = formatDate(new Date().toString());
+  for (let i = 0; i < appointment.length; i++) {
+    if (appointment[i].startTime === time && appointment[i].date === date) {
+      return false;
+    }
+  }
+  return true;
+};
 module.exports = {
   getAppointmentsByUserID: getAppointmentsByUserID,
   getAppointmentsByTitle,
   getAppandMessage,
+  checkingAvailableTime,
 };

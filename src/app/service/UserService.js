@@ -209,6 +209,45 @@ let deleteUser = (id) => {
     }
   });
 };
+let addBalanceById = (id, amount) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: id },
+        // raw: true
+      });
+      if (user) {
+        user.balance = user.balance + amount;
+        await user.save();
+        resolve(); //return
+      } else {
+        resolve(); //return
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let minusBalanceById = (id, amount) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: id },
+        // raw: true
+      });
+      if (user) {
+        user.balance = user.balance - amount;
+        await user.save();
+        resolve(); //return
+      } else {
+        resolve(); //return
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createNewUser: createNewUser,
   getListUsers: getListUsers,
@@ -221,4 +260,6 @@ module.exports = {
   sendMail,
   getUserByName,
   updatePassword,
+  minusBalanceById,
+  addBalanceById,
 };

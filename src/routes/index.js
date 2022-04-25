@@ -1,3 +1,4 @@
+const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
 const siteRouter = require("./site");
 const authRouter = require("./auth");
 const adminRouter = require("./admin");
@@ -6,9 +7,8 @@ const callVideoRouter = require("./callVideo");
 const inboxRouter = require("./inbox");
 const paymentRouter = require("./payment");
 const userRouter = require("./user");
-const authMiddlewares = require("../app/middlewares/AuthMiddlewares");
 const accountRouter = require("./account");
-
+const bookingRouter = require("./booking");
 function router(app) {
   app.use(
     "/admin",
@@ -54,6 +54,12 @@ function router(app) {
     authMiddlewares.checkAccount,
     authMiddlewares.addInfoAuthencation,
     userRouter
+  );
+  app.use(
+    "/booking",
+    authMiddlewares.checkAccount,
+    authMiddlewares.addInfoAuthencation,
+    bookingRouter
   );
   app.use("/", authMiddlewares.addInfoAuthencation, siteRouter);
 }
