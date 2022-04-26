@@ -531,7 +531,10 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
 .remove {
   color: #ffd700;
 }
-.btnCreate {
+.block {
+  color: #d80f2a;
+}
+.btnCreate{
   color: #fff !important;
   background-color: 2bbbad !important;
 }

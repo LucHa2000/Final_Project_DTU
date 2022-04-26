@@ -4,6 +4,9 @@ module.exports = {
   mergeName: (a, b) => a + " " + b,
   convertDate: (a) => moment(a).format("YYYY-MM-DD"),
   nonImage: (a) => (a == "undefined" ? "nonimage.png" : a),
+  disabled: (a) => {
+    if (a == 1) return "disabled";
+  },
   deleteSpace: (a) => a.trim(),
   emotionReact: (a) => {
     if (a == 3) {
