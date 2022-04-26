@@ -1,145 +1,148 @@
-{{>header_admin}}
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
->
+<div class="flex">
 
-</script>
-    <div class="container">
-    <div class="row">
-      <div class="col s6">
-           <h5 class="center">Year Statistics</h5>
-          <canvas class="year_Chart"></canvas>
-      </div>
-      <div class="col s6">
-            <h5 class="center">Pick Statistics</h5>
-        <form action="/admin/PickStatisticsPage" Method="POST">
-             <div class="col s6">
-              <input type="datetime-local" id="end_date" name="start_date" required="required">
-        <span class="helper-text" data-error="This field cannot be left blank">Start Date*</span>
-           <input type="datetime-local" id="end_date" name="end_date" required="required">
-        <span class="helper-text" data-error="This field cannot be left blank">End Date*</span> 
-           </div>
-         <button type="submit" class="waves-effect waves-light btn center"><i class="material-icons right">filter_list</i>search</button>
-          <a href="/admin" class="waves-effect waves-light btn center"><i class="material-icons right">filter_list</i>Reset</a>
-        </form>
-        
-                 <div class="col s6 center">
-                   <br>
-             
-        <div class="">Revenue: <span class="total-price"></span></div>
-         <div class="">Quantity: <span class="total-quantity"></div>
-      
-                 </div>
-                 
+  {{>header_admin}}
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
+  >
 
-     
-     
-             <table class=" responsive-table highlight " >
-        <thead>
-          <tr>           
-            <th>No</th>   
-            <th>Product</th>
-            <th>Quantity </th>
-           <th>Price</th>
-            <th>Date</th>
-           
+  </script>
+      <div class="container">
+      <div class="row">
+        <div class="col s6">
+            <h5 class="center">Year Statistics</h5>
+            <canvas class="year_Chart"></canvas>
+        </div>
+        <div class="col s6">
+              <h5 class="center">Pick Statistics</h5>
+          <form action="/admin/PickStatisticsPage" Method="POST">
+              <div class="col s6">
+                <input type="datetime-local" id="end_date" name="start_date" required="required">
+          <span class="helper-text" data-error="This field cannot be left blank">Start Date*</span>
+            <input type="datetime-local" id="end_date" name="end_date" required="required">
+          <span class="helper-text" data-error="This field cannot be left blank">End Date*</span> 
+            </div>
+          <button type="submit" class="waves-effect waves-light btn center"><i class="material-icons right">filter_list</i>search</button>
+            <a href="/admin" class="waves-effect waves-light btn center"><i class="material-icons right">filter_list</i>Reset</a>
+          </form>
           
-          </tr>
-        </thead>
-        <tbody id="myTable">
-              {{#each  orderDetails }}
-            <tr>
-                <td>{{sum @index}}</td>
-                <td>{{{this.product_name}}}</td>
-                <td class="p-quantity">{{{this.quantity}}}</td>
-                <td class="card-price">{{{formatLongString (formatCurrency this.unit_price)}}}</td>
-                <td>{{{ convertDate this.createdAt}}}</td>     
+                  <div class="col s6 center">
+                    <br>
+              
+          <div class="">Revenue: <span class="total-price"></span></div>
+          <div class="">Quantity: <span class="total-quantity"></div>
+        
+                  </div>
+                  
+
+      
+      
+              <table class=" responsive-table highlight " >
+          <thead>
+            <tr>           
+              <th>No</th>   
+              <th>Product</th>
+              <th>Quantity </th>
+            <th>Price</th>
+              <th>Date</th>
+            
+            
             </tr>
-           
-             {{else}}
-                <tr>
-                  <td colspan="5" class="center text-center">
-                     Empty Product
-                  </td>
-                </tr>
-   
-            {{/each}}   
-        </tbody>
-           </table> 
+          </thead>
+          <tbody id="myTable">
+                {{#each  orderDetails }}
+              <tr>
+                  <td>{{sum @index}}</td>
+                  <td>{{{this.product_name}}}</td>
+                  <td class="p-quantity">{{{this.quantity}}}</td>
+                  <td class="card-price">{{{formatLongString (formatCurrency this.unit_price)}}}</td>
+                  <td>{{{ convertDate this.createdAt}}}</td>     
+              </tr>
+            
+              {{else}}
+                  <tr>
+                    <td colspan="5" class="center text-center">
+                      Empty Product
+                    </td>
+                  </tr>
+    
+              {{/each}}   
+          </tbody>
+            </table> 
+        </div>
+    
+        </div>
+    
+      <div class="row">
+        <div class="col s6 push-l3">  
+            <h5 class="center">Top Product</h5>
+            <canvas id="product_Chart"></canvas>   
+        </div>
+        {{!-- <div class="col s3">
+          <h5></h5>
+          <br>
+        <div class="paper_container z-depth-1 flex-block">
+          
+      <div class="card_statistics">
+          <h7 class="">Revenue</h7>
+        <h5 class="">  120.000$</h5>
+        <span>^ 20%</span>
+
       </div>
+      <div class="card_statistics">
+
+      <img src="https://th.bing.com/th/id/OIP.fvUt6LjwQwBA54i6KZHKpAAAAA?pid=ImgDet&rs=1" class="responsive-img mid-img" alt="">
+      </div>
+        </div>
   
+        </div> --}}
+    
       </div>
-  
-     <div class="row">
-      <div class="col s6 push-l3">  
-           <h5 class="center">Top Product</h5>
-          <canvas id="product_Chart"></canvas>   
       </div>
-      {{!-- <div class="col s3">
-        <h5></h5>
-        <br>
-      <div class="paper_container z-depth-1 flex-block">
-        
-    <div class="card_statistics">
-        <h7 class="">Revenue</h7>
-      <h5 class="">  120.000$</h5>
-      <span>^ 20%</span>
 
-    </div>
-    <div class="card_statistics">
+  <script>
+    var ctx = document.getElementsByClassName('year_Chart');
+    var myChart = new Chart(ctx, {
+    type: 'bar', data: { labels: ['January', 'February', 'March', 'April', 'May',
+    'June','July','August','September','October','November','December'], datasets: [{ label: 'Year', data: [5000,6200, 9200,2000,2300,8944, 7100,2000,5000,1922, 1522, 6020],
+    backgroundColor: [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102,255,0.2)'
+    , 'rgba(255, 159, 64, 0.2)' ], borderColor: [ 'rgba(255, 99, 132,1)',
+    'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192,1)' ,
+    'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ], borderWidth: 1 }] } ,
+    options: { scales: { y: { beginAtZero: true } } } });
 
-    <img src="https://th.bing.com/th/id/OIP.fvUt6LjwQwBA54i6KZHKpAAAAA?pid=ImgDet&rs=1" class="responsive-img mid-img" alt="">
-    </div>
-      </div>
- 
-      </div> --}}
-   
-    </div>
-    </div>
+      var ctx2 = document.getElementById('product_Chart');
+    var myChart2 = new Chart(ctx2,{
+        type: 'doughnut', data: { labels: ['Mask', 'Soap', 'Gloves'], datasets: [{ label: '# of Votes', data: [30, 20,50],
+    backgroundColor: [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102,255,0.2)'
+    , 'rgba(255, 159, 64, 0.2)' ], borderColor: [ 'rgba(255, 99, 132,1)',
+    'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192,1)' ,
+    'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ], borderWidth: 1 }] } ,
+    })
 
-<script>
-  var ctx = document.getElementsByClassName('year_Chart');
-   var myChart = new Chart(ctx, {
-  type: 'bar', data: { labels: ['January', 'February', 'March', 'April', 'May',
-  'June','July','August','September','October','November','December'], datasets: [{ label: 'Year', data: [5000,6200, 9200,2000,2300,8944, 7100,2000,5000,1922, 1522, 6020],
-  backgroundColor: [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
-  'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102,255,0.2)'
-  , 'rgba(255, 159, 64, 0.2)' ], borderColor: [ 'rgba(255, 99, 132,1)',
-  'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192,1)' ,
-  'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ], borderWidth: 1 }] } ,
-  options: { scales: { y: { beginAtZero: true } } } });
+    const productQuantites = document.querySelectorAll(".p-quantity");
+    const productPrices = document.querySelectorAll(".card-price");
+    let totalPrice = 0, 
+      totalQuantity = 0,
+      quantity,
+      prices,
+      price;
+    for (let i = 0; i < productQuantites.length; i++) {
+      quantity = Number(productQuantites[i].textContent);
+      prices = productPrices[i].textContent.match(/\d+/g);
+      price = Number(prices[0]) + Number(`0.${prices[1]}`);
+      totalPrice += quantity * price;
+      totalQuantity += quantity;
+      //   console.log(quantiy);
+      //   console.log(price);
+    }
 
-     var ctx2 = document.getElementById('product_Chart');
-  var myChart2 = new Chart(ctx2,{
-       type: 'doughnut', data: { labels: ['Mask', 'Soap', 'Gloves'], datasets: [{ label: '# of Votes', data: [30, 20,50],
-  backgroundColor: [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
-  'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102,255,0.2)'
-  , 'rgba(255, 159, 64, 0.2)' ], borderColor: [ 'rgba(255, 99, 132,1)',
-  'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192,1)' ,
-  'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ], borderWidth: 1 }] } ,
-  })
+    console.log(totalPrice);
+    document.querySelector(".total-price").innerHTML = `$${totalPrice}`;
+    document.querySelector(".total-quantity").innerHTML = `$${totalQuantity}`;
 
-  const productQuantites = document.querySelectorAll(".p-quantity");
-  const productPrices = document.querySelectorAll(".card-price");
-  let totalPrice = 0, 
-    totalQuantity = 0,
-    quantity,
-    prices,
-    price;
-  for (let i = 0; i < productQuantites.length; i++) {
-    quantity = Number(productQuantites[i].textContent);
-    prices = productPrices[i].textContent.match(/\d+/g);
-    price = Number(prices[0]) + Number(`0.${prices[1]}`);
-    totalPrice += quantity * price;
-    totalQuantity += quantity;
-    //   console.log(quantiy);
-    //   console.log(price);
-  }
-
-  console.log(totalPrice);
-  document.querySelector(".total-price").innerHTML = `$${totalPrice}`;
-  document.querySelector(".total-quantity").innerHTML = `$${totalQuantity}`;
-
-</script>
-        
-{{>footer_admin}}
+  </script>
+          
+  {{>footer_admin}}
+</div>

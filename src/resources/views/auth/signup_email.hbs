@@ -793,9 +793,9 @@
   this.blur(); if ($('#terms-checkbox').is(':checked')) { $('#terms-error').text(''); var
   registerErrors = ''; $.ajax({ url: '/auth/register', type: 'POST', data:
   $('#signupForm').serialize(), success: function(data) { if (data.error) { registerErrors =
-  data.error; $('#registerErrors').text(registerErrors); } else { $('#registerErrors').text('');
-  $('#codeModal').modal('show'); } }, error: function() { $('#registerErrors').html('Error
-  occured'); } }); } else { $('#terms-error').text('Bạn phải đồng ý với Điều khoản dịch vụ'); } }
+  data.error; $('#registerErrors').text(registerErrors); } else { $('#registerErrors').text(``);
+  $('#codeModal').modal('show'); } }, error: function() { $('#registerErrors').html(`Error
+  occured`); } }); } else { $('#terms-error').text(`Bạn phải đồng ý với Điều khoản dịch vụ`); } }
   $('#code-form').on('submit', onSubmitCode); function onSubmitCode(e) { e.preventDefault();
   this.blur(); $.ajax({ url: '/auth/code', type: 'POST', data: $('#code-form').serialize(), success:
   function(data) { if (data.registerError) { $('#code-error').text(data.registerError) } else {
