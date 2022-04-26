@@ -1,12 +1,20 @@
 const db = require("../models/index");
-
-let getNotificationByUserID = (userID) => {
+const { v4: uuidv4 } = require("uuid");
+let getNotificationByUserID = (userID, roleID) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let notifications = await db.Notification.findAll({
-        where: { UserId: userID },
-        raw: true,
-      });
+      let notifications;
+      if (roleID === 2) {
+        notifications = await db.Notification.findAll({
+          where: { UserId: userID },
+          raw: true,
+        });
+      } else if (roleID === 3) {
+        notifications = await db.Notification.findAll({
+          where: { fromUserID: userID },
+          raw: true,
+        });
+      }
       if (notifications) {
         resolve(notifications);
       } else {
@@ -17,7 +25,28 @@ let getNotificationByUserID = (userID) => {
     }
   });
 };
+let createNotification = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let newNotification = await db.Notification.create({
+        id: uuidv4(),
+        AppointmentId: data.appointmentId,
+        title: data.title,
+        content: data.content,
+        link: data.link,
+        fromUserID: data.fromUserID,
+        UserId: data.doctorID,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
 
+      resolve(newNotification);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getNotificationByUserID,
+  createNotification,
 };

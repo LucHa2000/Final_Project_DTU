@@ -10,6 +10,7 @@ import {
   cancelAppointment,
   checkingAvailableTime,
 } from "../service/AppoinmentService";
+import { createNotification } from "../service/NotificationService";
 import {
   getUserById,
   addBalanceById,
@@ -85,7 +86,21 @@ class BookingController {
           await minusBalanceById(userID, 10);
           await createNewTransactionHistory(userID, req.body, newAppointmentId);
           req.session.successfullyMessage = "Đặt lịch thành công";
+          //create notification
+          const titleNotificationForAppointment = "Thông Báo Lịch Hẹn";
+          const contentNotificationForAppointment =
+            "Vừa có lịch hẹn được đặt, bạn có thể kiểm tra lịch !";
+          const notification = {
+            appointmentId: newAppointmentId,
+            title: titleNotificationForAppointment,
+            content: contentNotificationForAppointment,
+            link: "",
+            fromUserID: userID,
+            doctorID: req.body.doctorID,
+          };
+          let newNotification = await createNotification(notification);
           //clear req.session.bookingDetail
+
           req.session.bookingDetail = null;
 
           res.redirect(`/detailDoctor/${req.body.doctorID}`);
