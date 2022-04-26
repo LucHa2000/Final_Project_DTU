@@ -146,8 +146,8 @@ hr.divider--dash {
 }
 
 .app-container__input input:focus {
-  border: none;
-  outline: none;
+  border: none !important;
+  outline: none !important;
 }
 
 .app-container__icon {
@@ -529,12 +529,12 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
   color: rgb(18, 233, 18);
 }
 .remove {
-  color: #FFD700;
+  color: #ffd700;
 }
-.btnCreate{
+.btnCreate {
   color: #fff !important;
   background-color: 2bbbad !important;
 }
-.createIcon{
+.createIcon {
   color: white !important;
 }
