@@ -8,19 +8,25 @@
       <form action='/auth/forgotAccount' method='POST' class='signup__form mt-6'>
         <label for='email' class='text-xs font-bold'>Email</label>
         <input
-          id='confirmEmail'
+          id='email'
           name='email'
           required
           type='email'
-          placeholder='Nhập email của bạn'
+          placeholder='medicals@gmail.com'
           class='w-full p-3 rounded-lg border-gray border-2'
         />
+        <div class='mt-2 text-sm text-red-600' id='email-error'>
+        </div>
         <div class='col s10 m10 push-l1' style=''>
           {{! message when register fail }}
           <h2 class='medicals__errors'>{{message}}</h2>
         </div>
 
-        <button type='submit' class='signup__btn btn--primary w-full mt-3'>
+        <button
+          type='submit'
+          class='signup__btn btn--primary w-full mt-3'
+          id='forgotPasswordSubmit'
+        >
           Gửi Code
         </button>
       </form>
@@ -708,57 +714,23 @@
   </div>
 </div>
 
-{{!-- <div class="auth-bg">
-  <div class="auth-container">
-    <div class="left">
-      <div class="left-inner-container">
-        <div class="left-head">
-          <div class="left-card"><a href="/">
-              <span style="font-weight: 600;">INDOMINUS</span><br />NETWORK</a>
-          </div>
-          <hr class="left-hr" />
-          <div class="left-title">
-            <p class="sm-title">We are</p>
-            <h2 class="main-title">Invite only right now.</h2>
-            <p class="subtitle">10 Million+ people have joined our network.<br
-              />We invite you to join the trible</p>
-          </div>
-        </div>
-        <div class="left-foot">
-          <p>Already have an account?</p>
-          <a href="/auth/login">Sign in</a>
-        </div>
-      </div>
-    </div>
-    <div class="right">
-      <div class="right-inner-container">
-        <form action="/auth/register" method="POST">
-          <h4>Sign up</h4>
-          <label class="label" for="confirmEmail">Email</label>
-          <input
-            id="confirmEmail"
-            type="email"
-            class="validate"
-            name="email"
-            required
-          />
-          <span
-            class="helper-text"
-            data-error="This field cannot be left blank"
-            data-success=""
-          ></span>
-          <div class="col s10 m10 push-l1" style="">
-           
-              <div class="isa_error message-info">
-                <i class="fa fa-times-circle"></i>
-                <span>{{error_email}}</span>
-              </div>
-           
-          </div>
-          <button class="btn-active btn-login" type="submit">Sign up
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> --}}
+<script>
+  var emailError = ``, passwordError = ``; var emailRegex =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; $('#email').on('change', function()
+  { emailError = ''; $('#email-error').html(``); if (!$('#email').val()) { emailError += `<p>Bạn
+  phải nhập trường này</p>`; } else if (!emailRegex.test($('#email').val())) { emailError +=
+  `<p>Email không đúng định dạng</p>`; } else { emailError = ''; };
+  $('#email-error').append(emailError) }); $('#password').on('change', function() {
+  console.log($('#password').val().length); passwordError = ``; $('#password-error').html(``); if
+  (($('#password').val().length) < 6) { passwordError += `<p>Mật khẩu phải dài hơn 6 ký tự</p>`; }
+  else if (!passwordRegex.test($('#password').val())) { passwordError += `<p>Mật khẩu phải chứa ít
+  nhất 1 chữ cái và 1 con số</p>` } else { passwordError = ``; }
+  $('#password-error').append(passwordError) }); if (emailError) {
+  $('#login-submit-btn').attr('disabled', true) } else { $('#login-submit-btn').attr('disabled',
+  false) } var confirmPasswordError = ''; $('#repassword').on('blur keyup', function() { if
+  ($('#repassword').val() !== $('#password').val()) { confirmPasswordError = 'Mật khẩu không trùng';
+  $('#repassword-error').text(confirmPasswordError); $('#forgotPasswordSubmit').prop('disabled',
+  'disabled'); } else { confirmPasswordError = ''; $('#forgotPasswordSubmit').prop('disabled',
+  false); $('#repassword-error').text(confirmPasswordError); } })
+</script>

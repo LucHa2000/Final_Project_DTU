@@ -16,9 +16,12 @@
           name='email'
           required
           type='email'
-          placeholder='Nhập email của bạn'
+          placeholder='medicals@gmail.com'
           class='w-full p-3 rounded-lg border-gray border-2'
         />
+
+        <div class='mt-2 text-sm text-red-600' id='email-error'>
+        </div>
         <div class='col s10 m10 push-l1' style=''>
           {{! message when register fail }}
           <h2 class='medicals__errors' id='registerErrors'></h2>
@@ -37,7 +40,8 @@
           <label class='medicals__label no-wrap'>
             <input id='terms-checkbox' type='checkbox' />
             <span class='text-sm no-wrap'>Tôi đồng ý với
-              <a class='font-bold underline' href='#terms-modal' rel='modal:open'>Điều khoản dịch vụ</a></span>
+              <a class='font-bold underline' href='#terms-modal' data-modal-toggle='termsModal'>Điều
+                khoản dịch vụ</a></span>
           </label>
           <p class='medicals__errors' id='terms-error'></p>
         </div>
@@ -52,34 +56,89 @@
 
         <a href='/auth/forgotAccount' class='signin__link font-bold'>Quên mật khẩu</a>
       </p>
-      <div id='terms-modal' class='modal overflow-x-hidden medials__modal'>
-        <h3 class='modal__title font-bold text-xl mb-4'>Điều khoản dịch vụ</h3>
-        <div class='modal__content'>
-          <p>Các thông tin thông tin cá nhân của các thành viên, có thể được chúng tôi sử dụng vào
-            những mục đích hợp pháp dưới đây: – Sử dụng để xác nhận đặt hàng khi khách có nhu cầu
-            mua bất kỳ sp nào trên website – Dùng trong gửi thông báo, thực hiện các chương trình
-            quảng cáo, PR cho các dịch vụ mới được sử dụng trên website + Cung cấp thông tin về dịch
-            vụ bằng email, + Dùng để phân tích xu hướng tiêu dùng của khách hàng, với mục đích xây
-            dựng những dịch vụ mới, hoặc cải thiện những dịch vụ cũ. + Dùng để liên lạc với thành
-            viên khi chúng tôi điều tra thông tin khách hàng, tổ chức khuyến mại, trao đổi ý kiến
-            thông tin trên bảng đánh giá, bình luận. + Dùng để trả lời các thắc mắc của khách hàng:
-            chúng tôi sẽ trả lời thành viên bằng email, điện thoại, hoặc gửi thư tới địa chỉ của
-            thành viên, khi thành viên thắc mắc</p>
-        </div>
-        <div class='modal__button-container w-full mt-2 flex justify-end'>
-          <a class='modal__button btn--primary' href='#' rel='modal:close'>Close</a>
+      <div
+        id='termsModal'
+        tabindex='-1'
+        aria-hidden='true'
+        class='fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full'
+      >
+        <div class='relative w-full h-full max-w-2xl p-4 md:h-auto'>
+          <!-- Modal content -->
+          <div class='relative bg-white rounded-lg shadow'>
+            <!-- Modal header -->
+            <div class='flex items-start justify-between p-4 border-b rounded-t'>
+              <h3 class='text-xl font-semibold text-gray-900'>
+                Điều khoản dịch vụ
+              </h3>
+              <button
+                type='button'
+                class='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center'
+                data-modal-toggle='termsModal'
+              >
+                <svg
+                  class='w-5 h-5'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                ><path
+                    fill-rule='evenodd'
+                    d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+                    clip-rule='evenodd'
+                  ></path></svg>
+              </button>
+            </div>
+            <!-- Modal body -->
+            <div class='p-6 space-y-6'>
+              <p class='text-base leading-relaxed text-gray-800'>Các thông tin thông tin cá nhân của
+                các thành viên, có thể được chúng tôi sử dụng vào những mục đích hợp pháp dưới đây:</p>
+              <ol class='relative border-l border-gray-200'>
 
+                <li class='mb-10 ml-4'>
+                  <div
+                    class='absolute w-3 h-3 bg-gray-500 rounded-full mt-1.5 -left-1.5 border border-white'
+                  ></div>
+                  <p class='text-base font-normal text-gray-800'>Cung cấp thông tin về dịch vụ bằng
+                    email, + Dùng để phân tích xu hướng tiêu dùng của khách hàng, với mục đích xây
+                    dựng những dịch vụ mới, hoặc cải thiện những dịch vụ cũ.</p>
+                </li>
+                <li class='mb-10 ml-4'>
+                  <div
+                    class='absolute w-3 h-3 bg-gray-500 rounded-full mt-1.5 -left-1.5 border border-white'
+                  ></div>
+                  <p class='text-base font-normal text-gray-800'>Dùng để phân tích xu hướng tiêu
+                    dùng của khách hàng, với mục đích xây dựng những dịch vụ mới, hoặc cải thiện
+                    những dịch vụ cũ.</p>
+                </li>
+                <li class='mb-10 ml-4'>
+                  <div
+                    class='absolute w-3 h-3 bg-gray-500 rounded-full mt-1.5 -left-1.5 border border-white'
+                  ></div>
+                  <p class='text-base font-normal text-gray-800'>Dùng để liên lạc với thành viên khi
+                    chúng tôi điều tra thông tin khách hàng, tổ chức khuyến mại, trao đổi ý kiến
+                    thông tin trên bảng đánh giá, bình luận.</p>
+                </li>
+                <li class='mb-10 ml-4'>
+                  <div
+                    class='absolute w-3 h-3 bg-gray-500 rounded-full mt-1.5 -left-1.5 border border-white'
+                  ></div>
+                  <p class='text-base font-normal text-gray-800'>Dùng để trả lời các thắc mắc của
+                    khách hàng: chúng tôi sẽ trả lời thành viên bằng email, điện thoại, hoặc gửi thư
+                    tới địa chỉ của thành viên, khi thành viên thắc mắc</p>
+                </li>
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
 
       <div id='codeModal' class='modal overflow-x-hidden'>
         <form id='code-form' action='/auth/code' method='post' class='signup__form mt-6'>
-          <label for='email' class='text-xs font-bold'>Code</label>
+          <label for='email' class='text-xs font-bold'>Mã</label>
           <input
             id='code'
             type='Text'
             name='code'
-            placeholder='Enter code'
+            placeholder='xxxxxxxx'
             required='required'
             class='w-full p-3 rounded-lg border-gray border-2'
           />
@@ -96,42 +155,63 @@
           class='signup__form mt-6'
           autocomplete='off'
         >
+          <div class='mt-4'>
+            <label for='first_name' class='medicals__label'>Tên *</label>
+            <input
+              id='first_name'
+              name='firstName'
+              required
+              type='text'
+              placeholder='An'
+              class='w-full p-3 rounded-lg border-gray border-2'
+              minlength='1'
+              autocomplete='do-not-autofill'
+            />
 
-          <label for='first_name' class='medicals__label'>Tên * (Ví dụ: An)</label>
-          <input
-            id='first_name'
-            name='firstName'
-            required
-            type='text'
-            placeholder='Nhập tên của bạn'
-            class='w-full p-3 rounded-lg border-gray border-2'
-            minlength='1'
-            autocomplete='do-not-autofill'
-          />
+          </div>
+          <div class='mt-4'>
+            <label for='last_name' class='medicals__label'>Họ *</label>
+            <input
+              id='last_name'
+              name='lastName'
+              required
+              type='text'
+              placeholder='Nguyen'
+              class='w-full p-3 rounded-lg border-gray border-2'
+              minlength='1'
+              autocomplete='do-not-autofill'
+            />
+          </div>
+          <div class='mt-4'>
+            <label for='password' class='medicals__label'>Mật khẩu *</label>
+            <input
+              id='password'
+              name='password'
+              required
+              type='password'
+              placeholder='•••••••••'
+              minlength='8'
+              class='w-full p-3 rounded-lg border-gray border-2'
+              autocomplete='new-password'
+            />
+            <div class='mt-2 text-sm text-red-600' id='password-error'>
+            </div>
+          </div>
+          <div class='mt-4'>
+            <label for='password' class='medicals__label'>Nhập lại mật khẩu *</label>
+            <input
+              id='repassword'
+              name='confirmPassword'
+              required
+              type='password'
+              placeholder='•••••••••'
+              minlength='8'
+              class='w-full p-3 rounded-lg border-gray border-2'
+            />
+            <p class='medicals__errors' id='repassword-error'></p>
+          </div>
 
-          <label for='last_name' class='medicals__label'>Họ * (Ví dụ: Nguyễn)</label>
-          <input
-            id='last_name'
-            name='lastName'
-            required
-            type='text'
-            placeholder='Nhập họ của bạn'
-            class='w-full p-3 rounded-lg border-gray border-2'
-            minlength='1'
-            autocomplete='do-not-autofill'
-          />
-          <label for='password' class='medicals__label'>Mật khẩu *</label>
-          <input
-            id='password'
-            name='password'
-            required
-            type='password'
-            placeholder='Nhập mật khẩu mới'
-            minlength='8'
-            class='w-full p-3 rounded-lg border-gray border-2'
-            autocomplete='new-password'
-          />
-          <button type='submit' class='signup__btn btn--primary w-full mt-3'>
+          <button type='submit' class='signup__btn btn--primary w-full mt-3' id='submitSignUp'>
             Hoàn tất đăng ký
           </button>
         </form>
@@ -787,6 +867,9 @@
     </svg>
   </div>
 </div>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js'
+></script>
 <script>
   $('#registerEmail').change(function() { $('#registerErrors').text(''); });
   $("#signupForm").on('submit', makeRequest); function makeRequest(e) { e.preventDefault();
@@ -799,7 +882,24 @@
   $('#code-form').on('submit', onSubmitCode); function onSubmitCode(e) { e.preventDefault();
   this.blur(); $.ajax({ url: '/auth/code', type: 'POST', data: $('#code-form').serialize(), success:
   function(data) { if (data.registerError) { $('#code-error').text(data.registerError) } else {
-  $('#code-form').hide(); $('#registerErrors').text(''); $('#registerInfoForm').modal('show'); } },
-  error: function() { $('#code-error').text(`Đã xảy ra lỗi, vui lòng thử lại sau`); } }); }
-  $('#registerInfoForm').hide();
+  $('#code-form').hide(); $('#registerErrors').text(''); $('#registerInfoForm').show(); } }, error:
+  function() { $('#code-error').text(`Đã xảy ra lỗi, vui lòng thử lại sau`); } }); }
+  $('#registerInfoForm').hide(); var emailError = ``, passwordError = ``; var emailRegex =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; $('#registerEmail').on('change',
+  function() { emailError = ''; $('#email-error').html(``); if (!$('#registerEmail').val()) {
+  emailError += `<p>Bạn phải nhập trường này</p>`; } else if
+  (!emailRegex.test($('#registerEmail').val())) { emailError += `<p>Email không đúng định dạng</p>`;
+  } else { emailError = ''; }; $('#email-error').append(emailError) }); $('#password').on('change',
+  function() { console.log($('#password').val().length); passwordError = ``;
+  $('#password-error').html(``); if (($('#password').val().length) < 6) { passwordError += `<p>Mật
+  khẩu phải dài hơn 6 ký tự</p>`; } else if (!passwordRegex.test($('#password').val())) {
+  passwordError += `<p>Mật khẩu phải chứa ít nhất 1 chữ cái và 1 con số</p>` } else { passwordError
+  = ``; } $('#password-error').append(passwordError) }); if (emailError) {
+  $('#login-submit-btn').attr('disabled', true) } else { $('#login-submit-btn').attr('disabled',
+  false) } var confirmPasswordError = ''; $('#repassword').on('blur keyup', function() { if
+  ($('#repassword').val() !== $('#password').val()) { confirmPasswordError = 'Mật khẩu không trùng';
+  $('#repassword-error').text(confirmPasswordError); $('#submitSignUp').prop('disabled',
+  'disabled'); } else { confirmPasswordError = ''; $('#submitSignUp').prop('disabled', false);
+  $('#repassword-error').text(confirmPasswordError); } })
 </script>

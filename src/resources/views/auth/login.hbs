@@ -7,31 +7,39 @@
         Chào mừng bạn đến với MedicalS
       </h1>
       {{! message when login fail }}
-      <h2 class='red-text text-darken-2'>{{message}}</h2>
+      <p class='text-sm text-red-600'>{{message}}</p>
       {{! message when register successful}}
-      <h2 class='green-text text-darken-2'>{{messageRegister}}</h2>
+      <p class='text-sm text-green-600'>{{messageRegister}}</p>
       <form method='POST' action='/auth/login' class='signin__form mt-6'>
-        <label for='email' class='text-xs font-bold'>Email *</label>
-        <input
-          id='email'
-          name='email'
-          placeholder='Nhập email của bạn'
-          required
-          type='email'
-          class='w-full p-3 rounded-lg border-gray border-2'
-        />
-        <label for='password' class='text-xs font-bold'>Mật khẩu *</label>
-        <input
-          id='password'
-          name='password'
-          required
-          type='password'
-          placeholder='Nhập mật khẩu của bạn'
-          class='w-full p-3 rounded-lg border-gray border-2'
-          value=''
-        />
-        <div class='g-recaptcha' data-sitekey='6LcaRC0cAAAAAGZJCCINa2WiMLhJ8P1EfJ8O4SPs'></div>
-        <button type='submit' class='signin__btn btn--primary w-full mt-3'>
+        <div class='mt-4'>
+          <label for='email' class='font-bold'>Email *</label>
+          <input
+            id='email'
+            name='email'
+            placeholder='medicals@gmail.com'
+            required
+            type='email'
+            class='w-full p-3 rounded-lg border-gray border-2'
+          />
+          <div class='mt-2 text-sm text-red-600' id='email-error'>
+          </div>
+        </div>
+        <div class='mt-4'>
+          <label for='password' class='font-bold'>Mật khẩu *</label>
+          <input
+            id='password'
+            name='password'
+            required
+            type='password'
+            placeholder='•••••••••'
+            class='w-full p-3 rounded-lg border-gray border-2'
+            value=''
+          />
+          <div class='mt-2 text-sm text-red-600' id='password-error'>
+          </div>
+        </div>
+        <div class='g-recaptcha mt-3' data-sitekey='6LcaRC0cAAAAAGZJCCINa2WiMLhJ8P1EfJ8O4SPs'></div>
+        <button type='submit' class='signin__btn btn--primary w-full mt-3' id='login-submit-btn'>
           Đăng nhập
         </button>
       </form>
@@ -690,3 +698,14 @@
     </svg>
   </div>
 </div>
+<script>
+  var emailError = ``, passwordError = ``; var emailRegex =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; $('#email').on('change', function()
+  { emailError = ''; $('#email-error').html(``); if (!$('#email').val()) { emailError += `<p>Bạn
+  phải nhập trường này</p>`; } else if (!emailRegex.test($('#email').val())) { emailError +=
+  `<p>Email không đúng định dạng</p>`; } else { emailError = ''; };
+  $('#email-error').append(emailError) }); if (emailError) {$('#login-submit-btn').attr('disabled',
+  true)} else { $('#login-submit-btn').attr('disabled', false) }
+
+</script>

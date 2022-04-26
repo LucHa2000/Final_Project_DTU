@@ -394,7 +394,7 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
   }
 }
 
-/* ================== Modal ================== */
+/* ================== Modal ==================
 .modal__content::-webkit-scrollbar {
   width: 6px;
 }
@@ -410,9 +410,9 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
 .modal__main {
   animation: zoomIn;
   animation-duration: 0.5s;
-}
+} */
 
-/* ================== Flickity ================== */
+/* ================== Flickity ==================
 .flickity-enabled {
   position: relative;
 }
@@ -523,4 +523,4 @@ svg#freepik_stories-online-doctor.animated #freepik--Chat--inject-99 {
 }
 .flickity-page-dots .dot.is-selected {
   opacity: 1;
-}
+} */
