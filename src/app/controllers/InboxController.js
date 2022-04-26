@@ -9,6 +9,7 @@ import {
   createMessage,
   getMessageAndAppointmentByAppointmentIDandTile,
 } from "../service/MessageService";
+import { getUserById } from "../service/UserService";
 class InboxController {
   async index(req, res, next) {
     let userID = req.session.userID;
@@ -43,12 +44,12 @@ class InboxController {
     let room = req.params.appointmentTitle;
     try {
       let result = await getMessageAndAppointmentByAppointmentIDandTile(room);
-
+      let user = await getUserById(userID);
       let account = {
         id: req.session.userID,
-        lastName: req.session.lastName,
-        firstName: req.session.firstName,
-        avatar: req.session.image,
+        lastName: user.lastName,
+        firstName: user.firstName,
+        avatar: user.image,
         room: room,
       };
 

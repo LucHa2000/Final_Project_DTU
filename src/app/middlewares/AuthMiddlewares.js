@@ -8,6 +8,7 @@ import {
   getUserById,
 } from "../service/UserService";
 import { getNotificationByUserID } from "../service/NotificationService";
+
 class AuthMiddlewares {
   async checkAccount(req, res, next) {
     if (!req.session.userID) {
@@ -52,11 +53,16 @@ class AuthMiddlewares {
   async addInfoAuthencation(req, res, next) {
     try {
       if (req.session.userID) {
-        res.locals.firstName = req.session.firstName;
-        res.locals.lastName = req.session.lastName;
-        res.locals.image = req.session.image;
         res.locals.userID = req.session.userID;
-        let notifications = await getNotificationByUserID(req.session.userID);
+        let user = await getUserById(req.session.userID);
+        res.locals.firstName = user.firstName;
+        res.locals.lastName = user.lastName;
+        res.locals.image = user.image;
+
+        let notifications = await getNotificationByUserID(
+          req.session.userID,
+          user.roleID
+        );
         res.locals.notifications = notifications;
         if (req.session.roleID === 2) {
           res.locals.adminLogin = true;

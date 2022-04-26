@@ -89,20 +89,25 @@
                 <div class="app-container__form__content flex flex-wrap">
                   <div class="app-container__form__section">
                     {{!-- time render --}}
-                    {{#each timeWorks}}
-                    <form action="/booking/bookingform" method="post" class="app-container__form">
-                      <input type="text" name="timeStart" value="{{this.startTime}}" hidden="true">
-                      <input type="text" name="timeEnd" value="{{this.endTime}}" hidden="true">
-                      <input type="text" name="doctorID" value="{{this.id}}" hidden="true">
-                      <input type="text" name="serviceFee" value="{{this.serviceFee}}" hidden="true">
-                      <button
-                        class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
-                        type="submit"
-                      >
-                        {{this.startTime}} -  {{this.endTime}}
-                      </button>
-                    </form>
-                    {{/each}}
+                    {{#if timeWorks}}
+                        {{#each timeWorks}}
+                        <form action="/booking/bookingform" method="post" class="app-container__form">
+                          <input type="text" name="timeStart" value="{{this.startTime}}" hidden="true">
+                          <input type="text" name="timeEnd" value="{{this.endTime}}" hidden="true">
+                          <input type="text" name="doctorID" value="{{this.id}}" hidden="true">
+                          <input type="text" name="serviceFee" value="{{this.serviceFee}}" hidden="true">
+                          <button
+                            class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
+                            type="submit"
+                          >
+                            {{this.startTime}} -  {{this.endTime}}
+                          </button>
+                        </form>
+                        {{/each}}
+                    {{else}}
+                              <h1> Hiện tại không có lịch trống </h1>
+                    {{/if}}
+
                   </div>
                   <div class="app-container__form__section mt-5">
                     <p class="">GIÁ TƯ VẤN QUA VIDEO: {{serviceFee.fee}}</p>

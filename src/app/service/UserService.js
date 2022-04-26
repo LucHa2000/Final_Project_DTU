@@ -165,7 +165,9 @@ let updateUser = (data) => {
         user.phoneNumber = data.phoneNumber;
         //user.gender = data.gender;
         //user.roleID = data.roleID;
-        user.image = data.image;
+        if (data.image != "") {
+          user.image = data.image;
+        }
         await user.save();
         resolve("update done !"); //return
       } else {

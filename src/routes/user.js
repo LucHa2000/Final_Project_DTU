@@ -13,5 +13,6 @@ router.post(
   upload.single("image"),
   userController.changeAccount
 );
+router.use("/updateAccount", userController.updateAccountView);
 router.use("/", userController.index);
 module.exports = router;

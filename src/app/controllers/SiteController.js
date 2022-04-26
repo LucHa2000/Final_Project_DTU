@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-import { formatDate } from "../../util/dateNow";
+import { formatDate, getTimeNow } from "../../util/dateNow";
 import { findAllClinicAnDoctorWithClinic } from "../service/ClinicService";
 import { getServiceByDoctorId } from "../service/ServiceService";
 import {
@@ -39,63 +39,80 @@ class SiteController {
     res.render("user/doctorFollowClinic", { doctors: listDoctorsRender });
   }
   async doctorDetail(req, res, next) {
-    const doctorId = req.params.doctorId;
-    let serviceFee = await getServiceByDoctorId(doctorId);
-    let timeWorks = [
-      {
-        id: doctorId,
-        startTime: "08:00:00",
-        endTime: "10:00:00",
-        serviceFee: serviceFee.fee,
-      },
-      {
-        id: doctorId,
-        startTime: "10:00:00",
-        endTime: "12:00:00",
-        serviceFee: serviceFee.fee,
-      },
-      {
-        id: doctorId,
-        startTime: "13:00:00",
-        endTime: "15:00:00",
-        serviceFee: serviceFee.fee,
-      },
-      {
-        id: doctorId,
-        startTime: "15:00:00",
-        endTime: "17:00:00",
-        serviceFee: serviceFee.fee,
-      },
-      {
-        id: doctorId,
-        startTime: "18:00:00",
-        endTime: "20:00:00",
-        serviceFee: serviceFee.fee,
-      },
-      {
-        id: doctorId,
-        startTime: "20:00:00",
-        endTime: "22:00:00",
-        serviceFee: serviceFee.fee,
-      },
-    ];
-    let result = await getDoctorAppointmentAndResumeById(doctorId);
-    let doctor = result[0];
-    let doctorSchedules = result[1];
-    doctor.resumeDescription = doctor["Resume.description"];
-    doctor.resumeStarNo = doctor["Resume.starNo"];
-    for (let i = 0; i < timeWorks.length; i++) {
-      for (let j = 0; j < doctorSchedules.length; j++) {
-        if (doctorSchedules[j].startTime == timeWorks[i].startTime) {
-          timeWorks.splice(i, 1);
+    try {
+      const doctorId = req.params.doctorId;
+      let serviceFee = await getServiceByDoctorId(doctorId);
+      let timeWorks = [
+        {
+          id: doctorId,
+          startTime: "08:00:00",
+          endTime: "10:00:00",
+          serviceFee: serviceFee.fee,
+        },
+        {
+          id: doctorId,
+          startTime: "10:00:00",
+          endTime: "12:00:00",
+          serviceFee: serviceFee.fee,
+        },
+        {
+          id: doctorId,
+          startTime: "13:00:00",
+          endTime: "15:00:00",
+          serviceFee: serviceFee.fee,
+        },
+        {
+          id: doctorId,
+          startTime: "15:00:00",
+          endTime: "17:00:00",
+          serviceFee: serviceFee.fee,
+        },
+        {
+          id: doctorId,
+          startTime: "18:00:00",
+          endTime: "20:00:00",
+          serviceFee: serviceFee.fee,
+        },
+        {
+          id: doctorId,
+          startTime: "20:00:00",
+          endTime: "22:00:00",
+          serviceFee: serviceFee.fee,
+        },
+      ];
+      let result = await getDoctorAppointmentAndResumeById(doctorId);
+      let doctor = result[0];
+      let doctorSchedules = result[1];
+      doctor.resumeDescription = doctor["Resume.description"];
+      doctor.resumeStarNo = doctor["Resume.starNo"];
+      //check time book with time now
+      let filterTimeWork = [];
+      for (let i = 0; i < timeWorks.length; i++) {
+        if (timeWorks[i].startTime < getTimeNow()) {
+          filterTimeWork.push(timeWorks[i]);
         }
       }
+      //check time book not match with time work
+      for (let i = 0; i < filterTimeWork.length; i++) {
+        for (let j = 0; j < doctorSchedules.length; j++) {
+          if (filterTimeWork.length > 0) {
+            if (doctorSchedules[j].startTime == filterTimeWork[i].startTime) {
+              filterTimeWork.splice(i, 1);
+            }
+          } else {
+            break;
+          }
+        }
+      }
+      console.log(filterTimeWork);
+      res.render("user/detailDoctor", {
+        doctor: doctor,
+        timeWorks: filterTimeWork,
+        serviceFee: serviceFee,
+      });
+    } catch (err) {
+      console.log(err);
     }
-    res.render("user/detailDoctor", {
-      doctor: doctor,
-      timeWorks: timeWorks,
-      serviceFee: serviceFee,
-    });
   }
 }
 module.exports = new SiteController();
