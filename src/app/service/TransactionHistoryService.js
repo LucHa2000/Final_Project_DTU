@@ -1,13 +1,13 @@
 const db = require("../models/index");
 const { v4: uuidv4 } = require("uuid");
 
-let createNewTransactionHistory = (userID, data) => {
+let createNewTransactionHistory = (userID, data, appointmentID) => {
   return new Promise(async (resolve, reject) => {
     try {
       await db.TransactionHistory.create({
         id: uuidv4(),
         userID: userID,
-        appointmentID: data.id,
+        appointmentID: appointmentID,
         balance: data.serviceFee,
         status: "none",
         createdAt: new Date(),

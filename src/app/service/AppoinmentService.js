@@ -1,5 +1,6 @@
 const db = require("../models/index");
-
+const { v4: uuidv4 } = require("uuid");
+import { raw } from "body-parser";
 import { formatDate } from "../../util/dateNow";
 let getAppointmentsByUserID = (userID, roleID) => {
   return new Promise(async (resolve, reject) => {
@@ -61,6 +62,25 @@ let getAppandMessage = () => {
     }
   });
 };
+let createNewAppointment = (userID, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let createAppointment = await db.Appointment.create({
+        id: uuidv4(),
+        userID: userID,
+        doctorID: data.doctorID,
+        title: data.title,
+        startTime: data.startTime,
+        date: data.date,
+        endTime: data.endTime,
+        isCanceled: false,
+      });
+      resolve(createAppointment.id);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let checkingAvailableTime = (time, appointment) => {
   let date = formatDate(new Date().toString());
   for (let i = 0; i < appointment.length; i++) {
@@ -70,9 +90,59 @@ let checkingAvailableTime = (time, appointment) => {
   }
   return true;
 };
+
+let updateAppointment = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findOne({
+        where: { id: data.id },
+      });
+      if (appointment) {
+        await db.Appointment.update({
+          id: data.id,
+          userID: userID,
+          doctorID: data.doctorID,
+          title: data.title,
+          date: data.date,
+          startTime: data.startTime,
+          endTime: data.endTime,
+          isCancel: false,
+        });
+        resolve("Update Successfully!");
+      } else {
+        resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let cancelAppointment = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findOne({
+        where: { id: id },
+      });
+      if (appointment) {
+        await db.Appointment.update({
+          isCancel: true,
+        });
+        resolve("Update Successfully");
+      } else {
+        resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getAppointmentsByUserID: getAppointmentsByUserID,
   getAppointmentsByTitle,
   getAppandMessage,
+  updateAppointment,
   checkingAvailableTime,
+  cancelAppointment,
+  createNewAppointment,
 };

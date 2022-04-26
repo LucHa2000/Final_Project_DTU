@@ -9,7 +9,17 @@ let formatDate = (date) => {
 
   return [year, month, day].join("-");
 };
-
+let getTimeNow = () => {
+  let time = new Date();
+  let timeNow =
+    ("0" + time.getHours()).slice(-2) +
+    ":" +
+    ("0" + time.getMinutes()).slice(-2) +
+    ":" +
+    ("0" + time.getSeconds()).slice(-2);
+  return timeNow;
+};
 module.exports = {
   formatDate,
+  getTimeNow,
 };

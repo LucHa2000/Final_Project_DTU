@@ -67,8 +67,6 @@ class BookingController {
         2
       );
       let startTime = req.body.startTime;
-      console.log(checkingAvailableTime(startTime, userAppointment));
-      console.log(checkingAvailableTime(startTime, doctorAppointment));
       if (
         checkingAvailableTime(startTime, userAppointment) === false ||
         checkingAvailableTime(startTime, doctorAppointment) === false
@@ -76,20 +74,21 @@ class BookingController {
         req.session.error = "Invalid time!";
         res.redirect("back");
       } else if (user.balance < req.body.serviceFee) {
-        req.session.error = "Your current balance is not enough";
+        req.session.error = "Số xu của bạn không đủ ! bạn có thể nạp thêm xu ";
         res.redirect("back");
       } else {
         req.body.id = uuidv4();
-        let newAppointment = await createNewAppointment(userID, req.body);
-        if (newAppointment) {
+        let newAppointmentId = await createNewAppointment(userID, req.body);
+        if (newAppointmentId) {
           let amountForDoctor = (req.body.serviceFee * 70) / 100;
           await addBalanceById(req.body.doctorID, amountForDoctor);
           await minusBalanceById(userID, 10);
-          await createNewTransactionHistory(userID, req.body);
-          req.session.successfullyMessage = "Create appointment Successfully";
+          await createNewTransactionHistory(userID, req.body, newAppointmentId);
+          req.session.successfullyMessage = "Đặt lịch thành công";
           //clear req.session.bookingDetail
           req.session.bookingDetail = null;
-          res.redirect("back");
+
+          res.redirect(`/detailDoctor/${req.body.doctorID}`);
         } else {
           console.log("error");
         }
