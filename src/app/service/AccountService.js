@@ -48,7 +48,7 @@ let createNewAccount = (data) => {
           phoneNumber: data.phoneNumber,
           address: data.address,
           roleID: data.roleID,
-          status: "1",
+          status: 1,
           image:
             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
         });

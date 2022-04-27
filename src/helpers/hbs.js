@@ -1,11 +1,19 @@
 var moment = require('moment');
 
 module.exports = {
+<<<<<<< HEAD
   mergeName: (a, b) => a + ' ' + b,
   convertDate: (a) => moment(a).format('YYYY-MM-DD'),
   nonImage: (a) => (a == 'undefined' ? 'nonimage.png' : a),
   disabled: (a) => {
     if (a == 1) return 'disabled';
+=======
+  mergeName: (a, b) => a + " " + b,
+  convertDate: (a) => moment(a).format("YYYY-MM-DD"),
+  nonImage: (a) => (a == "undefined" ? "nonimage.png" : a),
+  hidden: (a) => {
+    if (a == 1) return "hidden";
+>>>>>>> ba0462c (feat: account management final)
   },
   deleteSpace: (a) => a.trim(),
   emotionReact: (a) => {
@@ -39,14 +47,27 @@ module.exports = {
   followCustomer: (a) => (a == 1 ? 'unfollow' : 'follow'),
   followGroup: (a) => (a == 1 ? 'leave' : 'join'),
   btnStatus: (a) => {
+<<<<<<< HEAD
     if (a == 1) return 'check';
     if (a == 0) return 'block';
     if (a == 2) return 'remove';
+=======
+    if (a == 1) return "check";
+    if (a == 0) return "close";
+    if (a == 2) return "remove";
+>>>>>>> ba0462c (feat: account management final)
   },
   checked: (a, b) => {
     if (a == b) return 'checked';
   },
+<<<<<<< HEAD
   btnStatusHidden: (a) => (a == 1 ? 'btn-status--hidden' : ''),
+=======
+  gender: (a, b) => {
+    if (a == b) return "checked";
+  },
+  btnStatusHidden: (a) => (a == 1 ? "btn-status--hidden" : ""),
+>>>>>>> ba0462c (feat: account management final)
   accType: (a) => {
     if (a == 1) return 'Quản trị viên';
     else if (a == 2) return 'Bác sĩ';
