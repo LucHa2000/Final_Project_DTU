@@ -18,137 +18,86 @@
               class="medicals__sidenav__icon fa-brands fa-rocketchat"
             ></i></a>
         </li>
-        <li class="medicals__sidenav__item medicals__sidenav__item">
-          <a href="#" class="medicals__sidenav__link"><i
-              class="medicals__sidenav__icon fa-solid fa-gear"
-            ></i></a>
-        </li>
+        
       </ul>
     </div>
     <div class="app-section overflow-y-scroll">
-
-       
-    {{!-- show message when booking successful  --}}
-            {{#if messageBooking }}
-            <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
-              <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-              </div>
-              <div class="ml-3 text-sm font-normal">{{messageBooking}}</div>
-              <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
-                  <span class="sr-only">Close</span>
-                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-              </button>
-            </div>
-            {{/if}} 
-
-      <h2 class="app-section__header">Doctors</h2>
-      <div class="app-section__content">
-        <div
-          class="app-section__status flex md:flex-row flex-col flex-start w-full my-3"
+      <div class="app-section__controls mb-4 w-full">
+        <a href="/" class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+          <svg class="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+          Trở về
+        </a>
+      </div>
+      <div class="notification__container absolute bottom-24 z-50 flex items-end">
+      {{!-- show message when booking successful  --}}
+        {{#if messageBooking }}
+        <div id="toast-success" class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow animate__animated animate__bounceIn dark:bg-gray-800 dark:text-gray-300 " role="alert">
+          <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div class="ml-3 text-sm font-normal">{{messageBooking}}</div>
+          <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+              <span class="sr-only">Close</span>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+        {{/if}} 
+      </div>
+      <h2 class="app-section__header">Hồ sơ bác sĩ</h2>
+        <section
+          class="app-container__section app-container__section__card w-full mt-[30px] flex flex-col"
         >
-          <div class="status__item mr-5">
-            <h3 class="status__number fw-bold text-2xl">150</h3>
-            <p class="status__type">Total</p>
-          </div>
-          <div class="status__item mr-5">
-            <h3 class="status__number fw-bold text-2xl">20</h3>
-            <p class="status__type">Experts</p>
-          </div>
-          <div class="status__item mr-5">
-            <h3 class="status__number fw-bold text-2xl">24</h3>
-            <p class="status__type">Psychologists</p>
-          </div>
-        </div>
-        <div class="doctor-list w-full">
-          <form class="app-container__input md:w-[600px] mx-5">
-            <input
-              type="search"
-              name="search"
-              id="search"
-              placeholder="Nhập tên bác sỹ, chuyên khoa..."
-              class="w-full hidden md:block"
-            />
-            <button type="submit">
-              <i class="fa-solid fa-magnifying-glass app-container__icon"></i>
-            </button>
-          </form>
-
-          
-        
-          <!-- ====================== https://tailwindui.com/components/application-ui/elements/dropdowns ====================== -->
-    
-          <section
-            class="app-container__section app-container__section__card w-full mt-[30px] flex flex-row"
+          <div
+            class="app-container__section__header flex flex-row items-center justify-center w-full"
           >
-            <div
-              class="app-container__section__header flex flex-row items-center justify-between w-full flex-1"
-            >
-              <div class="app-container__section__header__img flex-2">
-                <img
-                  src={{doctor.image}}
-                  class="w-[90px] h-[90px] rounded-full"
-                />
-              </div>
-              <div class="app-container__section__header__content flex-1 px-4">
-                <a href="#" class="text-blue-800 font-bold">{{doctor.firstName}} {{doctor.lastName}} (Tư vấn từ xa)</a>
-                <p>
-               
-                </p>
-
-                {{!-- <a href="/detailDoctor/{{this.id}}" style="color:red">Đặt Ngay</a> --}}
-              </div>
-            </div>
-            <div class="app-container__section__content flex-1">
+            <div class="app-container__section__header__img w-full flex flex-col items-center justify-center ">
               
-                <h3 class="app-container__form__header">
-                  LỊCH TƯ VẤN QUA VIDEO
-                </h3>
-                
-                <div class="app-container__form__content flex flex-wrap">
-                  <div class="app-container__form__section">
-                    {{!-- time render --}}
-                    {{#if timeWorks}}
-                        {{#each timeWorks}}
-                        <form action="/booking/bookingform" method="post" class="app-container__form">
-                          <input type="text" name="timeStart" value="{{this.startTime}}" hidden="true">
-                          <input type="text" name="timeEnd" value="{{this.endTime}}" hidden="true">
-                          <input type="text" name="doctorID" value="{{this.id}}" hidden="true">
-                          <input type="text" name="serviceFee" value="{{this.serviceFee}}" hidden="true">
-                          <button
-                            class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
-                            type="submit"
-                          >
-                            {{this.startTime}} -  {{this.endTime}}
-                          </button>
-                        </form>
-                        {{/each}}
-                    {{else}}
-                              <h1> Hiện tại không có lịch trống </h1>
-                    {{/if}}
-
-                  </div>
-                  <div class="app-container__form__section mt-5">
-                    <p class="">GIÁ TƯ VẤN QUA VIDEO: {{serviceFee.fee}}</p>
-                  </div>
+              <div class="flex flex-col items-center pb-10">
+                <img class="mb-3 w-48 h-48 rounded-full shadow-lg" src="{{doctor.image}}" alt="{{doctor.firstName}} {{doctor.lastName}}"/>
+                <h5 class="text-2xl font-medium text-gray-900 ">{{doctor.firstName}} {{doctor.lastName}}</h5>
+                {{!-- <span class="text-sm text-gray-500 ">{{doctor.clinicName}}</span> --}}
+                <p class=" text-gray-500"><span class="font-bold">Giá tư vấn:</span> {{formatCurrency serviceFee.fee}}</p>
+                <div class="flex mt-2 space-x-3 text-xl">
+                    {{displayStarNo doctor.resumeStarNo }}
                 </div>
+                
+              </div>
             </div>
-          </section>
-             <section
-            class="app-container__section app-container__section__card w-full mt-[30px] flex flex-row"
-          >
-            <div
-              class="app-container__section__header flex flex-row items-center justify-between w-full flex-1"
-            >
-              {{!-- resume --}}
+          </div>
+          <div class="app-container__section__content flex">
+            <div class="is-half">
+                <h2 class="font-bold text-xl mb-3">Giới thiệu chung</h2>
+                <h3>{{doctor.resumeTitle}}</h3>
+                <p>{{doctor.resumeDescription}}</p>
             </div>
-            <div class="app-container__section__content flex-1">
-                     {{doctor.resumeTitle}}
-                <br>
-                {{doctor.resumeDescription}}
+            <div class="ml-16">
+              <h2 class="font-bold text-xl mb-3">
+                Lịch tư vấn qua video
+              </h2>
+              <div class="flex flex-wrap">
+                {{!-- time render --}}
+                {{#if timeWorks}}
+                  {{#each timeWorks}}
+                  <form action="/booking/bookingform" method="post" class="app-container__form">
+                    <input type="text" name="timeStart" value="{{this.startTime}}" hidden="true">
+                    <input type="text" name="timeEnd" value="{{this.endTime}}" hidden="true">
+                    <input type="text" name="doctorID" value="{{this.id}}" hidden="true">
+                    <input type="text" name="serviceFee" value="{{this.serviceFee}}" hidden="true">
+                    <button
+                      class="p-2 bg-gray-200 text-green-700 font-bold text-center mr-2 mt-2"
+                      type="submit"
+                    >
+                      {{formatTime this.startTime}} -  {{formatTime this.endTime}}
+                    </button>
+                  </form>
+                  {{/each}}
+                {{else}}
+                  <h3> Hiện tại không có lịch trống </h3>
+                {{/if}}
+              </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </div>
   </main>

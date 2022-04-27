@@ -33,11 +33,7 @@
               class="medicals__sidenav__icon fa-brands fa-rocketchat medicals__sidenav__icon--active"
             title="Danh sách cuộc họp"></i></a>
         </li>
-        <li class="medicals__sidenav__item medicals__sidenav__item">
-          <a href="/account" class="medicals__sidenav__link" title="Cài đặt"><i
-              class="medicals__sidenav__icon fa-solid fa-gear"
-            ></i></a>
-        </li>
+        
       </ul>
     </div>
     <div class="app-section flex">
@@ -106,10 +102,10 @@
               <div class='row w-full flex-2 overflow-y-scroll' id="xconversation-container">
                 <div class='col w-full'>
                   {{!-- <h1>Conversation</h1> --}}
-                  <div class='display-conversation-container overflow-y-scroll' id="">
+                  <div class='display-conversation-container overflow-y-scroll mx-4' id="">
                     <ul class='collection with-header chat-container'>
                       {{#each messages}}
-                        <li class='collection-item'>
+                        <li class='collection-item my-4'>
                           <p class='nameUser font-bold text-sm'>
                             {{this.userName}}
                           </p>
@@ -121,7 +117,7 @@
                 </div>
               </div>
               {{! chatting container }}
-              <div class='row chatting-container flex-1 w-full flex items-end '>
+              <div class='row chatting-container mb-2 flex-1 w-full flex items-end '>
                 <div class='row w-full'>
                   <div id='room-container'>
                   </div>
