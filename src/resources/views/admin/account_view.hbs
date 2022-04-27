@@ -3,21 +3,21 @@
 
   {{>header_admin}}
   
-    <div class="container ml-2 w-full h-full mt-2">
-      <div class="mb-4 border-b border-gray-200 w-full">
+    <div class="ml-2 w-full h-full mt-2">
+      <div class="mb-4 border-b border-gray-200 w-full ">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center justify-center w-full" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
             <li class="mr-2" role="presentation">
-                <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300" id="account-management-tab" data-tabs-target="#account-management" type="button" role="tab" aria-controls="#account-management" aria-selected="false">Quản lý tài khoản</button>
+                <button class=" font-bold text-gray-1000 inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 " id="account-management-tab" data-tabs-target="#account-management" type="button" role="tab" aria-controls="#account-management" aria-selected="false">Quản lý tài khoản</button>
             </li>
-            <li class="mr-2" role="presentation">
-                <button class="inline-block p-4 rounded-t-lg border-b-2" id="add-account-tab" data-tabs-target="#add-account" type="button" role="tab" aria-controls="#add-account" aria-selected="false">Thêm tài khoản</button>
+            <li class="mr-2 " role="presentation">
+                <button class="font-bold text-gray-1000 inline-block p-4 rounded-t-lg border-b-2" id="add-account-tab" data-tabs-target="#add-account" type="button" role="tab" aria-controls="#add-account" aria-selected="false">Thêm tài khoản</button>
             </li>
-            
         </ul>
       </div>
       <div id="myTabContent">
         <div class="hidden p-4 bg-gray-50 rounded-lg max-h-[90vh] min-h-[90vh] overflow-y-scroll" id="account-management" role="tabpanel" aria-labelledby="account-management-tab">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+             {{>search}} 
             <table class="w-full text-sm text-left text-gray-500 mt-4">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
@@ -42,7 +42,7 @@
                       <th scope="col" class="px-6 py-3 font-bold">
                           Loại tài khoản
                       </th>
-                      <th scope="col" class="px-6 py-3 font-bold">
+                      <th scope="col" class="px-6 py-3 font-bold ">
                           Trạng thái
                       </th>
                       <th scope="col" class="px-6 py-3">
@@ -50,7 +50,7 @@
                       </th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody id="myTable">
                 {{#each accounts}}
                   <tr class="bg-white border-b  hover:bg-gray-50 ">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900  whitespace-nowrap">
@@ -77,12 +77,12 @@
                     <td class="px-6 py-4 {{{ btnStatus this.status}}}">
                         {{{ status this.status}}}
                     </td>
-                    <td>
+                    <td class="flex">
                       <a data-position="top" data-tooltip="Status" href="/account/{{{this.status}}}/{{{this.id}}}" class="{{btnStatus this.account_status}} tooltipped btn btn-small   blue-grey "><i class="material-icons  ">{{btnStatus this.status}}</i></a>
                       <a data-position="top" data-tooltip="Update" href="/account/{{{this.id}}}" class="btn btn-small tooltipped  yellow darken-3 button-radius "><i class="material-icons">system_update_alt</i></a>
 
                     <!-- Modal Trigger -->
-                      <a data-position="top" data-tooltip="Delete" data-id="{{{this.id}}}" class=" tooltipped waves-effect waves-light btn modal-trigger btn_delete red  {{disabled this.roleID}}" href="#modal1"><i class="material-icons">delete</i></a>
+                      <a data-id="{{{this.id}}}" class="btn_delete text-red {{hidden this.roleID}}" type="button" data-modal-toggle="popup-modal" href="#popup-modal"><i class="material-icons">delete</i></a>
                     </td>
                   </tr>
                   {{else}}
@@ -191,7 +191,7 @@
               </div>
               <div class="input-field is-half ml-4">
                 <label for="confirm-password" class="block mb-2 text-sm font-bold text-gray-900 ">Nhập lại mật khẩu*</label>
-                <input id="confirm-password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required="required">
+                <input id="confirm_password" type="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required="required">
                 
                 <span class="helper-text" data-error="Those passwords didn't match. Try again." data-success=""></span>
               </div>
@@ -229,88 +229,28 @@
   </div>
 </div>
   
-  {{!-- <div class="create-container">
-  
-      <div id="listproduct" class=""><br>
-        <div class="paper_container z-depth-1">
+  {{!-- model --}}
 
-      <a href="/account/trash" data-target="" class="sidenav-trigger btn-floating pulse cyan">
-      <i class="material-icons">delete</i>
-      </a>
-            <h7 class="">({{counts}})</h7>
-        {{>search}} 
-        <table class="centered responsive-table right highlight">
-          <thead>
-            <tr>           
-              <th>No</th>   
-              <th>Email</th>
-              <th>Họ Tên</th>  
-              <th>Giới tính</th>  
-              <th>Số điện thoại</th>  
-              <th>Địa chỉ</th>  
-              <th>Loại tài khoản</th>  
-              <th>Trạng thái</th>  
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="myTable">
-                {{#each accounts}}
-              <tr>
-                  <td>{{sum @index}}</td>
-                  <td>{{{this.email}}}</td>
-                  <td>{{{this.firstName}}} {{{this.lastName}}} </td>
-                  <td>{{{convertGender this.gender}}} </td>
-                  <td>{{{this.phoneNumber}}}</td>
-                  <td>{{{this.address}}}</td>
-                  <td class="">{{{ accType this.roleID}}}</td>
-                  <td class="{{{ btnStatus this.status}}}">{{{ status this.status}}}</td>
-                  <td>   
-                  <td>   
-                    <a data-position="top" data-tooltip="Status" href="/account/{{{this.status}}}/{{{this.id}}}" class="{{btnStatus this.account_status}} tooltipped btn btn-small   blue-grey "><i class="material-icons  ">{{btnStatus this.status}}</i></a>
-                    <a data-position="top" data-tooltip="Update" href="/account/{{{this.id}}}" class="btn btn-small tooltipped  yellow darken-3 button-radius "><i class="material-icons">system_update_alt</i></a>
-
-                  <!-- Modal Trigger -->
-                  <a data-position="top" data-tooltip="Delete" data-id="{{{this.id}}}" class=" tooltipped waves-effect waves-light btn modal-trigger btn_delete red  {{disabled this.roleID}}" href="#modal1"><i class="material-icons">delete</i></a>
-                  </td>
-                  </tr>
-            
-              {{else}}
-                  <tr>
-                    <td colspan="6" class="center text-center">
-                        Không có tài khoản
-                    </td>
-                  </tr>
-    
-              {{/each}}   
-          </tbody>
-          </table> 
-          
-    <!-- Modal Trigger -->
-
-
-    
-    {{>pagination}}
-  
-            
+<div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    <div class="relative w-full h-full max-w-md p-4 md:h-auto">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>  
+            </button>
+            <div class="p-6 text-center">
+                <svg class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Bạn có chắc chắn muốn xóa tài khoản này không?</h3>
+                <a data-modal-toggle="popup-modal" type="button" class=" delete-agree text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2 " >
+                    Xóa bỏ
+                </a>
+                <button data-modal-toggle="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Hủy</button>
+            </div>
         </div>
-
-      </div>
-    
     </div>
+</div>   
 
-  </div>
-  </div>
-    <div id="modal1" class="modal">
-      <div class="modal-content">
-        <h4 class="center">Xóa tài khoản</h4>
-        <p class="center">Bạn có muốn xóa tài khoản này không ?</p>
-      </div>
-      <div class="modal-footer">
-        <a class="modal-close waves-effect waves-green btn-flat delete-agree text-darken-2 red-text">Xóa bỏ</a>
-        <a class="modal-close waves-effect waves-green btn-flat  grey-text">Hủy</a>
-      </div>
-    </div>    
+{{!-- script --}}
+
   <script>
   $(document).ready(function(){
       $(".btn_delete").on("click", function(){
@@ -334,5 +274,5 @@
   password.onchange = validatePassword;
   confirm_password.onkeyup = validatePassword;
       </script>
-    {{>footer_admin}} --}}
+   
 
