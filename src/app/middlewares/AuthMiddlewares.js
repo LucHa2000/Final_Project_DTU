@@ -58,7 +58,6 @@ class AuthMiddlewares {
         res.locals.firstName = user.firstName;
         res.locals.lastName = user.lastName;
         res.locals.image = user.image;
-
         let notifications = await getNotificationByUserID(
           req.session.userID,
           user.roleID

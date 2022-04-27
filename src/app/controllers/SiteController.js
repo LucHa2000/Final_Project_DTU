@@ -88,7 +88,7 @@ class SiteController {
       //check time book with time now
       let filterTimeWork = [];
       for (let i = 0; i < timeWorks.length; i++) {
-        if (timeWorks[i].startTime < getTimeNow()) {
+        if (timeWorks[i].startTime >= getTimeNow()) {
           filterTimeWork.push(timeWorks[i]);
         }
       }
@@ -104,12 +104,14 @@ class SiteController {
           }
         }
       }
-      console.log(filterTimeWork);
+      let messageBooking = req.session.messageBooking;
       res.render("user/detailDoctor", {
         doctor: doctor,
         timeWorks: filterTimeWork,
         serviceFee: serviceFee,
+        messageBooking: messageBooking,
       });
+      req.session.messageBooking = null;
     } catch (err) {
       console.log(err);
     }
