@@ -1,8 +1,13 @@
 const express = require("express");
 const moment = require("moment");
+const app = express();
+const server = require("http").Server(app);
+var io = require("socket.io")(server);
+
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 import appoinment from "../models/appoinment";
+
 import {
   getAppointmentsByUserID,
   createNewAppointment,
@@ -10,7 +15,10 @@ import {
   cancelAppointment,
   checkingAvailableTime,
 } from "../service/AppoinmentService";
-import { createNotification } from "../service/NotificationService";
+import {
+  createNotification,
+  socketServerNotification,
+} from "../service/NotificationService";
 import {
   getUserById,
   addBalanceById,
@@ -18,6 +26,10 @@ import {
 } from "../service/UserService";
 import { createNewTransactionHistory } from "../service/TransactionHistoryService";
 
+import {
+  bookingNotification,
+  serverNotification,
+} from "../../public/script/socketServer";
 class BookingController {
   async index(req, res, next) {
     let user = await getUserById(req.session.userID);
@@ -98,12 +110,16 @@ class BookingController {
             fromUserID: userID,
             doctorID: req.body.doctorID,
           };
+
+          //create Notification in db
           let newNotification = await createNotification(notification);
-          //clear req.session.bookingDetail
-
-          req.session.bookingDetail = null;
-
+          //create Notification in client side
+          serverNotification(io, notification);
+          req.session.messageBooking =
+            "Bạn đã đặt lịch thành công, bạn có thể vào lịch cá nhân để kiểm tra !";
           res.redirect(`/detailDoctor/${req.body.doctorID}`);
+          //clear req.session.bookingDetail
+          req.session.bookingDetail = null;
         } else {
           console.log("error");
         }
