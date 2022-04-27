@@ -32,19 +32,18 @@ class AccountController {
     res.redirect("/admin/account");
   }
 
-  //[POST]
+  //[POST] UPDATE
   async newAccount(req, res, next) {
     req.body.id = req.params.id;
 
     let accountUpdate = await updateAccount(req.body);
 
-    if (accountUpdate) return res.redirect("back");
+    if (accountUpdate) return res.redirect("/admin/account");
 
     return console.log("update fail");
   }
 
   async deleteAccount(req, res, next) {
-    // res.send(req.params.id);
     let acc = await deleteAcc(req.params.id);
 
     if (acc) return res.redirect("back");

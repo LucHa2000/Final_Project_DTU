@@ -4,8 +4,8 @@ module.exports = {
   mergeName: (a, b) => a + " " + b,
   convertDate: (a) => moment(a).format("YYYY-MM-DD"),
   nonImage: (a) => (a == "undefined" ? "nonimage.png" : a),
-  disabled: (a) => {
-    if (a == 1) return "disabled";
+  hidden: (a) => {
+    if (a == 1) return "hidden";
   },
   deleteSpace: (a) => a.trim(),
   emotionReact: (a) => {
@@ -40,10 +40,13 @@ module.exports = {
   followGroup: (a) => (a == 1 ? "leave" : "join"),
   btnStatus: (a) => {
     if (a == 1) return "check";
-    if (a == 0) return "block";
+    if (a == 0) return "close";
     if (a == 2) return "remove";
   },
   checked: (a, b) => {
+    if (a == b) return "checked";
+  },
+  gender: (a, b) => {
     if (a == b) return "checked";
   },
   btnStatusHidden: (a) => (a == 1 ? "btn-status--hidden" : ""),
