@@ -78,7 +78,7 @@ let updateResume = (data) => {
         resume.title = data.title;
         resume.description = data.description.trim();
         await resume.save();
-        resolve("update done !");
+        resolve(resume);
       } else {
         resolve();
       }

@@ -52,6 +52,7 @@ function router(app) {
   app.use(
     "/user",
     authMiddlewares.checkAccount,
+    authMiddlewares.checkRoleUser,
     authMiddlewares.addInfoAuthencation,
     userRouter
   );

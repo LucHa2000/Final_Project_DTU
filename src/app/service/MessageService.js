@@ -4,18 +4,18 @@ let getMessageAndAppointmentByAppointmentIDandTile = (title) => {
   return new Promise(async (resolve, reject) => {
     try {
       let appointment = await db.Appointment.findOne({
-        where: { title: title.trim() },
+        where: { title: title },
         raw: true,
       });
 
       let messages = await db.Message.findAll({
         where: { appointmentID: appointment.id },
+        order: [["createdAt", "ASC"]],
         raw: true,
       });
       let arrayMessage = messages;
       let returnName = async () => {
         for (let e of arrayMessage) {
-          console.log("item" + e.userID);
           let user = await db.User.findOne({
             where: { id: e.userID },
             raw: true,
@@ -40,14 +40,14 @@ let getMessageAndAppointmentByAppointmentIDandTile = (title) => {
 let createMessage = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      await db.Message.create({
+      let newMessage = await db.Message.create({
         id: data.id,
         appointmentID: data.roomID,
         message: data.message,
         userID: data.senderID,
       });
 
-      resolve("add successfully !");
+      resolve(newMessage);
     } catch (e) {
       reject(e);
     }
