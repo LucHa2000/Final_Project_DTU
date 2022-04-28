@@ -12,6 +12,7 @@ router.post(
 );
 router.post("/changeResume", doctorController.changeResume);
 router.use("/workHistory", doctorController.workHistory);
+router.get("/changeStatus", doctorController.changeStatus);
 router.use("/resume", doctorController.doctorResume);
 router.use("/updateAccount", doctorController.displayUpdateAccount);
 router.use("/", doctorController.index);

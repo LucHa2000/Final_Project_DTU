@@ -165,11 +165,13 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
           where: { doctorID: userID, isCanceled: false, date: date },
 
           raw: true,
+          order: [["startTime", "ASC"]],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
           where: { userID: userID, isCanceled: false, date: date },
           raw: true,
+          order: [["startTime", "ASC"]],
         });
       }
       if (appointment) {

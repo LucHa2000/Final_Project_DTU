@@ -5,7 +5,7 @@ let getDoctorByClinicId = (clinicId) => {
   return new Promise(async (resolve, reject) => {
     try {
       let user = await db.User.findAll({
-        where: { clinicID: clinicId, roleID: 2 },
+        where: { clinicID: clinicId, roleID: 2, status: 1 },
         raw: true,
         include: [
           {
@@ -46,7 +46,7 @@ let getDoctorAppointmentAndResumeById = (doctorId) => {
     try {
       let dateNow = new Date().toString();
       let user = await db.User.findOne({
-        where: { id: doctorId, roleID: 2 },
+        where: { id: doctorId, roleID: 2, status: 1 },
         raw: true,
         include: [
           {
@@ -87,8 +87,31 @@ let updateResume = (data) => {
     }
   });
 };
+let updateFollowDoctorIdStatus = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let doctor = await db.User.findOne({
+        where: { id: id },
+      });
+      if (doctor) {
+        if (doctor.status === 1) {
+          doctor.status = 2;
+        } else {
+          doctor.status = 1;
+        }
+        await doctor.save();
+        resolve(doctor);
+      } else {
+        resolve();
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getResumeById,
+  updateFollowDoctorIdStatus,
   getDoctorByClinicId,
   updateResume,
   getDoctorAppointmentAndResumeById,
