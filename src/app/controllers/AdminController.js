@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 import { getListAccounts } from '../service/AccountService';
-import { findAllClinicAnDoctorWithClinic, getListClinics } from '../service/ClinicService';
+import { getListClinics } from '../service/ClinicService';
 
 class AdminController {
   async index(req, res, next) {
@@ -10,21 +10,17 @@ class AdminController {
   }
 
   async accountPage(req, res, next) {
-    let accounts = await getListAccounts();
-    res.render('admin/account_view', { accounts });
+    let accountsAndClinics = await getListAccounts();
+    let accounts = accountsAndClinics[0];
+    let clinics = accountsAndClinics[1];
+    res.render('admin/account_view', { accounts, clinics });
   }
 
   async clinicPage(req, res, next) {
     try {
       let clinics = await getListClinics();
-      let doctorsWithClinicName = [];
-      for (let e of clinics) {
-        e.firsName = e['User.firstName'];
-        e.lastName = e['User.lastName'];
-        doctorsWithClinicName.push(e);
-      }
       res.render('admin/clinic_view', {
-        clinics: doctorsWithClinicName,
+        clinics,
       });
     } catch (err) {
       console.log(err);

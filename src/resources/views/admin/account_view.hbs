@@ -219,23 +219,19 @@
               <div class="is-row">
 
                 <div class="is-full">
-                  <label class="block mb-2 text-sm font-bold text-gray-900 " for="email">Khoa</label>
-                  <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Khoa<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
-                  <!-- Dropdown menu -->
-                  <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                      <select name="cars" id="cars">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
-                      </select>
-                  </div>
+                 
+                <select name="clinic" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <option selected>Khoa</option>
+                  {{#each clinics}}
+                  <option  value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
                   <span class="helper-text" data-error="Email is invalid!" data-success=""></span>
                 </div>
               </div>
               <div class="input-field is-half">
-                <label for="fee" class="block mb-2 text-sm font-bold text-gray-900 ">Phí*</label>
-                <input id="fee" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="password" required
+                <label name="fee" for="fee" class="block mb-2 text-sm font-bold text-gray-900 ">Phí*</label>
+                <input id="fee" name="fee" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="password" required
                   autocomplete="0">
                 
                 <span class="helper-text" data-error="" data-success=""></span>

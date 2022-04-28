@@ -33,9 +33,27 @@ let getListClinics = () => {
     try {
       let listClinics = await db.Clinic.findAll({
         raw: true,
+      });
+      if (listClinics) {
+        resolve(listClinics);
+      } else {
+        resolve();
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getListClinicsDoctor = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let listClinics = await db.Clinic.findAll({
+        raw: true,
         include: [
           {
             model: db.User,
+            where: { clinicID: db.Clinic.id },
           },
         ],
       });
@@ -141,4 +159,5 @@ module.exports = {
   updateClinic,
   getClinicById,
   deleteClinic,
+  getListClinicsDoctor,
 };

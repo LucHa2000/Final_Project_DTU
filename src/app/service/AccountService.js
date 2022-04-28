@@ -17,8 +17,9 @@ let hashUserPassword = (password) => {
 let getListAccounts = () => {
   return new Promise(async (resolve, reject) => {
     try {
+      let listClinics = await db.Clinic.findAll({ raw: true });
       let listUsers = await db.User.findAll({ raw: true });
-      resolve(listUsers); // == return listUsers
+      resolve([listUsers, listClinics]); // == return listUsers
     } catch (e) {
       reject(e);
     }
@@ -39,17 +40,19 @@ let createNewAccount = (data) => {
         resolve('Account đã tồn tại');
       } else {
         const userId = uuidv4();
-        const role = data.roleID;
-        let clinicId = null,
-          resumeId = null;
-        if (role === 2) {
-          const fee = data.fee;
-          clinicId = data.clinicID;
+        let serviceId = null;
+        let clinicId = null;
+        let resumeId = null;
+        let fee1 = null;
+        if (data.roleID == 2) {
+          clinicId = data.clinic;
+          fee1 = data.fee;
           resumeId = uuidv4();
-          await db.Resume.create({ id: resumeId, title: '', description: '' });
-          await db.Service.create({ id: uuidv4(), UserId: userId, fee: fee });
-        }
+          serviceId = uuidv4();
 
+          await db.Resume.create({ id: resumeId, title: '', description: '' });
+          console.log('BAC SIIIII 1');
+        }
         await db.User.create({
           id: userId,
           email: data.email,
@@ -63,9 +66,10 @@ let createNewAccount = (data) => {
           status: 1,
           image:
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png',
-          resumeID: resumeID,
+          resumeID: resumeId,
           clinicID: clinicId,
         });
+        await db.Service.create({ id: serviceId, UserId: userId, fee: fee1 });
         resolve('Thêm thành công !');
       }
     } catch (e) {
