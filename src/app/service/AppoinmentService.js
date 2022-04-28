@@ -45,6 +45,24 @@ let getAppointmentsByTitle = (title) => {
     }
   });
 };
+let getAppointmentById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findOne({
+        where: { id: id },
+        raw: true,
+      });
+
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let getAppandMessage = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -143,6 +161,7 @@ module.exports = {
   getAppandMessage,
   updateAppointment,
   checkingAvailableTime,
+  getAppointmentById,
   cancelAppointment,
   createNewAppointment,
 };

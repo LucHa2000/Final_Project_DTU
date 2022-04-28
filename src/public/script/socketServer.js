@@ -1,13 +1,13 @@
 const arrayUser = [];
 const usersId = [];
 let info;
+let notificationInbox;
 function socketServer(io) {
   //check connect
   io.on("connection", (socket) => {
     //userConnect
     console.log("have a connect ID :" + socket.id);
-    //send notification
-    io.sockets.emit("server-send-notification-message", "ban co 1 tin nhan");
+
     //disconnect
     socket.on("disconnect", (data) => {
       //arrayUserGroup.splice(arrayUserGroup.indexOf(userMember), 1);
@@ -15,7 +15,6 @@ function socketServer(io) {
       console.log("disconnect ....." + socket.id);
     });
 
-    //socket.adapter.rooms  show list room detail
     //listening create room
     socket.on("create-room", (data) => {
       socket.join(data);
@@ -36,9 +35,6 @@ function socketServer(io) {
     socket.on("user-chat", (data) => {
       io.sockets.in(data.room).emit("server-send-chat", data);
     });
-
-    //send notification
-    socket.emit("server-send-notification-message");
   });
 }
 
@@ -52,8 +48,12 @@ let bookingNotification = (data) => {
   return data;
 };
 
-function serverNotification(io, notification) {
+function serverNotification(io, notification, notificationInboxFromServer) {
   info = notification;
+  notificationInbox = notificationInboxFromServer;
+  console.log("insocket service");
+  console.log(notificationInbox);
+
   io.on("connection", (socket) => {
     //userConnect
     console.log("have a connect ID :" + socket.id);
@@ -67,17 +67,22 @@ function serverNotification(io, notification) {
     });
 
     if (info) {
-      //send doctor
+      //send notification doctor
       let doctorSocketId = usersId[info.doctorID];
       io.to(doctorSocketId).emit("new-notification", info.content);
-
-      // //send user
-      // let userSocketId = usersId[info.fromUserID];
-      // io.to(userSocketId).emit(
-      //   "new-notification",
-      //   "Bạn đã đặt lịch thành công !"
-      // );
       info = "";
+    }
+
+    if (notificationInbox) {
+      console.log("in send notification");
+      console.log(notificationInbox);
+      //send notification doctor
+      let doctorSocketId = usersId[notificationInbox.userID];
+      io.to(doctorSocketId).emit(
+        "new-notification-inbox",
+        notificationInbox.content
+      );
+      notificationInbox = "";
     }
   });
 }

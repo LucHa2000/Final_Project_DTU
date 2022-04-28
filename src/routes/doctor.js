@@ -13,5 +13,6 @@ router.post(
 router.post("/changeResume", doctorController.changeResume);
 router.use("/workHistory", doctorController.workHistory);
 router.use("/resume", doctorController.doctorResume);
+router.use("/updateAccount", doctorController.displayUpdateAccount);
 router.use("/", doctorController.index);
 module.exports = router;

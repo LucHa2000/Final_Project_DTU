@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const app = express();
+const server = require("http").Server(app);
+var io = require("socket.io")(server);
 const { v4: uuidv4 } = require("uuid");
 import {
   getAppointmentsByUserID,
@@ -10,6 +13,9 @@ import {
   getMessageAndAppointmentByAppointmentIDandTile,
 } from "../service/MessageService";
 import { getUserById } from "../service/UserService";
+
+import { getAppointmentById } from "../service/AppoinmentService";
+import { serverNotification } from "../../public/script/socketServer";
 class InboxController {
   async index(req, res, next) {
     let userID = req.session.userID;
@@ -34,9 +40,26 @@ class InboxController {
     req.body.message = req.body.message;
     let newMessage = await createMessage(req.body);
     if (newMessage) {
-      console.log("insert Success ! ");
+      let getAppointment = await getAppointmentById(newMessage.appointmentID);
+      let notificationInbox;
+      //send notification
+      if (getAppointment.userID == req.session.userID) {
+        notificationInbox = {
+          userID: getAppointment.doctorID,
+          content: "Bạn có tin nhắn mới !",
+        };
+      } else if (getAppointment.doctorID == req.session.userID) {
+        notificationInbox = {
+          userID: getAppointment.userID,
+          content: "Bạn có tin nhắn mới !",
+        };
+      }
+
+      serverNotification(io, "", notificationInbox);
+      console.log("insert success!");
     } else console.log("insert Error ! ");
   }
+
   async displayChat(req, res) {
     let userID = req.session.userID;
     let roleID = req.session.roleID;
