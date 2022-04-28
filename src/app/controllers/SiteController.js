@@ -1,13 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-import { formatDate, getTimeNow } from "../../util/dateNow";
-import { findAllClinicAnDoctorWithClinic } from "../service/ClinicService";
-import { getServiceByDoctorId } from "../service/ServiceService";
-import {
-  getDoctorByClinicId,
-  getDoctorAppointmentAndResumeById,
-} from "../service/DoctorService";
-import { getAppointmentsByUserID } from "../service/AppoinmentService";
+import { formatDate, getTimeNow } from '../../util/dateNow';
+import { findAllClinicAnDoctorWithClinic } from '../service/ClinicService';
+import { getServiceByDoctorId } from '../service/ServiceService';
+import { getDoctorByClinicId, getDoctorAppointmentAndResumeById } from '../service/DoctorService';
+import { getAppointmentsByUserID } from '../service/AppoinmentService';
 class SiteController {
   async index(req, res, next) {
     try {
@@ -16,10 +13,10 @@ class SiteController {
       let doctors = data[1];
       let doctorsWithClinicName = [];
       for (let e of doctors) {
-        e.clinicName = e["Clinic.name"];
+        e.clinicName = e['Clinic.name'];
         doctorsWithClinicName.push(e);
       }
-      res.render("user/home", {
+      res.render('user/home', {
         clinics: clinics,
         doctors: doctorsWithClinicName,
       });
@@ -32,11 +29,11 @@ class SiteController {
     let doctors = await getDoctorByClinicId(clinicId);
     let listDoctorsRender = [];
     for (let e of doctors) {
-      e.clinicName = e["Clinic.name"];
+      e.clinicName = e['Clinic.name'];
       listDoctorsRender.push(e);
     }
     //res.send(doctors);
-    res.render("user/doctorFollowClinic", { doctors: listDoctorsRender });
+    res.render('user/doctorFollowClinic', { doctors: listDoctorsRender });
   }
   async doctorDetail(req, res, next) {
     try {
@@ -45,51 +42,51 @@ class SiteController {
       let timeWorks = [
         {
           id: doctorId,
-          startTime: "08:00:00",
-          endTime: "10:00:00",
+          startTime: '08:00:00',
+          endTime: '10:00:00',
           serviceFee: serviceFee.fee,
         },
         {
           id: doctorId,
-          startTime: "10:00:00",
-          endTime: "12:00:00",
+          startTime: '10:00:00',
+          endTime: '12:00:00',
           serviceFee: serviceFee.fee,
         },
         {
           id: doctorId,
-          startTime: "13:00:00",
-          endTime: "15:00:00",
+          startTime: '13:00:00',
+          endTime: '15:00:00',
           serviceFee: serviceFee.fee,
         },
         {
           id: doctorId,
-          startTime: "15:00:00",
-          endTime: "17:00:00",
+          startTime: '15:00:00',
+          endTime: '17:00:00',
           serviceFee: serviceFee.fee,
         },
         {
           id: doctorId,
-          startTime: "18:00:00",
-          endTime: "20:00:00",
+          startTime: '18:00:00',
+          endTime: '20:00:00',
           serviceFee: serviceFee.fee,
         },
         {
           id: doctorId,
-          startTime: "20:00:00",
-          endTime: "22:00:00",
+          startTime: '20:00:00',
+          endTime: '22:00:00',
           serviceFee: serviceFee.fee,
         },
       ];
       let result = await getDoctorAppointmentAndResumeById(doctorId);
       let doctor = result[0];
       let doctorSchedules = result[1];
-      doctor.resumeTitle = doctor["Resume.title"];
-      doctor.resumeDescription = doctor["Resume.description"];
-      doctor.resumeStarNo = doctor["Resume.starNo"];
+      doctor.resumeTitle = doctor['Resume.title'];
+      doctor.resumeDescription = doctor['Resume.description'];
+      doctor.resumeStarNo = doctor['Resume.starNo'];
       //check time book with time now
       let filterTimeWork = [];
       for (let i = 0; i < timeWorks.length; i++) {
-        if (timeWorks[i].startTime < getTimeNow()) {
+        if (timeWorks[i].startTime >= getTimeNow()) {
           filterTimeWork.push(timeWorks[i]);
         }
       }
@@ -106,7 +103,7 @@ class SiteController {
         }
       }
       let messageBooking = req.session.messageBooking;
-      res.render("user/detailDoctor", {
+      res.render('user/detailDoctor', {
         doctor: doctor,
         timeWorks: filterTimeWork,
         serviceFee: serviceFee,
