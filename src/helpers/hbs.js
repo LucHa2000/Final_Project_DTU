@@ -115,4 +115,17 @@ module.exports = {
     const times = time.split(':');
     return `${times[0]}:${times[1]}`;
   },
+
+  formatDateTime: (date) => {
+    const event = new Date(date);
+    const options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    };
+    return event.toLocaleDateString('vi-VN', options);
+  },
 };

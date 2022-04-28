@@ -1,14 +1,70 @@
-"use strict";
-const { v4: uuidv4 } = require("uuid");
+'use strict';
+const { v4: uuidv4 } = require('uuid');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("resumes", [
+    return queryInterface.bulkInsert('resumes', [
       {
-        id: uuidv4(),
+        id: '4f382500-8696-4d34-b025-39e0a598cfc6',
         starNo: 5,
-        title: "Tiến sĩ Tâm lý - Giáo dục Nguyễn Thắm",
+        title: 'Bác sĩ Mark Lee - Người truyền cảm hứng cho thế hệ trẻ',
         description:
-          "5 năm làm việc tại Trung tâm phụ nữ và phát triển: Hỗ trợ đánh giá tâm lý, tham vấn và trị liệu tâm lý cho phụ nữ và trẻ em bị bạo lực gia đình, xâm hại tình dục, trẻ em có những rối nhiễu, sang chấn tâm lýHơn 15 năm giảng dạy cho sinh viên, học viên các lớp về các chủ đề liên quan đến giáo dục kĩ năng sống, đánh giá và trị liệu, can thiệp cho trẻ em có nhu cầu đặc biệt, trẻ em có sang chấn, rối nhiều tâm lý tại các Trường Đại học, Cao đẳngChuyên gia hỗ trợ cho Trung tâm nghiên cứu và ứng dụng tâm lý – giáo dục  ở Hà Nội, Hải Phòng, Quảng Ninh, Thái Bình,… về lĩnh vực can thiệp, trị liệu tâm lý, tư vấn phụ huynh, đánh giá tâm lý các rối loạn phát triển cho trẻ em; lên chương trình và giảng dạy các lớp kĩ năng sống cho trẻ em Chuyên gia tâm lý cấp cao cho phòng tham vấn học đường của các trường công lập và tư thục trên địa bàn Hà Nội: Đánh giá vấn đề tâm lý của HS, lên kế hoạch can thiệp và trực tiếp trị liệu cho HS trầm cảm, lo âu, tăng động giảm tập trung, tự kỉ, nghiện game và các chất kích thích, bạo lực học đường, xâm hại tình dục,….",
+          'Tôi là người hiện đang sinh sống và làm việc tại Việt Nam đã được 10 năm, với kinh nghiệm chuyên sâu về răng hàm mặt, tôi tin sẽ đem lại cho bạn dịch vụ tốt nhất.',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '90c77b8d-52a1-4cd7-97e2-dd1e4752b5a1',
+        starNo: 5,
+        title: '',
+        description: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '3da7f630-67e4-4855-8b58-71619563befc',
+        starNo: 4,
+        title: '',
+        description: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'f508167d-4475-492e-84dc-7381363b1a23',
+        starNo: 3,
+        title: '',
+        description: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'c1972883-9bd8-4996-882e-0cd6353b09cd',
+        starNo: 4,
+        title: '',
+        description: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'd808d1a2-9453-4529-b196-36b3147477c6',
+        starNo: 5,
+        title: '',
+        description: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '9b46672e-1483-43ea-9892-66ddfddfbeba',
+        starNo: 3,
+        title: '',
+        description: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '210a9909-ca28-48b3-b8bf-8fc98cbc3e81',
+        starNo: 5,
+        title: '',
+        description: '',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -16,6 +72,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("resumes", null, {});
+    return queryInterface.bulkDelete('resumes', null, {});
   },
 };

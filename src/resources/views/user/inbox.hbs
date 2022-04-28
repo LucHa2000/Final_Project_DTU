@@ -105,11 +105,15 @@
                   <div class='display-conversation-container overflow-y-scroll mx-4' id="">
                     <ul class='collection with-header chat-container'>
                       {{#each messages}}
-                        <li class='collection-item my-4'>
-                          <p class='nameUser font-bold text-sm'>
-                            {{this.userName}}
-                          </p>
-                          {{this.message}}
+                        <li class='collection-item my-2 hover:bg-gray-200 p-2 rounded-lg'>
+                          <div class="flex justify-between">
+                            <p class='nameUser font-bold text-sm'>
+                              {{this.userName}}
+                            </p>
+                            <p class="font-normal text-xs text-gray-500">{{formatDateTime this.createdAt}}</p>
+
+                          </div>
+                           <p class="">{{this.message}}</p>
                         </li>
                       {{/each}}
                     </ul>
@@ -127,10 +131,10 @@
                     <input type="text" id="message-inbox" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Nhập tin nhắn" required>
 
                     <div class="chatting-container__buttons flex justify-end mx-4">
-                      <a class='waves-effect waves-light btn--primary modal-trigger w-[80px] h-[50px]' href='#icon-modal'>
+                      {{!-- <a class='waves-effect waves-light btn--primary modal-trigger w-[80px] h-[50px]' href='#icon-modal'>
                         <span class='material-icons material-icons-light'>emoji_emotions</span>
-                      </a>
-                      <button class='btn--primary w-[80px] h-[50px] ml-2' id='send-message'>Gửi</button>
+                      </a> --}}
+                      <button class='btn--primary w-[80px] h-[50px]' id='send-message'>Gửi</button>
 
                     </div>
                   </div>
