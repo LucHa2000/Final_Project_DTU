@@ -2,7 +2,11 @@ const express = require("express");
 const router = express.Router();
 import { getAppointmentsByUserID } from "../service/AppoinmentService";
 import { getUserById, updateUser } from "../service/UserService";
-import { getResumeById, updateResume } from "../service/DoctorService";
+import {
+  getResumeById,
+  updateResume,
+  updateFollowDoctorIdStatus,
+} from "../service/DoctorService";
 
 class DoctorController {
   async index(req, res, next) {
@@ -24,7 +28,7 @@ class DoctorController {
     }
     let accountChanged = await updateUser(req.body);
     if (accountChanged) {
-      res.redirect("back");
+      res.redirect("/doctor");
     } else {
       console.log("Change failed !");
     }
@@ -42,12 +46,20 @@ class DoctorController {
   async changeResume(req, res) {
     console.log(req.body.description.trim());
     let resumeUpdated = await updateResume(req.body);
-
     if (resumeUpdated) {
-      res.redirect("back");
+      res.redirect("/doctor");
     } else {
       console.log("update failed !");
       return;
+    }
+  }
+  async changeStatus(req, res) {
+    let updatedStatus = await updateFollowDoctorIdStatus(req.session.userID);
+
+    if (updatedStatus) {
+      res.redirect("back");
+    } else {
+      console.log("error update !");
     }
   }
 }
