@@ -1,0 +1,81 @@
+<div class="app-container flex flex-col homepage-container">
+  {{>nav}}
+  <main class="app__main flex w-full">
+    <div class="medicals__sidenav max-w-[70px] mt-[100px]">
+      <ul class="medicals__sidenav__list flex flex-col justify-center">
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="#" class="medicals__sidenav__link"><i
+              class="fa-solid fa-calendar-days medicals__sidenav__icon"
+            ></i></a>
+        </li>
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="/" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon medicals__sidenav__icon--active fa-solid fa-user-doctor"
+            ></i></a>
+        </li>
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="/inbox" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon fa-brands fa-rocketchat"
+            ></i></a>
+        </li>
+        <li class="medicals__sidenav__item medicals__sidenav__item">
+          <a href="#" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon fa-solid fa-gear"
+            ></i></a>
+        </li>
+      </ul>
+    </div>
+    <div class="app-section overflow-y-scroll">
+      <h2 class="app-section__header">Schedule</h2>
+      <div class="app-section__content">
+        
+        <div class="schedule-list w-full">
+          <form action="/schedule" method="GET" class="app-container__input md:w-[200px] mx-5">
+            <input
+              type="date"
+              name="date"
+              id="date"
+              value="{{defaultDate}}"
+              class="w-full hidden md:block"
+            />
+            <button type="submit">
+              <i class="fa-solid fa-magnifying-glass app-container__icon"></i>
+            </button>
+          </form>
+          <!-- ====================== https://tailwindui.com/components/application-ui/elements/dropdowns ====================== -->
+            {{#each userSchedule}}
+                <section
+                    class="app-container__section app-container__section__card w-full mt-[30px] flex flex-row"
+                >
+                        <div class="app-container__section__header__content flex-1 px-4">
+                            <p class="text-blue-800 font-bold">Ngày đặt : {{this.date}}</p>   
+                        </div>               
+                </section>
+
+                    <div class="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                      <div class="flex justify-end px-4 pt-4">
+                      </div>
+                        <div class="flex flex-col items-center pb-10">
+                            <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="../uploads/{{this.userAvatar}}" alt="Bonnie image"/>
+                             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{this.userName}}</h5>
+                            {{!-- <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{this.title}}</h5> --}}
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Bắt đầu : {{this.startTime}} giờ</span>
+                             <span class="text-sm text-gray-500 dark:text-gray-400">Kết thúc : {{this.endTime}} giờ</span>
+                            <div class="flex mt-4 space-x-3 lg:mt-6">
+                                <a onclick="return confirm('Bạn có chắc là muốn chuyển đến trang trò chuyện ?')"  href="/inbox/{{this.title}}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Nhắn Tin</a>
+                                <a onclick="return confirm('Bạn có chắc là muốn chuyển đến trang gọi điện ?')"  href="/callVideo" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Gọi Điện</a>
+                                <a onclick="return confirm('Bạn có chắc muốn huỷ lịch trên ?')"  href="/job/cancel/{{this.id}}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-center text-gray-900 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white white:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Huỷ</a>
+                            </div>
+                        </div>
+                      </div>
+            {{/each}}
+
+            
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- <script src="./carousel.js"></script> -->
+<!-- <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script> -->
