@@ -142,13 +142,40 @@ let cancelAppointment = (id) => {
       let appointment = await db.Appointment.findOne({
         where: { id: id },
       });
+
       if (appointment) {
-        await db.Appointment.update({
-          isCancel: true,
-        });
-        resolve("Update Successfully");
+        appointment.isCanceled = true;
+        await appointment.save();
+        resolve(appointment);
       } else {
         resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment;
+      if (roleID == 2) {
+        appointment = await db.Appointment.findAll({
+          where: { doctorID: userID, isCanceled: false, date: date },
+
+          raw: true,
+        });
+      } else if (roleID == 3) {
+        appointment = await db.Appointment.findAll({
+          where: { userID: userID, isCanceled: false, date: date },
+          raw: true,
+        });
+      }
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve([]);
       }
     } catch (e) {
       reject(e);
@@ -163,5 +190,6 @@ module.exports = {
   checkingAvailableTime,
   getAppointmentById,
   cancelAppointment,
+  getAppointmentsOnDayByUserID,
   createNewAppointment,
 };

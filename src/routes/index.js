@@ -9,6 +9,9 @@ const paymentRouter = require("./payment");
 const userRouter = require("./user");
 const accountRouter = require("./account");
 const bookingRouter = require("./booking");
+const jobRouter = require("./job");
+const scheduleRouter = require("./schedule");
+
 function router(app) {
   app.use(
     "/admin",
@@ -59,8 +62,23 @@ function router(app) {
   app.use(
     "/booking",
     authMiddlewares.checkAccount,
+    authMiddlewares.checkRoleUser,
     authMiddlewares.addInfoAuthencation,
     bookingRouter
+  );
+  app.use(
+    "/schedule",
+    authMiddlewares.checkAccount,
+    authMiddlewares.checkRoleUser,
+    authMiddlewares.addInfoAuthencation,
+    scheduleRouter
+  );
+  app.use(
+    "/job",
+    authMiddlewares.checkAccount,
+    authMiddlewares.checkRoleDoctor,
+    authMiddlewares.addInfoAuthencation,
+    jobRouter
   );
   app.use("/", authMiddlewares.addInfoAuthencation, siteRouter);
 }
