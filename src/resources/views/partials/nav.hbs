@@ -59,14 +59,18 @@
                     </div>
                     <!-- Modal body -->
                     <div class="px-4 pb-4">
-                      {{#each notifications}}
-                      <div id="notification-container" class="hover:bg-gray-200 py-6 px-2 rounded-lg">
+                      {{#if notifications}}
+                        {{#each notifications}}
+                        <div id="notification-container" class="hover:bg-gray-200 py-6 px-2 rounded-lg">
 
-                        <h3 class="font-bold mb-1">{{this.title}}</h3> 
-                        {{!-- <button style="color:blue">Xem</button> --}}
-                        <p class="text-sm">{{this.content}}</p>  
-                      </div>
-                      {{/each}} 
+                          <h3 class="font-bold mb-1">{{this.title}}</h3> 
+                          {{!-- <button style="color:blue">Xem</button> --}}
+                          <p class="text-sm">{{this.content}}</p>  
+                        </div>
+                        {{/each}} 
+                      {{else}}
+                        <p class="text-sm">Không có thông báo nào</p> 
+                      {{/if}}
                     </div>
                     <!-- Modal footer -->
                 </div>
