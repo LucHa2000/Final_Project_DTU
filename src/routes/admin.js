@@ -1,12 +1,13 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-let multer = require("multer");
+let multer = require('multer');
 const upload = multer({
-  dest: "src/public/uploads/",
+  dest: 'src/public/uploads/',
 });
 
-const adminController = require("../app/controllers/AdminController");
+const adminController = require('../app/controllers/AdminController');
 
-router.get("/account", adminController.accountPage);
-router.use("/", adminController.index);
+router.get('/account', adminController.accountPage);
+router.get('/clinic', adminController.clinicPage);
+router.use('/', adminController.index);
 module.exports = router;

@@ -1,4 +1,5 @@
-const db = require("../models/index");
+const db = require('../models/index');
+const { v4: uuidv4 } = require('uuid');
 
 let findAllClinicAnDoctorWithClinic = () => {
   return new Promise(async (resolve, reject) => {
@@ -27,6 +28,117 @@ let findAllClinicAnDoctorWithClinic = () => {
   });
 };
 
+let getListClinics = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let listClinics = await db.Clinic.findAll({
+        raw: true,
+        include: [
+          {
+            model: db.User,
+          },
+        ],
+      });
+      if (listClinics) {
+        resolve(listClinics);
+      } else {
+        resolve();
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getClinicById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findOne({
+        where: { id: id },
+        raw: true,
+      });
+      if (clinic) {
+        resolve(clinic);
+      } else {
+        resolve({});
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let createNewClinic = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findOne({
+        where: { name: data.name },
+        raw: true,
+      });
+      if (clinic) {
+        resolve('Khoa đã tồn tại');
+      } else {
+        await db.Clinic.create({
+          id: uuidv4(),
+          name: data.name,
+          description: data.description,
+          image: data.image,
+        });
+        resolve('Thêm thành công !');
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let updateClinic = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findOne({
+        where: { id: data.id },
+      });
+      if (clinic) {
+        clinic.name = data.name;
+        clinic.description = data.description;
+        if (data.image != '') {
+          clinic.image = data.image;
+        }
+        await clinic.save();
+        resolve('Cập nhật thành công !'); //return
+      } else {
+        resolve(); //return
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let deleteClinic = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findOne({
+        where: { id: id },
+      });
+      if (clinic) {
+        await clinic.destroy();
+        resolve('Xóa thành công !');
+      } else {
+        console.log('delete fail');
+        resolve();
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   findAllClinicAnDoctorWithClinic,
+  getListClinics,
+  createNewClinic,
+  updateClinic,
+  getClinicById,
+  deleteClinic,
 };

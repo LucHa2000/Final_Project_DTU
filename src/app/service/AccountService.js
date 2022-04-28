@@ -1,7 +1,7 @@
-const bcrypt = require("bcryptjs");
-const db = require("../models/index");
+const bcrypt = require('bcryptjs');
+const db = require('../models/index');
 let salt = bcrypt.genSaltSync(5);
-const { v4: uuidv4 } = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 
 let hashUserPassword = (password) => {
   return new Promise(async (resolve, reject) => {
@@ -36,10 +36,22 @@ let createNewAccount = (data) => {
         raw: true,
       });
       if (acc) {
-        resolve("Account đã tồn tại");
+        resolve('Account đã tồn tại');
       } else {
+        const userId = uuidv4();
+        const role = data.roleID;
+        let clinicId = null,
+          resumeId = null;
+        if (role === 2) {
+          const fee = data.fee;
+          clinicId = data.clinicID;
+          resumeId = uuidv4();
+          await db.Resume.create({ id: resumeId, title: '', description: '' });
+          await db.Service.create({ id: uuidv4(), UserId: userId, fee: fee });
+        }
+
         await db.User.create({
-          id: uuidv4(),
+          id: userId,
           email: data.email,
           password: hashPassword,
           firstName: data.firstName,
@@ -50,9 +62,11 @@ let createNewAccount = (data) => {
           roleID: data.roleID,
           status: 1,
           image:
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png",
+            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png',
+          resumeID: resumeID,
+          clinicID: clinicId,
         });
-        resolve("Thêm thành công !");
+        resolve('Thêm thành công !');
       }
     } catch (e) {
       reject(e);
@@ -93,7 +107,7 @@ let updateAccount = (data) => {
         user.phoneNumber = data.phoneNumber;
         user.roleID = data.roleID;
         await user.save();
-        resolve("Cập nhật thành công !"); //return
+        resolve('Cập nhật thành công !'); //return
       } else {
         resolve(); //return
       }
@@ -111,10 +125,10 @@ let deleteAcc = (id) => {
       });
       if (user) {
         if (user.roleID === 1) {
-          resolve("Không thể xóa tài khoản quản trị viên");
+          resolve('Không thể xóa tài khoản quản trị viên');
         } else {
           await user.destroy();
-          resolve("Xóa thành công !");
+          resolve('Xóa thành công !');
         }
       } else {
         resolve();

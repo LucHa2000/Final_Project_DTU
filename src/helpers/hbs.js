@@ -27,6 +27,13 @@ module.exports = {
       return 'white-heart.png';
     }
   },
+
+  styleStatus: (a) => {
+    if (a == 1) return 'check text-green-600';
+    if (a == 0) return 'close text-red-600';
+    if (a == 2) return 'remove text-yellow-600';
+  },
+
   converDateNewsfeed: (a) => moment(a).format('LLL'),
   iconRulePost: (a) => (a == 1 ? 'world-icon.png' : 'locked-icon.png'),
   sum: (a) => (a == a ? a + 1 : a), //create helpers

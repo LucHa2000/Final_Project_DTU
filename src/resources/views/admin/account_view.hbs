@@ -74,15 +74,15 @@
                     <td class="px-6 py-4">
                         {{{ accType this.roleID}}}
                     </td>
-                    <td class="px-6 py-4 {{{ btnStatus this.status}}}">
+                    <td class="px-6 py-4 {{{ styleStatus this.status}}}">
                         {{{ status this.status}}}
                     </td>
                     <td class="flex">
-                      <a data-position="top" data-tooltip="Status" href="/account/{{{this.status}}}/{{{this.id}}}" class="{{btnStatus this.account_status}} tooltipped btn btn-small   blue-grey "><i class="material-icons  ">{{btnStatus this.status}}</i></a>
-                      <a data-position="top" data-tooltip="Update" href="/account/{{{this.id}}}" class="btn btn-small tooltipped  yellow darken-3 button-radius "><i class="material-icons">system_update_alt</i></a>
+                      <a data-position="top" data-tooltip="Status" href="/account/{{{this.status}}}/{{{this.id}}}" class="{{btnStatus this.account_status}} tooltipped btn btn-small   blue-grey "><i class="material-icons {{styleStatus this.status}} font-bold">{{btnStatus this.status}}</i></a>
+                      <a data-position="top" data-tooltip="Update" href="/account/{{{this.id}}}" class="btn btn-small tooltipped  yellow darken-3 button-radius "><i class="material-icons text-yellow-600">system_update_alt</i></a>
 
                     <!-- Modal Trigger -->
-                      <a data-id="{{{this.id}}}" class="btn_delete text-red {{hidden this.roleID}}" type="button" data-modal-toggle="popup-modal" href="#popup-modal"><i class="material-icons">delete</i></a>
+                      <a data-id="{{{this.id}}}" class="btn_delete text-red {{hidden this.roleID}}" type="button" data-modal-toggle="popup-modal" href="#popup-modal"><i class="material-icons text-red-400">delete</i></a>
                     </td>
                   </tr>
                   {{else}}
@@ -214,6 +214,33 @@
                 
               </div>
             </div>
+            <div id="doctor-inputs">
+
+              <div class="is-row">
+
+                <div class="is-full">
+                  <label class="block mb-2 text-sm font-bold text-gray-900 " for="email">Khoa</label>
+                  <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Khoa<svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                  <!-- Dropdown menu -->
+                  <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+                      <select name="cars" id="cars">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                  </div>
+                  <span class="helper-text" data-error="Email is invalid!" data-success=""></span>
+                </div>
+              </div>
+              <div class="input-field is-half">
+                <label for="fee" class="block mb-2 text-sm font-bold text-gray-900 ">Phí*</label>
+                <input id="fee" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="password" required
+                  autocomplete="0">
+                
+                <span class="helper-text" data-error="" data-success=""></span>
+              </div>
+            </div>
             <div class="is-row">
               <div class="input-field col s10 m10 push-l1 mr-bottom">
                 <button class=" btn--primary waves-effect waves-light btnCreate" type="submit">Tạo
@@ -251,17 +278,30 @@
 
 {{!-- script --}}
 
-  <script>
+<script>
+      $('#doctor-inputs').hide();
   $(document).ready(function(){
-      $(".btn_delete").on("click", function(){
+      $(".btn_delete").on("click", function() {
           var dataId = $(this).attr("data-id");
             $(".delete-agree").attr("href", "/account/delete/"+dataId); // Set herf value
-      });
+      });      
   });
-  </script>
-
-    <script>
-        var password = document.getElementById("password")
+  $('#doctor-radio').on('change', function () {
+    if ($('#doctor-radio').is(':checked')) {
+      $('#doctor-inputs').show();
+    }
+  })
+  $('#admin-radio').on('change', function () {
+    if ($('#admin-radio').is(':checked')) {
+      $('#doctor-inputs').hide();
+    }
+  });
+  $('#user-radio').on('change', function () {
+    if ($('#user-radio').is(':checked')) {
+      $('#doctor-inputs').hide();
+    }
+  });
+  var password = document.getElementById("password")
         var confirm_password = document.getElementById("confirm_password");
   function validatePassword(){
     if(password.value != confirm_password.value) {
@@ -272,7 +312,10 @@
   }
 
   password.onchange = validatePassword;
+
   confirm_password.onkeyup = validatePassword;
-      </script>
+
+</script>
+
    
 
