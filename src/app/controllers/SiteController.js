@@ -80,6 +80,7 @@ class SiteController {
       let result = await getDoctorAppointmentAndResumeById(doctorId);
       let doctor = result[0];
       let doctorSchedules = result[1];
+      doctor.resumeTitle = doctor['Resume.title'];
       doctor.resumeDescription = doctor['Resume.description'];
       doctor.resumeStarNo = doctor['Resume.starNo'];
       //check time book with time now
