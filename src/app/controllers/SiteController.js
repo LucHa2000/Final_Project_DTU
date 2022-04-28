@@ -90,7 +90,7 @@ class SiteController {
       //check time book with time now
       let filterTimeWork = [];
       for (let i = 0; i < timeWorks.length; i++) {
-        if (timeWorks[i].startTime > getTimeNow()) {
+        if (timeWorks[i].startTime >= getTimeNow()) {
           filterTimeWork.push(timeWorks[i]);
         }
       }
