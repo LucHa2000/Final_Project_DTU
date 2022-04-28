@@ -109,10 +109,55 @@ let updateFollowDoctorIdStatus = (id) => {
     }
   });
 };
+
+let getAllDoctorClinicAndReview = () =>{
+  return new Promise(async (resolve, reject) => {
+    try {
+      let doctor = await db.User.findAll({
+        where: {roleID: 2},
+        include: [
+          {
+            model: db.Review
+          },
+          {
+            model: db.Clinic
+          }
+        ],
+        raw: true
+      })
+      if(doctor){
+        resolve(doctor);
+      }else{
+        resolve([])
+      }
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
+let getAllClinic = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findAll({
+        raw: true
+      })
+      if(clinic){
+        resolve(clinic);
+      }else{
+        resolve([])
+      }
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
 module.exports = {
   getResumeById,
   updateFollowDoctorIdStatus,
   getDoctorByClinicId,
   updateResume,
   getDoctorAppointmentAndResumeById,
+  getAllDoctorClinicAndReview,
+  getAllClinic
 };

@@ -95,7 +95,7 @@ class BookingController {
         if (newAppointmentId) {
           let amountForDoctor = (req.body.serviceFee * 70) / 100;
           await addBalanceById(req.body.doctorID, amountForDoctor);
-          await minusBalanceById(userID, 10);
+          await minusBalanceById(userID, req.body.serviceFee);
           await createNewTransactionHistory(userID, req.body, newAppointmentId);
           req.session.successfullyMessage = "Đặt lịch thành công";
           //create notification
