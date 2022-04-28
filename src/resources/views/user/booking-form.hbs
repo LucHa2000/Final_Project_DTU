@@ -37,9 +37,9 @@
             </div>
             <div class="app-container__section__content">
                 {{! message when enter invalid time }}
-                <p class="medicals__errors">{{errorMessage}}</p>
+                
 
-                <form action="/booking/createAppointment" method="POST">
+                <form action="/booking/createAppointment" method="POST" id="booking_form">
                     <div class="mb-5">
                         <input type="text" name="id" value="" hidden/>
                         <input type="text" name="doctorID" value="{{bookingDetail.doctor.id}}" hidden/>
@@ -65,7 +65,7 @@
                             <input type="text" id="user_email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="0123-456-789" value="{{bookingDetail.user.email}}" disabled>
                         </div>
                         <div>
-                            <label for="appointment_title" class="block mb-2 text-sm font-medium text-gray-900 ">Tiêu đề cuộc hẹn *</label>
+                            <label for="appointment_title" class="block mb-2 text-sm font-medium text-gray-900 ">Tiêu đề cuộc hẹn <span class="medicals__errors text-xs " id="title-empty-error"></span>*</label>
                             <input type="text" id="appointment_title" name="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Khám răng định kỳ" value="" required>
                         </div>
                         <div>
@@ -73,7 +73,8 @@
                             <input type="text" id="appointment_date" name="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="" value="{{bookingDetail.date}}" readonly>
                         </div>
                         <div>
-                            <label for="appointment_start_time" class="block mb-2 text-sm font-medium text-gray-900 ">Thời gian bắt đầu</label>
+           
+                            <label for="appointment_start_time" class="block mb-2 text-sm font-medium text-gray-900 ">Thời gian bắt đầu <span class="medicals__errors text-xs">{{errorMessage}}</span></label>
                             <input type="text" id="appointment_start_time" name="startTime" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="08:00" value="{{bookingDetail.timeStart}}" readonly>
                         </div>
                         <div>
@@ -109,6 +110,7 @@
                         <button
                          class="btn--primary"
                          type="submit"
+                         id="submit_booking"
                          >Xác nhận</button>
                     </div>
                 </form>
@@ -117,5 +119,14 @@
   </main>
 </div>
 <script>
+    var emptyError = `Bạn không thể để trống trường này` ;
     $('#appointment_title').focus();
+    $('#appointment_title').on('focus', function () {
+        $('#title-empty-error').text('');
+    })
+    $('#submit_booking').on('click', function () {
+        if ( !$('#appointment_title').val()) {
+            $('#title-empty-error').text(emptyError);
+        }
+    })
 </script>
