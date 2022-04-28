@@ -8,5 +8,6 @@ const upload = multer({
 const adminController = require("../app/controllers/AdminController");
 
 router.get("/account", adminController.accountPage);
+router.get("/clinic", adminController.clinicPage);
 router.use("/", adminController.index);
 module.exports = router;

@@ -9,6 +9,7 @@ const paymentRouter = require("./payment");
 const userRouter = require("./user");
 const accountRouter = require("./account");
 const bookingRouter = require("./booking");
+const clinicRouter = require("./clinic");
 function router(app) {
   app.use(
     "/admin",
@@ -22,6 +23,12 @@ function router(app) {
     authMiddlewares.checkAccount,
     authMiddlewares.checkRoleAdmin,
     accountRouter
+  );
+  app.use(
+    "/clinic",
+    authMiddlewares.checkAccount,
+    authMiddlewares.checkRoleAdmin,
+    clinicRouter
   );
   app.use(
     "/doctor",
