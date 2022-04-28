@@ -139,10 +139,13 @@ module.exports = {
       minute: "2-digit",
     };
     return event.toLocaleDateString("vi-VN", options);
+<<<<<<< HEAD
   },
   getCurrentDate: () => {
     const date = new Date();
     const newMonth = date.getMonth() / 9 <= 1 ? `0${date.getMonth()}` : date.getMonth();
     return `${date.getFullYear()}-${newMonth}-${date.getDate()}`;
+=======
+>>>>>>> 3ccb7cb (feat : add status doctor,sort render schedule)
   },
 };
