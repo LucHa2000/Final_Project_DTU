@@ -63,8 +63,9 @@ module.exports = {
       {
         id: '210a9909-ca28-48b3-b8bf-8fc98cbc3e81',
         starNo: 5,
-        title: '',
-        description: '',
+        title: 'John David - Chuyên khoa tai mũi họng',
+        description:
+          'Chào bạn, tôi là John David, tôi sinh ra và lớn lên ở California, hiện tôi đã làm việc và sinh sống ở Việt Nam 15 năm. Tôi tin rằng, với kinh nghiệm làm việc 10 năm ở mảng tai mũi họng, sẽ mang lại cho bạn trải nghiệm tốt nhất.',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
