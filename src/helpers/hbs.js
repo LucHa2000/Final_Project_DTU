@@ -142,7 +142,8 @@ module.exports = {
   },
   getCurrentDate: () => {
     const date = new Date();
-    const newMonth = date.getMonth() / 9 <= 1 ? `0${date.getMonth()}` : date.getMonth();
+    const newMonth =
+      date.getMonth() / 9 <= 1 ? `0${date.getMonth()}` : date.getMonth();
     return `${date.getFullYear()}-${newMonth}-${date.getDate()}`;
   },
 };
