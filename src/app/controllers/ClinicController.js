@@ -6,7 +6,6 @@ import {
   updateClinic,
   getClinicById,
   deleteClinic,
-  getListClinicsDoctor,
 } from '../service/ClinicService';
 
 class ClinicController {
