@@ -153,7 +153,6 @@ let updateAccount = (data) => {
             await db.Service.create({ id: uuidv4(), UserId: user.id, fee: fee1 });
           }
         }
-
         resolve('Cập nhật thành công !'); //return
       } else {
         resolve(); //return

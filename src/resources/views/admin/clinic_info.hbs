@@ -47,8 +47,12 @@
               </div>
               <div class="is-full">
                 <label class="block mb-2 text-sm font-bold text-gray-900 " for="description">Bác sĩ thuộc khoa</label>
-                {{#each clinics}}
-                <p>{{this.firsName}} {{this.lastName}}</p>
+                {{#each doctors}}
+                <p>{{this.firstName}} {{this.lastName}}</p>
+                {{else}}
+                      <p colspan="6" class="center text-center">
+                          Không có tài khoản
+                      <p>
                 {{/each}}
               </div>
               
