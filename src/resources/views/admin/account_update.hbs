@@ -82,6 +82,29 @@
                 
               </div>
             </div>
+            <div id="doctor-inputs" class="hidden">
+
+              <div class="is-row">
+
+                <div class="is-full">
+                 
+                <select name="clinic" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                  <option value="{{clinicOfDoctor.id}}" selected>{{clinicOfDoctor.name}}</option>
+                  {{#each clinics}}
+                  <option  value="{{this.id}}">{{this.name}}</option>
+                  {{/each}}
+                </select>
+                  <span class="helper-text" data-error="Email is invalid!" data-success=""></span>
+                </div>
+              </div>
+              <div class="input-field is-half">
+                <label name="fee" for="fee" class="block mb-2 text-sm font-bold text-gray-900 ">Phí*</label>
+                <input id="fee" name="fee" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  autocomplete="0" value="{{account.fee}}">
+                
+                <span class="helper-text" data-error="" data-success=""></span>
+              </div>
+            </div>
             <div class="is-row">
               <div class="input-field col s10 m10 push-l1 mr-bottom">
                 <button class=" btn--primary waves-effect waves-light btnCreate" type="submit">Cập nhật
@@ -94,6 +117,24 @@
         <br>
   </div>
 </div>
+<script>
+  $('#admin-radio').on('change', function () {
+    if ($('#admin-radio').is(':checked')) {
+      $('#doctor-inputs').hide();
+    }
+  });
+  $('#user-radio').on('change', function () {
+    if ($('#user-radio').is(':checked')) {
+      $('#doctor-inputs').hide();
+    }
+  });
+   $('#doctor-radio').on('change', function () {
+    if ($('#doctor-radio').is(':checked')) {
+      $('#doctor-inputs').show();
+    }
+  })
+  
+</script>
 
 
 

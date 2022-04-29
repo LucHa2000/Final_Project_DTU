@@ -51,7 +51,6 @@ let createNewAccount = (data) => {
           serviceId = uuidv4();
 
           await db.Resume.create({ id: resumeId, title: '', description: '' });
-          console.log('BAC SIIIII 1');
         }
         await db.User.create({
           id: userId,
@@ -69,7 +68,10 @@ let createNewAccount = (data) => {
           resumeID: resumeId,
           clinicID: clinicId,
         });
-        await db.Service.create({ id: serviceId, UserId: userId, fee: fee1 });
+        if (data.roleID == 2) {
+          await db.Service.create({ id: serviceId, UserId: userId, fee: fee1 });
+        }
+
         resolve('Thêm thành công !');
       }
     } catch (e) {
@@ -85,8 +87,22 @@ let getAccountById = (id) => {
         where: { id: id },
         raw: true,
       });
+      let clinics = await db.Clinic.findAll({
+        raw: true,
+      });
       if (user) {
-        resolve(user);
+        if (user.roleID == 2) {
+          let clinicOfDoctor = await db.Clinic.findOne({
+            where: { id: user.clinicID },
+            raw: true,
+          });
+          let serviceOfDoctor = await db.Service.findOne({
+            where: { UserId: user.id },
+          });
+          resolve([user, clinicOfDoctor, clinics, serviceOfDoctor]);
+        } else {
+          resolve([user, '', clinics, '']);
+        }
       } else {
         resolve({});
       }
@@ -104,13 +120,40 @@ let updateAccount = (data) => {
         where: { id: data.id },
       });
       if (user) {
+        let clinicId = null;
+        let resumeId = null;
+        if (data.roleID == 2) {
+          clinicId = data.clinic;
+
+          if (user.resumeID == null) {
+            resumeId = uuidv4();
+            await db.Resume.create({ id: resumeId, title: '', description: '' });
+          }
+        }
         user.firstName = data.firstName;
         user.lastName = data.lastName;
         user.email = data.email;
         user.address = data.address;
         user.phoneNumber = data.phoneNumber;
         user.roleID = data.roleID;
+        user.clinicID = clinicId;
+        user.resumeID = resumeId;
+
         await user.save();
+
+        if (data.roleID == 2) {
+          let fee1 = data.fee;
+          let service = await db.Service.findOne({
+            where: { UserId: user.id },
+          });
+          if (service) {
+            service.fee = fee1;
+            await service.save();
+          } else {
+            await db.Service.create({ id: uuidv4(), UserId: user.id, fee: fee1 });
+          }
+        }
+
         resolve('Cập nhật thành công !'); //return
       } else {
         resolve(); //return
