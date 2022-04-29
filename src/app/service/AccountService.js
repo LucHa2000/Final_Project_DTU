@@ -17,8 +17,9 @@ let hashUserPassword = (password) => {
 let getListAccounts = () => {
   return new Promise(async (resolve, reject) => {
     try {
+      let listClinics = await db.Clinic.findAll({ raw: true });
       let listUsers = await db.User.findAll({ raw: true });
-      resolve(listUsers); // == return listUsers
+      resolve([listUsers, listClinics]); // == return listUsers
     } catch (e) {
       reject(e);
     }
@@ -39,17 +40,18 @@ let createNewAccount = (data) => {
         resolve('Account đã tồn tại');
       } else {
         const userId = uuidv4();
-        const role = data.roleID;
-        let clinicId = null,
-          resumeId = null;
-        if (role === 2) {
-          const fee = data.fee;
-          clinicId = data.clinicID;
+        let serviceId = null;
+        let clinicId = null;
+        let resumeId = null;
+        let fee1 = null;
+        if (data.roleID == 2) {
+          clinicId = data.clinic;
+          fee1 = data.fee;
           resumeId = uuidv4();
-          await db.Resume.create({ id: resumeId, title: '', description: '' });
-          await db.Service.create({ id: uuidv4(), UserId: userId, fee: fee });
-        }
+          serviceId = uuidv4();
 
+          await db.Resume.create({ id: resumeId, title: '', description: '' });
+        }
         await db.User.create({
           id: userId,
           email: data.email,
@@ -63,9 +65,13 @@ let createNewAccount = (data) => {
           status: 1,
           image:
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png',
-          resumeID: resumeID,
+          resumeID: resumeId,
           clinicID: clinicId,
         });
+        if (data.roleID == 2) {
+          await db.Service.create({ id: serviceId, UserId: userId, fee: fee1 });
+        }
+
         resolve('Thêm thành công !');
       }
     } catch (e) {
@@ -81,8 +87,22 @@ let getAccountById = (id) => {
         where: { id: id },
         raw: true,
       });
+      let clinics = await db.Clinic.findAll({
+        raw: true,
+      });
       if (user) {
-        resolve(user);
+        if (user.roleID == 2) {
+          let clinicOfDoctor = await db.Clinic.findOne({
+            where: { id: user.clinicID },
+            raw: true,
+          });
+          let serviceOfDoctor = await db.Service.findOne({
+            where: { UserId: user.id },
+          });
+          resolve([user, clinicOfDoctor, clinics, serviceOfDoctor]);
+        } else {
+          resolve([user, '', clinics, '']);
+        }
       } else {
         resolve({});
       }
@@ -100,13 +120,40 @@ let updateAccount = (data) => {
         where: { id: data.id },
       });
       if (user) {
+        let clinicId = null;
+        let resumeId = null;
+        if (data.roleID == 2) {
+          clinicId = data.clinic;
+
+          if (user.resumeID == null) {
+            resumeId = uuidv4();
+            await db.Resume.create({ id: resumeId, title: '', description: '' });
+          }
+        }
         user.firstName = data.firstName;
         user.lastName = data.lastName;
         user.email = data.email;
         user.address = data.address;
         user.phoneNumber = data.phoneNumber;
         user.roleID = data.roleID;
+        user.clinicID = clinicId;
+        user.resumeID = resumeId;
+
         await user.save();
+
+        if (data.roleID == 2) {
+          let fee1 = data.fee;
+          let service = await db.Service.findOne({
+            where: { UserId: user.id },
+          });
+          if (service) {
+            service.fee = fee1;
+            await service.save();
+          } else {
+            await db.Service.create({ id: uuidv4(), UserId: user.id, fee: fee1 });
+          }
+        }
+
         resolve('Cập nhật thành công !'); //return
       } else {
         resolve(); //return

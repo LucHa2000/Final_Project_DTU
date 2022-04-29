@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 import {
@@ -7,29 +7,52 @@ import {
   updateAccount,
   getAccountById,
   deleteAcc,
-} from "../service/AccountService";
+} from '../service/AccountService';
 
 class AccountController {
   //[GET];
   async pageUpdate(req, res, next) {
     let account = await getAccountById(req.params.id);
 
-    if (account) return res.render("admin/account_update", { account });
+    let acc = account[0];
+    let clinicOfDoctor = account[1];
+    let clinics = account[2];
+    let serviceOfDoctor = account[3];
+    if (acc.roleID == 2) {
+      acc.fee = serviceOfDoctor['fee'];
+    } else {
+      acc.fee = '';
+    }
 
-    return res.redirect("/back");
+    if (account)
+      if (acc.roleID == 2) {
+        return res.render('admin/account_update', {
+          account: acc,
+          clinicOfDoctor,
+          clinics,
+        });
+      } else {
+        return res.render('admin/account_update', {
+          account: acc,
+          clinicOfDoctor,
+          clinics,
+        });
+      }
+
+    return res.redirect('/back');
   }
 
   //[POST]
   async storeAccount(req, res, next) {
     let formData = req.body;
 
-    if (formData === null) return res.redirect("back");
+    if (formData === null) return res.redirect('back');
 
     let newAccount = await createNewAccount(formData);
 
-    if (!newAccount) return res.redirect("/error");
+    if (!newAccount) return res.redirect('/error');
 
-    res.redirect("/admin/account");
+    res.redirect('/admin/account');
   }
 
   //[POST] UPDATE
@@ -38,17 +61,17 @@ class AccountController {
 
     let accountUpdate = await updateAccount(req.body);
 
-    if (accountUpdate) return res.redirect("/admin/account");
+    if (accountUpdate) return res.redirect('/admin/account');
 
-    return console.log("update fail");
+    return console.log('update fail');
   }
 
   async deleteAccount(req, res, next) {
     let acc = await deleteAcc(req.params.id);
 
-    if (acc) return res.redirect("back");
+    if (acc) return res.redirect('back');
 
-    return console.log("delete fail");
+    return console.log('delete fail');
   }
 
   changeStatus(req, res, next) {
@@ -56,9 +79,9 @@ class AccountController {
 
     let changeAcc = changeAccStatus(req.body);
 
-    if (changeAcc) return res.redirect("back");
+    if (changeAcc) return res.redirect('back');
 
-    return console.log("change fail");
+    return console.log('change fail');
   }
 }
 
