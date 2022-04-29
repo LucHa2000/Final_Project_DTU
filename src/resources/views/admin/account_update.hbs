@@ -82,7 +82,7 @@
                 
               </div>
             </div>
-            <div id="doctor-inputs" class="hidden">
+            <div id="doctor-inputs">
 
               <div class="is-row">
 
@@ -118,6 +118,12 @@
   </div>
 </div>
 <script>
+  $('#doctor-inputs').hide();
+  $(document).ready(function(){
+     if ($('#doctor-radio').is(':checked')) {
+      $('#doctor-inputs').show();
+    }
+  });
   $('#admin-radio').on('change', function () {
     if ($('#admin-radio').is(':checked')) {
       $('#doctor-inputs').hide();
