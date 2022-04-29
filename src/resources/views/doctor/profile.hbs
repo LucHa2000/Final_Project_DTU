@@ -4,9 +4,16 @@
     <div class="medicals__sidenav max-w-[70px] mt-[100px]">
       <ul class="medicals__sidenav__list flex flex-col justify-center">
         <li class="medicals__sidenav__item medicals__sidenav__item">
-          <a href="#" class="medicals__sidenav__link"><i
+          {{#if userLogin}}
+          <a href="" id="schedule-user" class="medicals__sidenav__link"><i
               class="fa-solid fa-calendar-days medicals__sidenav__icon"
-            ></i></a>
+            title="Lịch cá nhân"></i></a>
+
+            {{else}}
+            <a href="" id="schedule-doctor" class="medicals__sidenav__link"><i
+              class="fa-solid fa-calendar-days medicals__sidenav__icon"
+            title="Lịch cá nhân"></i></a>
+            {{/if}}
         </li>
         <li class="medicals__sidenav__item medicals__sidenav__item">
           <a href="/" class="medicals__sidenav__link"><i
@@ -122,4 +129,4 @@
     
   </main>
 </div>
-
+<script src = "../script/handleLinkSchedule.js"></script>

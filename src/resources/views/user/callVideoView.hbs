@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Clone Zoom với Stringee hihi</title>
+    <title></title>
 
     <!-- import the webpage's stylesheet -->
     <link
@@ -45,34 +45,38 @@
     }
   </style>
   <body>
+
+    {{>nav}}
     <div class="container has-text-centered" id="app">
       <h1 class="title">
-           Join room talking to me
-        <span class="header-highlight">Stringee API</span>
+
+        <span class="header-highlight">
+         Gọi Video Medicals 
+        </span>
       </h1>
       <span>{{roomId}} {{roomToken}}</span>
       <div>
           <button v-if="!roomId"  @click="createRoom" class="button is-info">
-          create room
+          Tạo Phòng
         </button>
         <button v-if="!roomId" @click="joinRoom" class="button is-primary">
-          join room
+          Thạm Dự Phòng
         </button>
         <button v-if="roomId" class="button is-info" @click="publishVideo(true)">
-          shareScreen
+          Chia Sẽ Màn Hình
         </button>
       </div>
       
       <div v-if="roomId">
         <p >
-            You can send this link :
+           Bạn có thể gửi link này cho bạn bè :
            <a v-bind:href="roomUrl" target="_blank" id="roomUrl"> {{roomUrl}}  </a>
           
         </p>
         
         <p>
           
-          <strong>RoomID : </strong>
+          <strong>hoặc gửi roomId cho bạn bè : </strong>
           
           <p id="roomId"> {{roomId}} </p>
         </p>
