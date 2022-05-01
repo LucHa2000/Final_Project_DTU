@@ -14,7 +14,7 @@ class ClinicController {
     let clinics = await getClinicById(req.params.id);
 
     let clinic = clinics[0];
-    if (clinic) return res.render('admin/clinic_update', { clinic: clinics });
+    if (clinics) return res.render('admin/clinic_update', { clinic });
 
     return res.redirect('/back');
   }

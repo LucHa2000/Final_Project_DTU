@@ -16,7 +16,7 @@
 
         <div class="">
           <form class="" method="POST" action="/clinic/{{clinic.id}}/edit" autocomplete="off" enctype="multipart/form-data">
-          <input  name="id" type="text" value="{{clinic.id}}" hidden >
+           <input  name="id" type="text" value="{{clinic.id}}" hidden >
           <div class="is-row flex items-center justify-center">
             <a href="#" id="fileSelect" for="avatar-input-file" class="cursor-pointer">
               <div class="relative">
@@ -51,19 +51,14 @@
                 <p>{{this.firstName}} {{this.lastName}}</p>
                 {{else}}
                       <p colspan="6" class="center text-center">
-                          Không có tài khoản
+                          Không có bác sĩ
                       <p>
                 {{/each}}
               </div>
-              
-              {{!-- img --}}
-              
-
-
             <div class="is-row">
               <div class="input-field col s10 m10 push-l1 mr-bottom">
-                <button class=" btn--primary waves-effect waves-light btnCreate" type="submit">Cập nhật
-                </button>
+                <a href="/clinic/{{{clinic.id}}}" class=" btn--primary waves-effect waves-light btnCreate" type="submit">Cập nhật thông tin khoa
+                </a>
               </div>
             </div>
           </form>

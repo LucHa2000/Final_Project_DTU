@@ -16,13 +16,21 @@ const clinicRouter = require('./clinic');
 function router(app) {
   app.use(
     '/admin',
-    authMiddlewares.checkAccount,
-    authMiddlewares.checkRoleAdmin,
-    authMiddlewares.addInfoAuthencation,
+    // authMiddlewares.checkAccount,
+    // authMiddlewares.checkRoleAdmin,
+    // authMiddlewares.addInfoAuthencation,
     adminRouter
   );
-  app.use('/account', authMiddlewares.checkAccount, authMiddlewares.checkRoleAdmin, accountRouter);
-  app.use('/clinic', authMiddlewares.checkAccount, authMiddlewares.checkRoleAdmin, clinicRouter);
+  app.use(
+    '/account',
+    //  authMiddlewares.checkAccount, authMiddlewares.checkRoleAdmin,
+    accountRouter
+  );
+  app.use(
+    '/clinic',
+    // authMiddlewares.checkAccount, authMiddlewares.checkRoleAdmin,
+    clinicRouter
+  );
   app.use(
     '/doctor',
     authMiddlewares.checkAccount,
