@@ -25,7 +25,21 @@
               class="medicals__sidenav__icon fa-brands fa-rocketchat"
             ></i></a>
         </li>
-        
+          <li class="medicals__sidenav__item medicals__sidenav__item">
+              {{#if userLogin}}
+          <a href="/user" class="medicals__sidenav__link">
+          <i
+          class="medicals__sidenav__icon medicals__sidenav__icon fa-solid fa-gear"
+            ></i></a>
+            {{else}}
+              {{#if doctorLogin}}
+                  <a href="/doctor" class="medicals__sidenav__link">
+              <i
+              class="medicals__sidenav__icon medicals__sidenav__icon fa-solid fa-gear"
+                ></i></a>
+                 {{/if}}
+               {{/if}}
+        </li>
       </ul>
     </div>
     

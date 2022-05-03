@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 import { getUserById, updateUser } from "../service/UserService";
+import {
+  getAppointmentsByUserID,
+  getAppointmentsAndTransactionsByUserID,
+} from "../service/AppoinmentService";
 class UserController {
   async index(req, res, next) {
     const userId = req.session.userID;
@@ -25,6 +29,18 @@ class UserController {
     } else {
       console.log("Change failed !");
     }
+  }
+  async transactionHistory(req, res, next) {
+    let appointments = await getAppointmentsAndTransactionsByUserID(
+      req.session.userID,
+      3
+    );
+
+    for (let appointment of appointments) {
+      appointment.balance = appointment["TransactionHistory.balance"];
+    }
+
+    res.render("user/transactionHistory", { appointments: appointments });
   }
 }
 module.exports = new UserController();

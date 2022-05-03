@@ -64,7 +64,7 @@ class AuthMiddlewares {
         );
         res.locals.notifications = notifications;
         if (req.session.roleID === 2) {
-          res.locals.adminLogin = true;
+          res.locals.doctorLogin = true;
         } else if (req.session.roleID === 3) {
           res.locals.userLogin = true;
         }

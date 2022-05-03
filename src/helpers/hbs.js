@@ -68,6 +68,10 @@ module.exports = {
     else if (a == 2) return "Bác sĩ";
     else if (a == 3) return "Người dùng";
   },
+  statusIsCancel: (a) => {
+    if (a === 0) return "Hoàn Thành";
+    else if (a === 1) return "Đã Huỷ";
+  },
   sortable: (field, sort) => {
     const sortType = field == sort.column ? sort.type : "default";
     const icons = {

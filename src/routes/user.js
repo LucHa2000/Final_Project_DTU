@@ -14,5 +14,6 @@ router.post(
   userController.changeAccount
 );
 router.use("/updateAccount", userController.updateAccountView);
+router.use("/transactionHistory", userController.transactionHistory);
 router.use("/", userController.index);
 module.exports = router;

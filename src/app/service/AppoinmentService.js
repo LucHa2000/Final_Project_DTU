@@ -27,6 +27,33 @@ let getAppointmentsByUserID = (userID, roleID) => {
     }
   });
 };
+let getAppointmentsAndTransactionsByUserID = (userID, roleID) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment;
+      if (roleID == 2) {
+        appointment = await db.Appointment.findAll({
+          where: { doctorID: userID },
+          raw: true,
+          include: db.TransactionHistory,
+        });
+      } else if (roleID == 3) {
+        appointment = await db.Appointment.findAll({
+          where: { userID: userID },
+          raw: true,
+          include: db.TransactionHistory,
+        });
+      }
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let getAppointmentsByTitle = (title) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -194,4 +221,5 @@ module.exports = {
   cancelAppointment,
   getAppointmentsOnDayByUserID,
   createNewAppointment,
+  getAppointmentsAndTransactionsByUserID,
 };
