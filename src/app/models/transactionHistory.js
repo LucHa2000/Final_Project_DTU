@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(TransactionHistory);
 
       TransactionHistory.belongsTo(models.Appointment);
-      models.Appointment.hasMany(TransactionHistory);
+      models.Appointment.hasOne(TransactionHistory);
     }
   }
   TransactionHistory.init(
