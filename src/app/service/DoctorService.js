@@ -117,7 +117,7 @@ let getAllDoctorClinicAndReview = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let doctor = await db.User.findAll({
-        where: { roleID: 2 },
+        where: { roleID: 2 , status: 1},
         include: [
           {
             model: db.Review,
