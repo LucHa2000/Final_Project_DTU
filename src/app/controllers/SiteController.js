@@ -142,18 +142,6 @@ class SiteController {
     res.render("user/searchAllDoctor", { listDoctorRender });
   }
 
-  async searchAllDoctor(req, res, next) {
-    let doctors = await getAllDoctorClinicAndReview();
-    let listDoctorRender = [];
-    for (let e of doctors) {
-      e.clinicName = e["Clinic.name"];
-      e.starNo = e["Reviews.starNo"];
-      listDoctorRender.push(e);
-    }
-
-    res.render("user/searchAllDoctor", { listDoctorRender });
-  }
-
   async searchAllClinic(req, res, next) {
     let clinics = await getAllClinic();
     console.log(clinics);
