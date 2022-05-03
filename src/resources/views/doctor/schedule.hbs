@@ -118,13 +118,28 @@
   </main>
 </div>
 <script>
+  
+  var date = $('#date').val();
   $('#current-date').text($('#date').val())
   $('#date').on('change', function () {
     $('#current-date').text($('#date').val())
   })
   $('.cancel-btn').click(function () {
     console.log('id', this.id);
-    $('#confirm_cancel_btn').attr('href', `/job/cancel/${this.id}`);
+    var endTime = $(`.${this.id}`).text();
+    var dateTime = new Date(`${date} ${endTime}`);
+    var currentDateTime = new Date();
+    if (dateTime < currentDateTime) {
+      $('.cancel_title').text(`Chú ý!`);
+      $('.cancel_content').text(`Bạn không thể hủy lịch này!`);
+      $('#confirm_cancel_btn').attr('href', `#`);
+      $('.model_cancel_btn').hide();
+    } else {
+      $('.cancel_title').text(`Bạn có chắc chắn muốn hủy lịch trên?`);
+      $('.cancel_content').text(`Bằng việc chọn "Xác nhận", lịch trên sẽ bị hủy và bạn sẽ được hoàn lại số xu`);
+      $('#confirm_cancel_btn').attr('href', `/job/cancel/${this.id}`);
+      $('.model_cancel_btn').show();
+    }
   })
 </script>
 
