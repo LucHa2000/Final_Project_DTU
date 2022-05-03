@@ -58,7 +58,7 @@ let getDoctorAppointmentAndResumeById = (doctorId) => {
         ],
       });
       let appointment = await db.Appointment.findAll({
-        where: { doctorID: doctorId, date: formatDate(dateNow) },
+        where: { doctorID: doctorId, date: formatDate(dateNow), isCanceled: false },
         raw: true,
       });
       if (user || appointment) {

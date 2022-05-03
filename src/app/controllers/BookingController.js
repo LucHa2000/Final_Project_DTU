@@ -84,7 +84,7 @@ class BookingController {
         checkingAvailableTime(startTime, userAppointment) === false ||
         checkingAvailableTime(startTime, doctorAppointment) === false
       ) {
-        req.session.error = "Invalid time!";
+        req.session.error = "Bạn không thể đặt lịch vào thời gian này!";
         res.redirect("back");
       } else if (user.balance < req.body.serviceFee) {
         req.session.error = "Số xu của bạn không đủ ! bạn có thể nạp thêm xu ";

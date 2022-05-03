@@ -8,12 +8,12 @@ let getAppointmentsByUserID = (userID, roleID) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
-          where: { doctorID: userID },
+          where: { doctorID: userID, isCanceled: false },
           raw: true,
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
-          where: { userID: userID },
+          where: { userID: userID, isCanceled: false },
           raw: true,
         });
       }
