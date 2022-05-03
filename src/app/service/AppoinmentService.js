@@ -9,12 +9,12 @@ let getAppointmentsByUserID = (userID, roleID) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
-          where: { doctorID: userID, isCanceled: { [Op.or]: [0, null]} },
+          where: { doctorID: userID, isCanceled: { [Op.or]: [0, null] } },
           raw: true,
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
-          where: { userID: userID, isCanceled: { [Op.or]: [0, null]} },
+          where: { userID: userID, isCanceled: { [Op.or]: [0, null] } },
           raw: true,
         });
       }
@@ -191,22 +191,22 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
-<<<<<<< HEAD
-          where: { doctorID: userID, date: date },
-=======
-          where: { doctorID: userID, isCanceled: { [Op.or]: [0, null]}, date: date },
->>>>>>> 5d40bc1 (feat: fix booking)
+          where: {
+            doctorID: userID,
+            isCanceled: { [Op.or]: [0, null] },
+            date: date,
+          },
 
           raw: true,
           order: [["startTime", "ASC"]],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
-<<<<<<< HEAD
-          where: { userID: userID, date: date },
-=======
-          where: { userID: userID, isCanceled: { [Op.or]: [0, null]}, date: date },
->>>>>>> 5d40bc1 (feat: fix booking)
+          where: {
+            userID: userID,
+            isCanceled: { [Op.or]: [0, null] },
+            date: date,
+          },
           raw: true,
           order: [["startTime", "ASC"]],
         });
