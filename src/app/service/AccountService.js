@@ -37,7 +37,7 @@ let createNewAccount = (data) => {
         raw: true,
       });
       if (acc) {
-        resolve('Account đã tồn tại');
+        resolve('Account exist');
       } else {
         const userId = uuidv4();
         let serviceId = null;
@@ -49,7 +49,6 @@ let createNewAccount = (data) => {
           fee1 = data.fee;
           resumeId = uuidv4();
           serviceId = uuidv4();
-
           await db.Resume.create({ id: resumeId, title: '', description: '' });
         }
         await db.User.create({
@@ -136,6 +135,7 @@ let updateAccount = (data) => {
         user.address = data.address;
         user.phoneNumber = data.phoneNumber;
         user.roleID = data.roleID;
+        // user.status = 1;
         user.clinicID = clinicId;
         user.resumeID = resumeId;
 
@@ -153,7 +153,6 @@ let updateAccount = (data) => {
             await db.Service.create({ id: uuidv4(), UserId: user.id, fee: fee1 });
           }
         }
-
         resolve('Cập nhật thành công !'); //return
       } else {
         resolve(); //return

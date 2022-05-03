@@ -27,7 +27,10 @@ module.exports = {
       return "white-heart.png";
     }
   },
-
+  clinic: (a) => {
+    if (a == null) return 'Khoa';
+    return a;
+  },
   styleStatus: (a) => {
     if (a == 1) return "check text-green-600";
     if (a == 0) return "close text-red-500";
