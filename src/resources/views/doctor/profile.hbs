@@ -59,12 +59,17 @@
             </div>
           </div>
           <div class="is-row">
-            <div class="is-full ">
-              <label class="block mb-2 text-sm text-gray-900 font-bold">Xu của bạn</label>
+            <div class="is-one-third ">
+               <label class="block mb-2 text-sm text-gray-900 font-bold">Xu của bạn</label>
               <div class="relative">
                   <p class="text-xl">{{account.balance}}</p>
               </div>
-              
+            </div>
+           <div class="is-one-third ">
+                <label class="block mb-2 text-sm  text-gray-900 font-bold">Giới Tính</label>
+              <div class="relative">
+                <p id="gender" name="gender" class="">{{convertGenderToText account.gender}}</p>
+              </div>
             </div>
           </div>
           

@@ -88,6 +88,25 @@
             </div>
 
           </div>
+              <div class="is-row">
+            <div class="medicals__input-field is-full ">
+              <label for="gender-edit" class="block mb-2 text-sm font-medium text-gray-900">Giới Tính</label>
+              <div class="relative">
+                  <div class="flex items-center mb-4">
+                    <input id="gender-edit" type="radio" name="gender" value="0" class="w-4 h-4 border-gray-300  dark:bg-gray-700 dark:border-gray-600" {{gender account.gender 0}}>
+                    <label for="gender-edit" class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-900">
+                          Nam
+                    </label>
+                  </div>
+                  <div class="flex items-center mb-4">
+                    <input id="gender-edit" type="radio" name="gender" value="1" class="w-4 h-4 border-gray-300  dark:bg-gray-700 dark:border-gray-600" {{gender account.gender 1}}>
+                    <label for="gender-edit" class="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-900">
+                            Nữ
+                    </label>
+                  </div>
+              </div>
+            </div>
+          </div>
           <div class="is-row">
             <div class="medicals__input-field is-full ">
               <label for="address-name-edit" class="block mb-2 text-sm font-medium text-gray-900">Địa chỉ</label>

@@ -52,6 +52,9 @@ let getDoctorAppointmentAndResumeById = (doctorId) => {
           {
             model: db.Resume,
           },
+          {
+            model: db.Clinic,
+          },
         ],
       });
       let appointment = await db.Appointment.findAll({
@@ -110,48 +113,49 @@ let updateFollowDoctorIdStatus = (id) => {
   });
 };
 
-let getAllDoctorClinicAndReview = () =>{
+let getAllDoctorClinicAndReview = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let doctor = await db.User.findAll({
-        where: {roleID: 2},
+        where: { roleID: 2 },
         include: [
           {
-            model: db.Review
+            model: db.Review,
           },
           {
-            model: db.Clinic
-          }
+            model: db.Clinic,
+          },
         ],
-        raw: true
-      })
-      if(doctor){
+        raw: true,
+      });
+      if (doctor) {
         resolve(doctor);
-      }else{
-        resolve([])
+      } else {
+        resolve([]);
       }
     } catch (error) {
-      reject(error)
+      reject(error);
     }
-  })
-}
+  });
+};
 
 let getAllClinic = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let clinic = await db.Clinic.findAll({
-        raw: true
-      })
-      if(clinic){
+        raw: true,
+      });
+      if (clinic) {
         resolve(clinic);
-      }else{
-        resolve([])
+      } else {
+        resolve([]);
       }
     } catch (error) {
-      reject(error)
+      reject(error);
     }
-  })
-}
+  });
+};
+
 module.exports = {
   getResumeById,
   updateFollowDoctorIdStatus,
@@ -159,5 +163,5 @@ module.exports = {
   updateResume,
   getDoctorAppointmentAndResumeById,
   getAllDoctorClinicAndReview,
-  getAllClinic
+  getAllClinic,
 };

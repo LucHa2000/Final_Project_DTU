@@ -1,13 +1,16 @@
 const express = require("express");
 const router = express.Router();
 import { formatDate, getTimeNow } from "../../util/dateNow";
-import { findAllClinicAnDoctorWithClinic } from "../service/ClinicService";
+import {
+  findAllClinicAnDoctorWithClinic,
+  getClinicById,
+} from "../service/ClinicService";
 import { getServiceByDoctorId } from "../service/ServiceService";
 import {
   getDoctorByClinicId,
   getDoctorAppointmentAndResumeById,
   getAllDoctorClinicAndReview,
-  getAllClinic
+  getAllClinic,
 } from "../service/DoctorService";
 import { getAppointmentsByUserID } from "../service/AppoinmentService";
 class SiteController {
@@ -32,18 +35,23 @@ class SiteController {
   async displayDoctors(req, res, next) {
     const clinicId = req.params.clinicId;
     let doctors = await getDoctorByClinicId(clinicId);
+    let clinic = await getClinicById(clinicId);
     let listDoctorsRender = [];
     for (let e of doctors) {
       e.clinicName = e["Clinic.name"];
       listDoctorsRender.push(e);
     }
     //res.send(doctors);
-    res.render("user/doctorFollowClinic", { doctors: listDoctorsRender });
+    res.render("user/doctorFollowClinic", {
+      doctors: listDoctorsRender,
+      clinic: clinic,
+    });
   }
   async doctorDetail(req, res, next) {
     try {
       const doctorId = req.params.doctorId;
       let serviceFee = await getServiceByDoctorId(doctorId);
+
       let timeWorks = [
         {
           id: doctorId,
@@ -87,6 +95,7 @@ class SiteController {
       let doctorSchedules = result[1];
       doctor.resumeDescription = doctor["Resume.description"];
       doctor.resumeStarNo = doctor["Resume.starNo"];
+      doctor.clinicName = doctor["Clinic.name"];
       //check time book with time now
       let filterTimeWork = [];
       for (let i = 0; i < timeWorks.length; i++) {
@@ -105,51 +114,51 @@ class SiteController {
             break;
           }
         }
-        console.log(filterTimeWork[i]);
+        // console.log(filterTimeWork[i]);
       }
-      
+
       console.log(filterTimeWork);
       res.render("user/detailDoctor", {
         doctor: doctor,
         timeWorks: filterTimeWork,
         serviceFee: serviceFee,
       });
+      // res.send(doctor);
     } catch (err) {
       console.log(err);
     }
   }
 
-  async searchAllDoctor(req,res,next){
+  async searchAllDoctor(req, res, next) {
     let doctors = await getAllDoctorClinicAndReview();
     let listDoctorRender = [];
-    for(let e of doctors){
+    for (let e of doctors) {
       e.clinicName = e["Clinic.name"];
       e.starNo = e["Reviews.starNo"];
       listDoctorRender.push(e);
     }
-    console.log(listDoctorRender)
+    console.log(listDoctorRender);
 
-    res.render("user/searchAllDoctor", {listDoctorRender})
+    res.render("user/searchAllDoctor", { listDoctorRender });
   }
 
-  async searchAllDoctor(req,res,next){
+  async searchAllDoctor(req, res, next) {
     let doctors = await getAllDoctorClinicAndReview();
     let listDoctorRender = [];
-    for(let e of doctors){
+    for (let e of doctors) {
       e.clinicName = e["Clinic.name"];
       e.starNo = e["Reviews.starNo"];
       listDoctorRender.push(e);
     }
 
-    res.render("user/searchAllDoctor", {listDoctorRender})
+    res.render("user/searchAllDoctor", { listDoctorRender });
   }
 
-  async searchAllClinic (req, res, next) {
+  async searchAllClinic(req, res, next) {
     let clinics = await getAllClinic();
     console.log(clinics);
 
-    res.render("user/searchAllClinic", {clinics})
+    res.render("user/searchAllClinic", { clinics });
   }
-
 }
 module.exports = new SiteController();
