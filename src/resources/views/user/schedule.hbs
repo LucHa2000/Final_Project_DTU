@@ -126,13 +126,15 @@
     var currentDateTime = new Date();
     console.log(startDateTime)
     
-    var isLessThan30Minutes = (currentDateTime.getHours() - startDateTime.getHours() == 0)  && (currentDateTime.getMinutes() - startDateTime.getMinutes() <= 30)
+    var isLessThan30Minutes = (startDateTime.getHours() - currentDateTime.getHours() == 0)  && (startDateTime.getMinutes() - currentDateTime.getMinutes() <= 30)
+    console.log('currentDateTime.getMinutes() - startDateTime.getMinutes() <= 30: ', startDateTime.getMinutes() - currentDateTime.getMinutes() );
     console.log('startDateTime.getMinutes(): ', startDateTime.getMinutes());
     console.log('currentDateTime.getMinutes(): ', currentDateTime.getMinutes());
+
     console.log('isLessThan30Minutes: ', isLessThan30Minutes);
     console.log(currentDateTime);
     
-    if (startDateTime > currentDateTime || isLessThan30Minutes ) {
+    if (startDateTime < currentDateTime && endDateTime < currentDateTime || isLessThan30Minutes ) {
       $('.cancel_title').text(`Chú ý!`);
       $('.cancel_content').text(`Bạn không thể hủy lịch này!`);
       $('#confirm_cancel_btn').attr('href', `#`);
