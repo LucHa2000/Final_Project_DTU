@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const { Op } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
 import { raw } from "body-parser";
 import { formatDate } from "../../util/dateNow";
@@ -8,12 +9,12 @@ let getAppointmentsByUserID = (userID, roleID) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
-          where: { doctorID: userID, isCanceled: false },
+          where: { doctorID: userID, isCanceled: { [Op.or]: [0, null]} },
           raw: true,
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
-          where: { userID: userID, isCanceled: false },
+          where: { userID: userID, isCanceled: { [Op.or]: [0, null]} },
           raw: true,
         });
       }
@@ -190,14 +191,22 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
+<<<<<<< HEAD
           where: { doctorID: userID, date: date },
+=======
+          where: { doctorID: userID, isCanceled: { [Op.or]: [0, null]}, date: date },
+>>>>>>> 5d40bc1 (feat: fix booking)
 
           raw: true,
           order: [["startTime", "ASC"]],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
+<<<<<<< HEAD
           where: { userID: userID, date: date },
+=======
+          where: { userID: userID, isCanceled: { [Op.or]: [0, null]}, date: date },
+>>>>>>> 5d40bc1 (feat: fix booking)
           raw: true,
           order: [["startTime", "ASC"]],
         });

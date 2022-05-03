@@ -117,7 +117,7 @@ class SiteController {
         // console.log(filterTimeWork[i]);
       }
 
-      console.log(filterTimeWork);
+      console.log(result);
       res.render("user/detailDoctor", {
         doctor: doctor,
         timeWorks: filterTimeWork,

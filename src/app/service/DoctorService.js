@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const db = require("../models/index");
+const { Op } = require("sequelize")
 import { formatDate } from "../../util/dateNow";
 let getDoctorByClinicId = (clinicId) => {
   return new Promise(async (resolve, reject) => {
@@ -58,7 +59,7 @@ let getDoctorAppointmentAndResumeById = (doctorId) => {
         ],
       });
       let appointment = await db.Appointment.findAll({
-        where: { doctorID: doctorId, date: formatDate(dateNow), isCanceled: false },
+        where: { doctorID: doctorId, date: formatDate(dateNow), isCanceled: { [Op.or]: [0, null]} },
         raw: true,
       });
       if (user || appointment) {
