@@ -1,11 +1,11 @@
-const bcrypt = require('bcryptjs');
-const db = require('../models/index');
+const bcrypt = require("bcryptjs");
+const db = require("../models/index");
 let salt = bcrypt.genSaltSync(5);
-const nodemailer = require('nodemailer'); //sendEmailConfirm
+const nodemailer = require("nodemailer"); //sendEmailConfirm
 
 let sendMail = (receiverEmail, senderEmail, senderPassword, content) => {
   var transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: "smtp.gmail.com",
     port: 587,
     secure: false,
     auth: {
@@ -16,7 +16,7 @@ let sendMail = (receiverEmail, senderEmail, senderPassword, content) => {
   var mailMessage = {
     from: senderEmail,
     to: receiverEmail,
-    subject: 'Confirm Email',
+    subject: "Confirm Email",
     text: `This is Email Confirm Code ! 
        Your code : ${content} 
       `,
@@ -53,7 +53,10 @@ let getUserByEmailAndPassword = (email, password) => {
         where: { email: email },
         raw: true,
       });
-      let comparePassword = await compareUserPass(password.trim(), user.password);
+      let comparePassword = await compareUserPass(
+        password.trim(),
+        user.password
+      );
       if (user && comparePassword) {
         resolve(user);
       } else {
@@ -123,9 +126,11 @@ let createNewUser = (data) => {
         firstName: data.firstName,
         lastName: data.lastName,
         roleID: 3,
+        image: "cc38cdf86cad599284b94973a9444b65",
+        balance: 0,
       });
 
-      resolve('add successfully !');
+      resolve("add successfully !");
     } catch (e) {
       reject(e);
     }
@@ -160,13 +165,13 @@ let updateUser = (data) => {
         user.lastName = data.lastName;
         user.address = data.address;
         user.phoneNumber = data.phoneNumber;
-        //user.gender = data.gender;
+        user.gender = data.gender;
         //user.roleID = data.roleID;
-        if (data.image != '') {
+        if (data.image != "") {
           user.image = data.image;
         }
         await user.save();
-        resolve('update done !'); //return
+        resolve("update done !"); //return
       } else {
         resolve(); //return
       }
@@ -184,7 +189,7 @@ let updatePassword = (email, newPassword) => {
       if (user) {
         user.password = await hashUserPassword(newPassword);
         await user.save();
-        resolve('update password successfully !'); //return
+        resolve("update password successfully !"); //return
       } else {
         resolve(); //return
       }
