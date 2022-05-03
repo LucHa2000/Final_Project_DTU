@@ -36,12 +36,14 @@ let getAppointmentsAndTransactionsByUserID = (userID, roleID) => {
           where: { doctorID: userID },
           raw: true,
           include: db.TransactionHistory,
+          order: [["startTime", "ASC"]],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
           where: { userID: userID },
           raw: true,
           include: db.TransactionHistory,
+          order: [["startTime", "ASC"]],
         });
       }
       if (appointment) {
@@ -118,7 +120,6 @@ let createNewAppointment = (userID, data) => {
         startTime: data.startTime,
         date: data.date,
         endTime: data.endTime,
-        isCanceled: false,
       });
       resolve(createAppointment.id);
     } catch (e) {
@@ -189,14 +190,14 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
-          where: { doctorID: userID, isCanceled: false, date: date },
+          where: { doctorID: userID, date: date },
 
           raw: true,
           order: [["startTime", "ASC"]],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
-          where: { userID: userID, isCanceled: false, date: date },
+          where: { userID: userID, date: date },
           raw: true,
           order: [["startTime", "ASC"]],
         });
