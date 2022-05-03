@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsTo(models.Resume);
-      models.Resume.hasMany(User);
+      models.Resume.hasOne(User);
 
       User.belongsTo(models.Role);
       models.Role.hasOne(User);
