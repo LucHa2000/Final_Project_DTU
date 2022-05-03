@@ -24,6 +24,7 @@ class ScheduleController {
       element.doctorAvatar = doctor.image;
       element.doctorName = doctor.firstName + " " + doctor.lastName;
     }
+    //res.send(userSchedule);
 
     res.render("user/schedule", { userSchedule: userSchedule, defaultDate });
   }
