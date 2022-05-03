@@ -94,9 +94,12 @@
                 <p>{{doctor.resumeDescription}}</p>
             </div>
             <div class="ml-16">
+
               <h2 class="font-bold text-xl mb-3">
                 Lịch tư vấn qua video
               </h2>
+              <input id="datepicker" type="date">
+              
               <div class="flex flex-wrap">
                 {{!-- time render --}}
                 {{#if timeWorks}}
@@ -127,3 +130,24 @@
 </div>
 
 <script src = "../script/handleLinkSchedule.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+  var date = new Date();
+  var startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1);
+  var endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
+  $(function () {
+    $('#datepicker').datepicker({
+        dateFormat: 'yy-mm-dd',
+        showButtonPanel: true,
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '1999:2012',
+        showOn: "button",
+        
+        buttonImageOnly: true,
+        minDate: new Date(),
+        maxDate: endDate,
+        inline: true
+      });
+    });
+</script>
