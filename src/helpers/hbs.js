@@ -69,8 +69,9 @@ module.exports = {
     else if (a == 3) return "Người dùng";
   },
   statusIsCancel: (a) => {
-    if (a === 0) return "Hoàn Thành";
-    else if (a === 1) return "Đã Huỷ";
+    if (a === 0) return "Hoàn thành";
+    else if (a === 1) return "Đã huỷ";
+    else return "Đang diễn ra";
   },
   sortable: (field, sort) => {
     const sortType = field == sort.column ? sort.type : "default";
