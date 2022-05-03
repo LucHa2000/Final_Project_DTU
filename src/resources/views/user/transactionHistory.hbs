@@ -1,7 +1,7 @@
 <div class="app-container flex flex-col homepage-container">
   {{>nav}}
   <main class="app__main flex w-full">
-     <div class="medicals__sidenav max-w-[70px] mt-[100px]">
+      <div class="medicals__sidenav max-w-[70px] mt-[100px]">
       <ul class="medicals__sidenav__list flex flex-col justify-center">
         <li class="medicals__sidenav__item medicals__sidenav__item">
             {{#if userLogin}}
@@ -43,7 +43,7 @@
       </ul>
     </div>
     <div class="app-section overflow-y-scroll">
-      <h2 class="app-section__header">Lịch sử làm việc</h2>
+      <h2 class="app-section__header">Lịch sử giao dịch</h2>
       <div class="app-section__content mt-4">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table class="w-full text-sm text-left text-gray-500 mt-4 ">
@@ -96,7 +96,7 @@
                   </tr>
                 {{/each}}
               {{else}}
-                  <h2>Hiện tại chưa có lịch nào</h2>
+               <h4>Hiện tại chưa có lịch nào</h4>
               {{/if}}
               </tbody>
           </table>

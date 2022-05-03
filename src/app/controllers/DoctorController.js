@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-import { getAppointmentsByUserID } from "../service/AppoinmentService";
+import {
+  getAppointmentsByUserID,
+  getAppointmentsAndTransactionsByUserID,
+} from "../service/AppoinmentService";
 import { getUserById, updateUser } from "../service/UserService";
 import {
   getResumeById,
@@ -35,8 +38,15 @@ class DoctorController {
   }
   //render workHistory Page
   async workHistory(req, res) {
-    let appointments = await getAppointmentsByUserID(req.session.userID, 2);
-    console.log(appointments);
+    let appointments = await getAppointmentsAndTransactionsByUserID(
+      req.session.userID,
+      2
+    );
+
+    for (let appointment of appointments) {
+      appointment.balance = appointment["TransactionHistory.balance"];
+    }
+
     res.render("doctor/workHistory", { appointments: appointments });
   }
   async doctorResume(req, res) {
