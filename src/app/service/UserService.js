@@ -128,6 +128,7 @@ let createNewUser = (data) => {
         roleID: 3,
         image: "cc38cdf86cad599284b94973a9444b65",
         balance: 0,
+        status: 0,
       });
 
       resolve("add successfully !");

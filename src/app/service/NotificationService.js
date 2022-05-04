@@ -1,5 +1,6 @@
 const db = require("../models/index");
 const { v4: uuidv4 } = require("uuid");
+import { formatDate, getTimeNow } from "../../util/dateNow";
 let getNotificationByUserID = (userID, roleID) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -8,11 +9,13 @@ let getNotificationByUserID = (userID, roleID) => {
         notifications = await db.Notification.findAll({
           where: { UserId: userID },
           raw: true,
+          order: [["createdAt", "DESC"]],
         });
       } else if (roleID === 3) {
         notifications = await db.Notification.findAll({
           where: { fromUserID: userID },
           raw: true,
+          order: [["createdAt", "DESC"]],
         });
       }
       if (notifications) {

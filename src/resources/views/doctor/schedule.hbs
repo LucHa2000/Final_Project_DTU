@@ -62,7 +62,8 @@
                     {{!-- <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{this.title}}</h5> --}}
                     {{!-- <p id="appointment_id" class="hidden">{{this.id}}</p> --}}
                     <span class="text-sm text-gray-500 ">Bắt đầu: {{formatTime this.startTime}}</span>
-                      <span class="text-sm text-gray-500 ">Kết thúc: {{formatTime this.endTime}}</span>
+                    <span class="text-sm text-gray-500 ">Kết thúc: {{formatTime this.endTime}}</span>
+                    <span class="text-sm text-gray-500 ">Trạng Thái: {{statusIsCancel this.isCanceled}}</span>
                     <div class="flex flex-col items-center mt-4 space-x-3 lg:mt-6 w-full justify-center">
                       <div class="flex mt-4 space-x-3 lg:mt-6 w-full justify-center">
 

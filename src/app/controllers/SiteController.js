@@ -99,7 +99,7 @@ class SiteController {
       //check time book with time now
       let filterTimeWork = [];
       for (let i = 0; i < timeWorks.length; i++) {
-        if (timeWorks[i].startTime < getTimeNow()) {
+        if (timeWorks[i].startTime >= getTimeNow()) {
           filterTimeWork.push(timeWorks[i]);
         }
       }
@@ -122,8 +122,11 @@ class SiteController {
         doctor: doctor,
         timeWorks: filterTimeWork,
         serviceFee: serviceFee,
+        messageBooking: req.session.messageBooking,
       });
       // res.send(doctor);
+      //clear message
+      req.session.messageBooking = null;
     } catch (err) {
       console.log(err);
     }

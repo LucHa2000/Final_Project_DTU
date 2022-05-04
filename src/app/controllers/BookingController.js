@@ -91,7 +91,11 @@ class BookingController {
         res.redirect("back");
       } else {
         req.body.id = uuidv4();
+        console.log(req.body);
+        console.log(userID);
+
         let newAppointmentId = await createNewAppointment(userID, req.body);
+        console.log(newAppointmentId);
         if (newAppointmentId) {
           let amountForDoctor = (req.body.serviceFee * 70) / 100;
           await addBalanceById(req.body.doctorID, amountForDoctor);
@@ -106,7 +110,7 @@ class BookingController {
             appointmentId: newAppointmentId,
             title: titleNotificationForAppointment,
             content: contentNotificationForAppointment,
-            link: "",
+            link: "/job?date=2022-05-04",
             fromUserID: userID,
             doctorID: req.body.doctorID,
           };

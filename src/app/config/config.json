@@ -4,7 +4,14 @@
     "password": null,
     "database": "final_db",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "dialectOptions": {
+      "dateStrings": true,
+      "typeCast": true,
+      "timezone": "+07:00"
+    },
+    "timezone": "+07:00", 
+    "operatorsAliases": false
   },
   "test": {
     "username": "root",

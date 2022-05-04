@@ -193,7 +193,7 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
         appointment = await db.Appointment.findAll({
           where: {
             doctorID: userID,
-            isCanceled: { [Op.or]: [0, null] },
+            isCanceled: { [Op.or]: [0, null, 1] },
             date: date,
           },
 
