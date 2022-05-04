@@ -11,9 +11,10 @@ import {
 class ClinicController {
   //[GET];
   async pageUpdateClinic(req, res, next) {
-    let clinic = await getClinicById(req.params.id);
+    let clinics = await getClinicById(req.params.id);
 
-    if (clinic) return res.render('admin/clinic_update', { clinic });
+    let clinic = clinics[0];
+    if (clinics) return res.render('admin/clinic_update', { clinic });
 
     return res.redirect('/back');
   }
@@ -58,21 +59,13 @@ class ClinicController {
   }
 
   async pageInfoClinic(req, res, next) {
-    // try {
-    //   let clinics = await getListClinicsDoctor();
-    //   let doctorsWithClinicName = [];
-    //   for (let e of clinics) {
-    //     e.firsName = e['User.firstName'];
-    //     e.lastName = e['User.lastName'];
-    //     doctorsWithClinicName.push(e);
-    //   }
-    //   res.render('admin/clinic_info', {
-    //     clinics: doctorsWithClinicName,
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    res.render('admin/clinic_info');
+    let clinics = await getClinicById(req.params.id);
+
+    let clinic = clinics[0];
+    let doctors = clinics[1];
+    if (clinics) return res.render('admin/clinic_info', { clinic, doctors });
+
+    return res.redirect('/back');
   }
 }
 

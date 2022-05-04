@@ -1,5 +1,5 @@
-const db = require("../models/index");
-const { v4: uuidv4 } = require("uuid");
+const db = require('../models/index');
+const { v4: uuidv4 } = require('uuid');
 
 let findAllClinicAnDoctorWithClinic = () => {
   return new Promise(async (resolve, reject) => {
@@ -75,8 +75,12 @@ let getClinicById = (id) => {
         where: { id: id },
         raw: true,
       });
+      let doctors = await db.User.findAll({
+        where: { clinicID: clinic.id },
+        raw: true,
+      });
       if (clinic) {
-        resolve(clinic);
+        resolve([clinic, doctors]);
       } else {
         resolve({});
       }
@@ -94,7 +98,7 @@ let createNewClinic = (data) => {
         raw: true,
       });
       if (clinic) {
-        resolve("Khoa đã tồn tại");
+        resolve('Khoa đã tồn tại');
       } else {
         await db.Clinic.create({
           id: uuidv4(),
@@ -102,7 +106,7 @@ let createNewClinic = (data) => {
           description: data.description,
           image: data.image,
         });
-        resolve("Thêm thành công !");
+        resolve('Thêm thành công !');
       }
     } catch (e) {
       reject(e);
@@ -119,11 +123,11 @@ let updateClinic = (data) => {
       if (clinic) {
         clinic.name = data.name;
         clinic.description = data.description;
-        if (data.image != "") {
+        if (data.image != '') {
           clinic.image = data.image;
         }
         await clinic.save();
-        resolve("Cập nhật thành công !"); //return
+        resolve('Cập nhật thành công !'); //return
       } else {
         resolve(); //return
       }
@@ -141,9 +145,9 @@ let deleteClinic = (id) => {
       });
       if (clinic) {
         await clinic.destroy();
-        resolve("Xóa thành công !");
+        resolve('Xóa thành công !');
       } else {
-        console.log("delete fail");
+        console.log('delete fail');
         resolve();
       }
     } catch (e) {

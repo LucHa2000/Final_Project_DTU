@@ -76,7 +76,7 @@
                             <div class="relative bg-white rounded-lg shadow ">
                                 <!-- Modal header -->
                                 <div class="flex justify-between items-start p-5 rounded-t border-b ">
-                                    <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl ">
+                                    <h3 class="cancel_title text-xl font-semibold text-gray-900 lg:text-2xl ">
                                         Bạn có chắc chắn muốn hủy lịch trên?
                                     </h3>
                                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="deleteScheduleModal">
@@ -85,14 +85,14 @@
                                 </div>
                                 <!-- Modal body -->
                                 <div class="p-6 space-y-6">
-                                    <p class="text-base leading-relaxed text-gray-500 ">
+                                    <p class="cancel_content text-base leading-relaxed text-gray-500 ">
                                       Bằng việc chọn "Xác nhận", lịch trên sẽ bị hủy và bạn sẽ được hoàn lại số xu
                                     </p>
                                 </div>
                                 <!-- Modal footer -->
                                 <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 ">
                                     <a id="confirm_cancel_btn" href="/schedule/cancel/{{this.id}}" data-modal-toggle="deleteScheduleModal" type="submit" class="btn--primary text-white  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Xác nhận</a>
-                                    <button data-modal-toggle="deleteScheduleModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Hủy bỏ</button>
+                                    <button data-modal-toggle="deleteScheduleModal" type="button" class="model_cancel_btn text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Hủy bỏ</button>
                                 </div>
                             </div>
                         </div>
@@ -123,10 +123,22 @@
   })
   $('.cancel-btn').click(function () {
     console.log('id', this.id);
-    var endTime = $(`.${this.id}`).text();
-    var dateTime = new Date(`${date} ${endTime}`);
+    var endTime = $(`.${this.id}_end_time`).text();
+    var startTime = $(`.${this.id}_start_time`).text();
+    var endDateTime = new Date(`${date} ${endTime}`);
+    var startDateTime = new Date(`${date} ${startTime}`);
     var currentDateTime = new Date();
-    if (dateTime < currentDateTime) {
+    console.log(startDateTime)
+    
+    var isLessThan30Minutes = (startDateTime.getHours() - currentDateTime.getHours() == 0)  && (startDateTime.getMinutes() - currentDateTime.getMinutes() <= 30)
+    console.log('currentDateTime.getMinutes() - startDateTime.getMinutes() <= 30: ', startDateTime.getMinutes() - currentDateTime.getMinutes() );
+    console.log('startDateTime.getMinutes(): ', startDateTime.getMinutes());
+    console.log('currentDateTime.getMinutes(): ', currentDateTime.getMinutes());
+
+    console.log('isLessThan30Minutes: ', isLessThan30Minutes);
+    console.log(currentDateTime);
+    
+    if (startDateTime < currentDateTime && endDateTime < currentDateTime || isLessThan30Minutes ) {
       $('.cancel_title').text(`Chú ý!`);
       $('.cancel_content').text(`Bạn không thể hủy lịch này!`);
       $('#confirm_cancel_btn').attr('href', `#`);
