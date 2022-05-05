@@ -62,7 +62,7 @@ let getDoctorAppointmentAndResumeById = (doctorId) => {
         where: {
           doctorID: doctorId,
           date: formatDate(dateNow),
-          isCanceled: { [Op.or]: [0, null] },
+          isCanceled: { [Op.or]: [0, 1, 2] },
         },
         raw: true,
       });
