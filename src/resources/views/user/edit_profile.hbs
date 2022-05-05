@@ -55,13 +55,13 @@
           </div>
           <div class="is-row">
             <div class="medicals__input-field is-half ">
-              <label for="first-name-edit" class="block mb-2 text-sm font-medium text-gray-900">Tên</label>
+              <label for="first-name-edit" class="block mb-2 text-sm font-medium text-gray-900">Tên *</label>
               <div class="relative">
                 <input type="text" id="first-name-edit" name="firstName" class="medicals__input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Emma" value="{{account.firstName}}">
               </div>
             </div>
             <div class="medicals__input-field is-half ">
-              <label for="last-name-edit" class="block mb-2 text-sm font-medium text-gray-900">Họ</label>
+              <label for="last-name-edit" class="block mb-2 text-sm font-medium text-gray-900">Họ *</label>
               <div class="relative">
                 <input type="text" id="last-name-edit" name="lastName" class="medicals__input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Watson" value="{{account.lastName}}">
               </div>
@@ -116,7 +116,7 @@
             </div>
           </div>
           <div class="is-row flex justify-end">
-            <button class="btn--primary mr-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5   py-2.5 text-center" type="button" data-modal-toggle="update-profile-confirm-modal">
+            <button class="btn--primary mr-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5   py-2.5 text-center" type="button" data-modal-toggle="update-profile-confirm-modal" id="update__profile__btn">
               Cập nhật
             </button>
             <a href="/user" class="btn--secondary mr-4 block bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5   py-2.5 text-center" type="button" >
@@ -167,101 +167,25 @@
   </main>
 </div>
 
-{{!-- <h1>Edit Profile</h1>
-<br />
-<h1>Xu Của bạn : {{account.balance}} Xu</h1>
-<br />
-<a href='' class='btn btn-primary'> Nạp Xu</a>
-<br />
-<a href='/auth/forgotAccount' class='btn btn-primary'>Thay Đổi Mật Khẩu</a>
-<div class='container'>
-  <div class='row'>
-    <form class='col s12' method='post' action='/user/changeAccount' enctype='multipart/form-data'>
-      <input name='id' type='text' value='{{account.id}}' hidden />
-      <div class='row'>
-        <div class='input-field col s6'>
-          <input
-            id='first_name'
-            name='firstName'
-            type='text'
-            value='{{account.firstName}}'
-            class='validate'
-          />
-          <label for='first_name'>Họ</label>
-        </div>
-        <div class='input-field col s6'>
-          <input
-            id='last_name'
-            name='lastName'
-            value='{{account.lastName}}'
-            type='text'
-            class='validate'
-          />
-          <label for='last_name'>Tên</label>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='input-field col s12'>
-          <input disabled value='{{account.email}}' type='email' class='validate' />
-          <label for='disabled'>Địa chỉ Email</label>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='input-field col s12'>
-          <input
-            id='phoneNumber'
-            name='phoneNumber'
-            type='number'
-            class='validate'
-            value='{{account.phoneNumber}}'
-          />
-          <label for='phoneNumber'>Số điện thoại</label>
-        </div>
-      </div>
-      <div class='row'>
-        <div class='input-field col s12'>
-          <input
-            id='address'
-            name='address'
-            type='text'
-            class='validate'
-            value='{{account.address}}'
-          />
-          <label for='address'>Địa Chỉ</label>
-        </div>
-      </div>
-      <div class='row'>
-        <img src='../uploads/{{account.image}}' alt='' width='50px' />
-        <div class='file-field input-field col s5 m6'>
-          <div class='btn btn-active'>
-            <span>Change avatar</span>
-            <input type='file' name='image' />
-          </div>
-          <div class='file-path-wrapper'>
-            <input
-              class='file-path validate'
-              type='text'
-              value='{{account.image}}'
-              name='img_old'
-            />
-          </div>
-        </div>
-      </div>
 
-      <button
-        onclick="return confirm('Bạn có chắc là bạn muốn thay đổi thông tin cá nhân của mình ?')"
-        type='submit'
-        class=''
-      > Xác Nhận Thay Đổi</button>
-    </form>
-  </div>
-</div> --}}
 <script src='../script/uploadFile.js'></script>
 <script>
   $('#profile-edit-form').on('submit', function (e) {
     $('#update-profile-confirm-modal').hide(); 
   })
-
+  var hasErrors = false;
+  $('#first-name-edit,#last-name-edit').on('change', function () {
+    if (!$(this).val()) {
+      $(this).parent().append(`<p class='medicals__errors'>Bạn không thể để trống trường này</p>`)
+      hasErrors = true;
+    }
+    else {
+      if ($('#first-name-edit').val()) {$(this).parent().children('.medicals__errors').remove();  }
+      if ($('#last-name-edit').val()) {$(this).parent().children('.medicals__errors').remove();  }
+      if ($('#first-name-edit').val() && $('#last-name-edit').val()) hasErrors = false;
+    }
+    if (!hasErrors) $('#update__profile__btn').attr('disabled', false); else $('#update__profile__btn').attr('disabled', true);
+  })
 </script>
 
 <script src = "../script/handleLinkSchedule.js"></script>
