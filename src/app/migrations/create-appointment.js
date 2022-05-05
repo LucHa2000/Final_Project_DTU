@@ -26,7 +26,7 @@ module.exports = {
         type: Sequelize.DATEONLY,
       },
       isCanceled: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

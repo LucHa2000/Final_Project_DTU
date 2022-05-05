@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       startTime: DataTypes.TIME,
       endTime: DataTypes.TIME,
       date: DataTypes.DATEONLY,
-      isCanceled: DataTypes.BOOLEAN,
+      isCanceled: DataTypes.INTEGER,
     },
     {
       sequelize,

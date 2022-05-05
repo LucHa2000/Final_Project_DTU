@@ -121,6 +121,7 @@ let createNewAppointment = (userID, data) => {
         startTime: data.startTime,
         date: data.date,
         endTime: data.endTime,
+        isCanceled: 0,
       });
       resolve(createAppointment.id);
     } catch (e) {
@@ -193,7 +194,7 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
         appointment = await db.Appointment.findAll({
           where: {
             doctorID: userID,
-            isCanceled: { [Op.or]: [0, null, 1] },
+            isCanceled: { [Op.or]: [0, 1, 2, 3] },
             date: date,
           },
 
@@ -204,7 +205,7 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
         appointment = await db.Appointment.findAll({
           where: {
             userID: userID,
-            isCanceled: { [Op.or]: [0, null] },
+            isCanceled: { [Op.or]: [0, 1, 2] },
             date: date,
           },
           raw: true,
