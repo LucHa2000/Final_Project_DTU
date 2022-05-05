@@ -121,6 +121,7 @@ let createNewAppointment = (userID, data) => {
         startTime: data.startTime,
         date: data.date,
         endTime: data.endTime,
+        isCanceled: 0,
       });
       resolve(createAppointment.id);
     } catch (e) {
