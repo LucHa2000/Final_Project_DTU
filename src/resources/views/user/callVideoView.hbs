@@ -55,14 +55,14 @@
         </span>
       </h1>
       <span>{{roomId}} {{roomToken}}</span>
-      <div>
-          <button v-if="!roomId"  @click="createRoom" class="button is-info">
+      <div class="flex flex-row justify-center">
+          <button v-if="!roomId"  @click="createRoom" class="btn--primary">
           Tạo Phòng
         </button>
-        <button v-if="!roomId" @click="joinRoom" class="button is-primary">
+        <button v-if="!roomId" @click="joinRoom" class="btn--secondary ml-4">
           Thạm Dự Phòng
         </button>
-        <button v-if="roomId" class="button is-info" @click="publishVideo(true)">
+        <button v-if="roomId" class="button is-info btn--primary" @click="publishVideo(true)">
           Chia Sẽ Màn Hình
         </button>
       </div>
