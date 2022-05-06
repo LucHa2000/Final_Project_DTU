@@ -10,28 +10,42 @@
     <div class="medicals__sidenav max-w-[70px] mt-[100px]">
       <ul class="medicals__sidenav__list flex flex-col justify-center">
         <li class="medicals__sidenav__item medicals__sidenav__item">
-        {{#if userLogin}}
-            <a href="" id="schedule-user" class="medicals__sidenav__link"><i
-                class="fa-solid fa-calendar-days medicals__sidenav__icon"
-              title="Lịch cá nhân"></i></a>
+          {{#if userLogin}}
+          <a href="" id="schedule-user" class="medicals__sidenav__link"><i
+              class="fa-solid fa-calendar-days medicals__sidenav__icon"
+            title="Lịch cá nhân"></i></a>
 
-              {{else}}
-              <a href="" id="schedule-doctor" class="medicals__sidenav__link"><i
-                class="fa-solid fa-calendar-days medicals__sidenav__icon"
-              title="Lịch cá nhân"></i></a>
-              {{/if}}
+            {{else}}
+            <a href="" id="schedule-doctor" class="medicals__sidenav__link"><i
+              class="fa-solid fa-calendar-days medicals__sidenav__icon"
+            title="Lịch cá nhân"></i></a>
+            {{/if}}
         </li>
         <li class="medicals__sidenav__item medicals__sidenav__item">
           <a href="/" class="medicals__sidenav__link"><i
-              class="medicals__sidenav__icon  fa-solid fa-user-doctor"
+              class="medicals__sidenav__icon fa-solid fa-user-doctor"
             title="Danh sách bác sĩ"></i></a>
         </li>
         <li class="medicals__sidenav__item medicals__sidenav__item">
           <a href="/inbox" class="medicals__sidenav__link"><i
-              class="medicals__sidenav__icon fa-brands fa-rocketchat medicals__sidenav__icon--active"
+              class="medicals__sidenav__icon medicals__sidenav__icon--active fa-brands fa-rocketchat"
             title="Danh sách cuộc họp"></i></a>
         </li>
-    
+         <li class="medicals__sidenav__item medicals__sidenav__item">
+              {{#if userLogin}}
+          <a href="/user" class="medicals__sidenav__link">
+          <i
+          class="medicals__sidenav__icon medicals__sidenav__icon fa-solid fa-gear"
+            ></i></a>
+            {{else}}
+              {{#if doctorLogin}}
+                  <a href="/doctor" class="medicals__sidenav__link">
+              <i
+              class="medicals__sidenav__icon medicals__sidenav__icon fa-solid fa-gear"
+                ></i></a>
+                 {{/if}}
+               {{/if}}
+        </li>
       </ul>
     </div>
     <div class="app-section flex">
