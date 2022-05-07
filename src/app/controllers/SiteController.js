@@ -50,7 +50,9 @@ class SiteController {
   async doctorDetail(req, res, next) {
     try {
       const doctorId = req.params.doctorId;
+      let date = req.query.date;
       let serviceFee = await getServiceByDoctorId(doctorId);
+      console.log(date);
 
       let timeWorks = [
         {

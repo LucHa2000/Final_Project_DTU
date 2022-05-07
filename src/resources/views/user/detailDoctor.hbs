@@ -152,5 +152,7 @@
     });
   $('#datepicker').on('change', function () {
     console.log($('#datepicker').val())
+    $('.date').attr('value', $(this).val())
+    console.log($('.date').val())
   })
 </script>
