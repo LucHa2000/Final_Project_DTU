@@ -163,7 +163,7 @@ let getDoctorByKeyWord = (keyWord) => {
   return new Promise(async (resolve, reject) => {
     try {
       let doctor = await db.User.findAll({
-        where: {roleID: 2, lastName: {[Op.like]: `%${keyWord}%`}, firstName: {[Op.like]: `%${keyWord}%`}},
+        where: {roleID: 2, [Op.or]: {lastName: {[Op.like]: `%${keyWord}%`}, firstName: {[Op.like]: `%${keyWord}%`}}},
         raw: true
       });
       if(doctor){

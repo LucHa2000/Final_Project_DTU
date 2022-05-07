@@ -170,8 +170,8 @@ class SiteController {
   async searchDoctorAndClinic(req, res, next) {
     console.log(req.query.keyWord)
     let keyWord = req.query.keyWord;
-    let doctors = getDoctorByKeyWord(keyWord);
-    let clinics = getClinicByKeyWord(keyWord);
+    let doctors = await getDoctorByKeyWord(keyWord.trim());
+    let clinics = await getClinicByKeyWord(keyWord.trim());
     
     console.log(doctors);
     console.log(clinics);
