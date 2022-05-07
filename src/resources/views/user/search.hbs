@@ -51,10 +51,10 @@
         </a>
       </div>
       <div class="app-section__content">
-        <div class="doctor-list flex w-full flex-wrap">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Bác Sĩ</h5>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 block ">Bác Sĩ</h5>
           {{#if doctors}}
-            {{#each doctors}}
+            <div class="doctor-list flex w-full flex-wrap">
+              {{#each doctors}}
                     <div class="flex flex-col justify-between max-w-[270px] w-[270px]  bg-white rounded-lg border border-gray-200 shadow-md mx-5 my-6">
                       <a href="#">
                           <img class="rounded-t-lg max-w-[270px] w-[270px]" src="../uploads/{{this.image}}" alt="{{this.firstName}} {{this.lastName}}" />
@@ -78,29 +78,29 @@
 
                       </div>
                     </div>
-            {{/each}}
+              {{/each}}
+            </div>
           {{else}}
-              <h3> Không tìm thấy bác sĩ </h3>
+            <p class="block"> Không tìm thấy bác sĩ </p>
           {{/if}}
-        </div>
-        <div class="doctor-list flex w-full flex-wrap">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">Khoa</h5>
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 block">Khoa</h5>
           {{#if clinics}}
-            {{#each clinics}}
-              <div class="medicals__card block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 m-4  ">
-              <img
-                  src="../uploads/{{this.image}}"
-                  alt="image"
-                  class="carousel-cell__image w-full h-[200px]"
-              />
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 mt-2 ">{{this.name}}</h5>
-              <a href="/clinics/{{this.id}}" class="btn--primary">Xem danh sách bác sĩ</a>
-              </div>
-            {{/each}}
+            <div class="doctor-list flex w-full flex-wrap">
+              {{#each clinics}}
+                <div class="medicals__card block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 m-4  ">
+                <img
+                    src="../uploads/{{this.image}}"
+                    alt="image"
+                    class="carousel-cell__image w-full h-[200px]"
+                />
+                <h5 class="mb-8 text-2xl font-bold tracking-tight text-gray-900 mt-2 ">{{this.name}}</h5>
+                <a href="/clinics/{{this.id}}" class="btn--primary">Xem danh sách bác sĩ</a>
+                </div>
+              {{/each}}
+            </div>
           {{else}}
-              <h3> Không tìm thấy khoa </h3>
+              <p class="block"> Không tìm thấy khoa </p>
           {{/if}}
-        </div>
       </div>
     </div>
   </main>
