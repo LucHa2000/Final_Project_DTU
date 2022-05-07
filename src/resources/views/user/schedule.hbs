@@ -95,8 +95,8 @@
                       <h5 class="mb-1 text-xl font-medium text-gray-900 ">{{this.doctorName}}</h5>
                     {{!-- <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{this.title}}</h5> --}}
                     <p id="appointment_id" class="hidden">{{this.id}}</p>
-                    <span class="text-sm text-gray-500 ">Bắt đầu: <span class="{{this.id}}_start_time">  {{formatTime this.startTime}}</span>   </span>
-                      <span class="text-sm text-gray-500 ">Kết thúc:<span class="{{this.id}}_end_time">  {{formatTime this.endTime}} </span>  </span>
+                    <span class="text-sm text-gray-500 ">Bắt đầu: <span class="{{this.id}}_start_time">{{formatTime this.startTime}}</span>   </span>
+                      <span class="text-sm text-gray-500 ">Kết thúc:<span class="{{this.id}}_end_time">{{formatTime this.endTime}}</span>  </span>
                        <span class="text-sm text-gray-500 ">Trạng Thái: {{statusIsCancel this.isCanceled}}</span>
      
                     <div class="flex mt-4 space-x-3 lg:mt-6 w-full justify-center">
@@ -160,8 +160,8 @@
   })
   $('.cancel-btn').click(function () {
     console.log('id', this.id);
-    var endTime = $(`.${this.id}_end_time`).text();
-    var startTime = $(`.${this.id}_start_time`).text();
+    var endTime = $(`.${this.id}_end_time`).text().trim();
+    var startTime = $(`.${this.id}_start_time`).text().trim();
     var endDateTime = new Date(`${date} ${endTime}`);
     var startDateTime = new Date(`${date} ${startTime}`);
     var currentDateTime = new Date();

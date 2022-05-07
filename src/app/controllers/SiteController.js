@@ -4,6 +4,7 @@ import { formatDate, getTimeNow } from "../../util/dateNow";
 import {
   findAllClinicAnDoctorWithClinic,
   getClinicById,
+  getClinicByKeyWord
 } from "../service/ClinicService";
 import { getServiceByDoctorId } from "../service/ServiceService";
 import {
@@ -11,6 +12,7 @@ import {
   getDoctorAppointmentAndResumeById,
   getAllDoctorClinicAndReview,
   getAllClinic,
+  getDoctorByKeyWord
 } from "../service/DoctorService";
 import { getAppointmentsByUserID } from "../service/AppoinmentService";
 class SiteController {
@@ -163,6 +165,18 @@ class SiteController {
   }
   aboutUs(req, res) {
     res.render("user/about");
+  }
+
+  async searchDoctorAndClinic(req, res, next) {
+    console.log(req.query.keyWord)
+    let keyWord = req.query.keyWord;
+    let doctors = await getDoctorByKeyWord(keyWord.trim());
+    let clinics = await getClinicByKeyWord(keyWord.trim());
+    
+    console.log(doctors);
+    console.log(clinics);
+
+    res.render("user/search", {doctors, clinics})
   }
 }
 module.exports = new SiteController();

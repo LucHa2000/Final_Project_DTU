@@ -16,16 +16,18 @@
         <span class='self-center text-xl font-semibold whitespace-nowrap'>MedicalS</span>
     </a>
     <div class='app-container__input medicals__navbar__search md:w-[600px] mx-5'>
-      <input
-        type='search'
-        name='search'
-        id='search'
-        placeholder='Nhập tên bác sĩ, tên cuộc họp, ...'
-        class='w-full hidden md:block'
-      />
-      <button type='submit'>
-        <i class='fa-solid fa-magnifying-glass app-container__icon'></i>
-      </button>
+      <form action="search" method="get">
+        <input
+          type='search'
+          name='keyWord'
+          id='search'
+          placeholder='Nhập tên bác sĩ, tên khoa, ...'
+          class='w-full flex hidden md:block'
+        />
+        <button type='submit'>
+          <i class='fa-solid fa-magnifying-glass app-container__icon'></i>
+        </button>
+      </form>
     </div>
   </div>
   <div class='medicals__navbar__right flex-2 flex items-center flex-end'>
