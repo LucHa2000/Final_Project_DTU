@@ -99,7 +99,7 @@
                 Lịch tư vấn qua video
               </h2>
               <form action="/detailDoctor/{{doctor.id}}" id="form" method="get">
-                <input id="datepicker" name="date" type="date" value="{{bookingDate}}">
+                <input id="datepicker" name="date" type="date" value="{{bookingDate}}" readonly>
               </form>
               
               <div class="flex flex-wrap">
@@ -140,17 +140,14 @@
   var endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
   $(function () {
     $('#datepicker').datepicker({
-        dateFormat: 'yy-mm-dd',
-        showButtonPanel: true,
+         dateFormat: 'yy-mm-dd',
         changeMonth: true,
         changeYear: true,
         yearRange: '1999:2012',
-        showOn: "button",
         
-        buttonImageOnly: true,
         minDate: new Date(),
         maxDate: endDate,
-        inline: true
+        inline: false
       });
     });
   $('.date-booking').attr('value', $('#datepicker').val())
