@@ -159,6 +159,24 @@ let getAllClinic = () => {
   });
 };
 
+let getDoctorByKeyWord = (keyWord) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let doctor = await db.Doctor.findAll({
+        where: {roleID: 2, lastName: {[Op.like]: `%${keyWord}%`}, firstName: {[Op.like]: `%${keyWord}%`}},
+        raw: true
+      });
+      if(doctor){
+        resolve(doctor);
+      }else{
+        resolve()
+      }
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
 module.exports = {
   getResumeById,
   updateFollowDoctorIdStatus,
