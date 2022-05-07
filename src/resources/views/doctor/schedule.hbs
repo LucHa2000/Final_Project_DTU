@@ -94,18 +94,18 @@
                       <h5 class="mb-1 text-xl font-medium text-gray-900 ">{{this.userName}}</h5>
                     {{!-- <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{this.title}}</h5> --}}
                     {{!-- <p id="appointment_id" class="hidden">{{this.id}}</p> --}}
-                    <span class="text-sm text-gray-500 ">Bắt đầu: {{formatTime this.startTime}}</span>
-                    <span class="text-sm text-gray-500 ">Kết thúc: {{formatTime this.endTime}}</span>
+                    <span class="text-sm text-gray-500 ">Bắt đầu: <span class="{{this.id}}_start_time">  {{formatTime this.startTime}}</span></span>
+                    <span class="text-sm text-gray-500 ">Kết thúc: <span class="{{this.id}}_end_time">  {{formatTime this.endTime}} </span></span>
                     <span class="text-sm text-gray-500 ">Trạng Thái: {{statusIsCancel this.isCanceled}}</span>
                     <div class="flex flex-col items-center mt-4 space-x-3 lg:mt-6 w-full justify-center">
                       <div class="flex mt-4 space-x-3 lg:mt-6 w-full justify-center">
                         
                       {{#if this.isCanceled}}
-                        <a href="/inbox/{{this.title}}" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/3">Nhắn tin</a>
-                        <a href="/callVideo" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/3">Gọi điện</a>
+                        <a href="/inbox/{{this.title}}" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/4">Nhắn tin</a>
+                        <a href="/callVideo" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/4">Gọi điện</a>
 
                       {{else}}
-                          <a href="/inbox/{{this.title}}" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/3">Nhắn tin</a>
+                          <a href="/inbox/{{this.title}}" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/4">Nhắn tin</a>
                         <a  onclick="return confirm('Bạn có chắc là bạn muốn chấp nhận lịch ?')" href="/schedule/accept/{{this.id}}" class="btn--primary inline-flex items-center py-2 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 w-1/3">Chấp Nhận</a>
                         <a id="{{this.id}}" href="#deleteScheduleModal" class="cancel-btn text-center btn--secondary inline-flex items-center justify-center py-2 px-4 text-sm font-medium  text-gray-900 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 w-1/3" data-modal-toggle="deleteScheduleModal">Huỷ</a>
                       <div id="deleteScheduleModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
@@ -219,7 +219,7 @@ var date = $('#date').val();
     } else {
       $('.cancel_title').text(`Bạn có chắc chắn muốn hủy lịch trên?`);
       $('.cancel_content').text(`Bằng việc chọn "Xác nhận", lịch trên sẽ bị hủy và bạn sẽ được hoàn lại số xu`);
-      $('#confirm_cancel_btn').attr('href', `/schedule/cancel/${this.id}`);
+      $('#confirm_cancel_btn').attr('href', `/job/cancel/${this.id}`);
       $('.model_cancel_btn').show();
     }
   })
