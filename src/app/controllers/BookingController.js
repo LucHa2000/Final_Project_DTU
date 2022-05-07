@@ -36,7 +36,7 @@ class BookingController {
     let user = await getUserById(req.session.userID);
     console.log(req.body);
     let doctor = await getUserById(req.body.doctorID);
-    let date = moment().format("YYYY-MM-DD");
+    let dateBooking = req.body.dateBooking;
     let timeStart = req.body.timeStart;
     let timeEnd = req.body.timeEnd;
     let serviceFee = req.body.serviceFee;
@@ -44,7 +44,7 @@ class BookingController {
       user: user,
       doctor: doctor,
       serviceFee: serviceFee,
-      date: date,
+      dateBooking: dateBooking,
       timeStart: timeStart,
       timeEnd: timeEnd,
     };
