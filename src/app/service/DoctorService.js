@@ -162,7 +162,7 @@ let getAllClinic = () => {
 let getDoctorByKeyWord = (keyWord) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let doctor = await db.Doctor.findAll({
+      let doctor = await db.User.findAll({
         where: {roleID: 2, lastName: {[Op.like]: `%${keyWord}%`}, firstName: {[Op.like]: `%${keyWord}%`}},
         raw: true
       });
@@ -185,4 +185,5 @@ module.exports = {
   getDoctorAppointmentAndResumeById,
   getAllDoctorClinicAndReview,
   getAllClinic,
+  getDoctorByKeyWord
 };

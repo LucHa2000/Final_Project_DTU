@@ -160,7 +160,7 @@ let deleteClinic = (id) => {
 let getClinicByKeyWord = (keyWord) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let doctor = await db.Doctor.findAll({
+      let doctor = await db.Clinic.findAll({
         where: { name: {[Op.like]: `%${keyWord}%`}},
         raw: true
       });
@@ -183,4 +183,5 @@ module.exports = {
   getClinicById,
   deleteClinic,
   getListClinicsDoctor,
+  getClinicByKeyWord
 };

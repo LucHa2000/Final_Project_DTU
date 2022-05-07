@@ -8,7 +8,7 @@ const upload = multer({
 const siteController = require("../app/controllers/SiteController");
 router.get("/clinics/:clinicId", siteController.displayDoctors);
 router.get("/detailDoctor/:doctorId", siteController.doctorDetail);
-router.get("")
+router.get("/search", siteController.searchDoctorAndClinic)
 router.use("/allDoctor", siteController.searchAllDoctor);
 router.use("/allClinic", siteController.searchAllClinic);
 router.use("/aboutUs", siteController.aboutUs);
