@@ -75,7 +75,10 @@ module.exports = {
     if (a === 0) return "Đang Chờ";
     else if (a === 1) return "Đang Diễn ra";
     else if (a === 2) return "Đã Hoàn Thành";
-    else if (a === 2) return "Đã Huỹ";
+    else if (a === 3) return "Đã Huỹ";
+  },
+  hiddenButton: (a) => {
+    if (a === 3) return "none";
   },
   confirmIsCanceled: (a) => {
     if (a == 0) return "confirm";
