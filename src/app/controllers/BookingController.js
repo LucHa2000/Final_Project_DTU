@@ -74,16 +74,17 @@ class BookingController {
     try {
       let userID = req.session.userID;
       let roleID = req.session.roleID;
+      let date = req.body.date;
       let user = await getUserById(userID);
       let userAppointment = await getAppointmentsByUserID(userID, roleID);
       let doctorAppointment = await getAppointmentsByUserID(
         req.body.doctorID,
-        2
+        2,
       );
       let startTime = req.body.startTime;
       if (
-        checkingAvailableTime(startTime, userAppointment) === false ||
-        checkingAvailableTime(startTime, doctorAppointment) === false
+        checkingAvailableTime(startTime, userAppointment,date) === false ||
+        checkingAvailableTime(startTime, doctorAppointment,date) === false
       ) {
         req.session.error = "Bạn không thể đặt lịch vào thời gian này!";
         res.redirect("back");
@@ -122,7 +123,7 @@ class BookingController {
           serverNotification(io, notification);
           req.session.messageBooking =
             "Bạn đã đặt lịch thành công, bạn có thể vào lịch cá nhân để kiểm tra !";
-          res.redirect(`/detailDoctor/${req.body.doctorID}`);
+          res.redirect(`/detailDoctor/${req.body.doctorID}?date=${date}`);
           //clear req.session.bookingDetail
           req.session.bookingDetail = null;
         } else {
