@@ -7,5 +7,6 @@ const upload = multer({
 
 const scheduleController = require("../app/controllers/ScheduleController");
 router.use("/cancel/:appoinmentId", scheduleController.cancelAppointment);
+router.use("/accept/:appoinmentId", scheduleController.acceptAppointment);
 router.use("/", scheduleController.index);
 module.exports = router;

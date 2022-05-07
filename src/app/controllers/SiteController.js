@@ -151,5 +151,8 @@ class SiteController {
 
     res.render("user/searchAllClinic", { clinics });
   }
+  aboutUs(req, res) {
+    res.render("user/about");
+  }
 }
 module.exports = new SiteController();

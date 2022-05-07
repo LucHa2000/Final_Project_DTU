@@ -25,7 +25,12 @@ class JobController {
       element.userName = user.firstName + " " + user.lastName;
     }
 
-    res.render("doctor/schedule", { userSchedule: userSchedule, defaultDate });
+    res.render("doctor/schedule", {
+      userSchedule: userSchedule,
+      defaultDate,
+      messageCancelBooking: req.session.messageCancelBooking,
+    });
+    req.session.messageCancelBooking = null;
   }
 
   async cancelAppointment(req, res, next) {

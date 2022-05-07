@@ -1,6 +1,7 @@
 const arrayUser = [];
 const usersId = [];
 let info;
+let type;
 let notificationInbox;
 function socketServer(io) {
   //check connect
@@ -48,11 +49,15 @@ let bookingNotification = (data) => {
   return data;
 };
 
-function serverNotification(io, notification, notificationInboxFromServer) {
+function serverNotification(
+  io,
+  notification,
+  notificationInboxFromServer,
+  typeNotification
+) {
   info = notification;
   notificationInbox = notificationInboxFromServer;
-  console.log("insocket service");
-  console.log(notificationInbox);
+  type = typeNotification;
 
   io.on("connection", (socket) => {
     //userConnect
@@ -65,17 +70,15 @@ function serverNotification(io, notification, notificationInboxFromServer) {
       usersId[data] = socket.id;
       socket.emit("Server-success-regsiter", data);
     });
-
+    //notification appointment
     if (info) {
       //send notification doctor
       let doctorSocketId = usersId[info.doctorID];
       io.to(doctorSocketId).emit("new-notification", info.content);
       info = "";
     }
-
+    //notification inbox
     if (notificationInbox) {
-      console.log("in send notification");
-      console.log(notificationInbox);
       //send notification doctor
       let doctorSocketId = usersId[notificationInbox.userID];
       io.to(doctorSocketId).emit(

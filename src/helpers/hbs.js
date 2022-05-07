@@ -77,6 +77,10 @@ module.exports = {
     else if (a === 2) return "Đã Hoàn Thành";
     else if (a === 2) return "Đã Huỹ";
   },
+  confirmIsCanceled: (a) => {
+    if (a == 0) return "confirm";
+    else return "";
+  },
   sortable: (field, sort) => {
     const sortType = field == sort.column ? sort.type : "default";
     const icons = {
