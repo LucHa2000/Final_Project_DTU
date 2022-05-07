@@ -7,7 +7,7 @@ var io = require("socket.io")(server);
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 import appoinment from "../models/appoinment";
-
+import { formatDate } from "../../util/dateNow";
 import {
   getAppointmentsByUserID,
   createNewAppointment,
@@ -30,6 +30,7 @@ import {
   bookingNotification,
   serverNotification,
 } from "../../public/script/socketServer";
+const dateNow = formatDate(new Date().toString());
 class BookingController {
   async index(req, res, next) {
     let user = await getUserById(req.session.userID);
@@ -110,7 +111,7 @@ class BookingController {
             appointmentId: newAppointmentId,
             title: titleNotificationForAppointment,
             content: contentNotificationForAppointment,
-            link: "/job?date=2022-05-04",
+            link: `?date=${dateNow}`,
             fromUserID: userID,
             doctorID: req.body.doctorID,
           };

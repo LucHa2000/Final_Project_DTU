@@ -14,6 +14,7 @@ import {
 import {
   getAppointmentsOnDayByUserID,
   cancelAppointment,
+  acceptAppointment,
 } from "../service/AppoinmentService";
 import { getUserById } from "../service/UserService";
 import {
@@ -25,6 +26,7 @@ import {
   rollBackMoneyForUser,
   getTransactionHistoryByAppointmentId,
 } from "../service/TransactionHistoryService";
+const dateNow = formatDate(new Date().toString());
 class ScheduleController {
   async index(req, res, next) {
     let defaultDate = req.query.date;
@@ -47,6 +49,42 @@ class ScheduleController {
       messageCancelBooking: req.session.messageCancelBooking,
     });
     req.session.messageCancelBooking = null;
+  }
+
+  async acceptAppointment(req, res, next) {
+    try {
+      let acceptApp = await acceptAppointment(req.params.appoinmentId);
+
+      if (acceptApp) {
+        //save notification
+        const titleNotificationForAppointment =
+          "Thông Báo Lịch Hẹn Đã chấp nhận";
+        const contentNotificationForAppointment =
+          "Vừa có lịch hẹn đã được chấp nhận, bạn có thể kiểm tra lịch !";
+        const notification = {
+          appointmentId: acceptApp.id,
+          title: titleNotificationForAppointment,
+          content: contentNotificationForAppointment,
+          link: `?date=${dateNow}`,
+          type: "acceptAppointment",
+          fromUserID: acceptApp.doctorID,
+          doctorID: acceptApp.userID,
+        };
+
+        //create Notification in db
+        let newNotification = await createNotification(notification);
+        //create Notification in client side
+        console.log("after create");
+        console.log(newNotification);
+        serverNotification(io, notification);
+        req.session.messageCancelBooking = "Bạn đã chấp nhận lịch thành công !";
+        res.redirect("back");
+      } else {
+        console.log("accept error");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async cancelAppointment(req, res, next) {
@@ -80,11 +118,12 @@ class ScheduleController {
           appointmentId: appointmentCanceled.id,
           title: titleNotificationForAppointment,
           content: contentNotificationForAppointment,
-          link: "/job?date=2022-05-04",
+          link: `?date=${dateNow}`,
+          type: "cancelAppointment",
           fromUserID: appointmentCanceled.userID,
           doctorID: appointmentCanceled.doctorID,
         };
-        console.log(notification);
+
         //create Notification in db
         let newNotification = await createNotification(notification);
         //create Notification in client side

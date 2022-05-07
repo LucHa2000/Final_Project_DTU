@@ -9,12 +9,12 @@ let getAppointmentsByUserID = (userID, roleID) => {
       let appointment;
       if (roleID == 2) {
         appointment = await db.Appointment.findAll({
-          where: { doctorID: userID, isCanceled: { [Op.or]: [0, null] } },
+          where: { doctorID: userID, isCanceled: { [Op.or]: [0, 1] } },
           raw: true,
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
-          where: { userID: userID, isCanceled: { [Op.or]: [0, null] } },
+          where: { userID: userID, isCanceled: { [Op.or]: [0, 1] } },
           raw: true,
         });
       }
@@ -174,7 +174,7 @@ let cancelAppointment = (id) => {
       });
 
       if (appointment) {
-        appointment.isCanceled = true;
+        appointment.isCanceled = 3;
         await appointment.save();
         resolve(appointment);
       } else {
@@ -185,7 +185,25 @@ let cancelAppointment = (id) => {
     }
   });
 };
+let acceptAppointment = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findOne({
+        where: { id: id },
+      });
 
+      if (appointment) {
+        appointment.isCanceled = 1;
+        await appointment.save();
+        resolve(appointment);
+      } else {
+        resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -230,6 +248,7 @@ module.exports = {
   checkingAvailableTime,
   getAppointmentById,
   cancelAppointment,
+  acceptAppointment,
   getAppointmentsOnDayByUserID,
   createNewAppointment,
   getAppointmentsAndTransactionsByUserID,

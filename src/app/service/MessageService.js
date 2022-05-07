@@ -4,15 +4,17 @@ let getMessageAndAppointmentByAppointmentIDandTile = (title) => {
   return new Promise(async (resolve, reject) => {
     try {
       let appointment = await db.Appointment.findOne({
-        where: { title: title },
+        where: { title: title, isCanceled: { [Op.or]: [0, 1] } },
         raw: true,
       });
+      if (appointment) {
+        let messages = await db.Message.findAll({
+          where: { appointmentID: appointment.id },
+          order: [["createdAt", "ASC"]],
+          raw: true,
+        });
+      }
 
-      let messages = await db.Message.findAll({
-        where: { appointmentID: appointment.id },
-        order: [["createdAt", "ASC"]],
-        raw: true,
-      });
       let arrayMessage = messages;
       let returnName = async () => {
         for (let e of arrayMessage) {
