@@ -45,7 +45,6 @@ let getResumeById = (resumeId) => {
 let getDoctorAppointmentAndResumeById = (doctorId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let dateNow = new Date().toString();
       let user = await db.User.findOne({
         where: { id: doctorId, roleID: 2, status: 1 },
         raw: true,
@@ -61,7 +60,6 @@ let getDoctorAppointmentAndResumeById = (doctorId) => {
       let appointment = await db.Appointment.findAll({
         where: {
           doctorID: doctorId,
-          date: formatDate(dateNow),
           isCanceled: { [Op.or]: [0, 1, 2] },
         },
         raw: true,
