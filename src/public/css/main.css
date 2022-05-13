@@ -269,6 +269,23 @@ hr.divider--dash {
   color: var(--secondary-text);
 }
 
+.app-section__content .about-hero {
+  background: url('../img/about-hero-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+}
+
+.app-section .about-section__container__left {
+  border-right: 2px solid var(--primary-color);
+  box-sizing: border-box;
+}
+
+.app-section .about-section__container__right {
+  border-left: 2px solid var(--primary-color);
+  box-sizing: border-box;
+}
+
 /* ================== Sign in ================== */
 
 svg#freepik_stories-online-doctor:not(.animated) .animable {
