@@ -1,8 +1,8 @@
-const db = require("../models/index");
-const { Op } = require("sequelize");
-const { v4: uuidv4 } = require("uuid");
-import { raw } from "body-parser";
-import { formatDate } from "../../util/dateNow";
+const db = require('../models/index');
+const { Op } = require('sequelize');
+const { v4: uuidv4 } = require('uuid');
+import { raw } from 'body-parser';
+import { formatDate } from '../../util/dateNow';
 let getAppointmentsByUserID = (userID, roleID) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -37,14 +37,14 @@ let getAppointmentsAndTransactionsByUserID = (userID, roleID) => {
           where: { doctorID: userID },
           raw: true,
           include: db.TransactionHistory,
-          order: [["startTime", "ASC"]],
+          order: [['startTime', 'ASC']],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
           where: { userID: userID },
           raw: true,
           include: db.TransactionHistory,
-          order: [["startTime", "ASC"]],
+          order: [['startTime', 'ASC']],
         });
       }
       if (appointment) {
@@ -156,7 +156,7 @@ let updateAppointment = (data) => {
           endTime: data.endTime,
           isCancel: false,
         });
-        resolve("Update Successfully!");
+        resolve('Update Successfully!');
       } else {
         resolve(null);
       }
@@ -217,7 +217,7 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
           },
 
           raw: true,
-          order: [["startTime", "ASC"]],
+          order: [['startTime', 'ASC']],
         });
       } else if (roleID == 3) {
         appointment = await db.Appointment.findAll({
@@ -227,13 +227,32 @@ let getAppointmentsOnDayByUserID = (userID, roleID, date) => {
             date: date,
           },
           raw: true,
-          order: [["startTime", "ASC"]],
+          order: [['startTime', 'ASC']],
         });
       }
       if (appointment) {
         resolve(appointment);
       } else {
         resolve([]);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+//[appoinment admin]
+let getAppointment = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let appointment = await db.Appointment.findAll({
+        raw: true,
+        order: [['date', 'DESC']],
+      });
+      if (appointment) {
+        resolve(appointment);
+      } else {
+        resolve();
       }
     } catch (e) {
       reject(e);
@@ -252,4 +271,5 @@ module.exports = {
   getAppointmentsOnDayByUserID,
   createNewAppointment,
   getAppointmentsAndTransactionsByUserID,
+  getAppointment,
 };

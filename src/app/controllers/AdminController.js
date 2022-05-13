@@ -4,6 +4,7 @@ const router = express.Router();
 import { getListAccounts } from '../service/AccountService';
 import { getUserById } from '../service/UserService';
 import { getListClinics } from '../service/ClinicService';
+import { getAppointment } from '../service/AppoinmentService';
 import {
   statisticalCalculation,
   statisticsByDay,
@@ -72,6 +73,23 @@ class AdminController {
       let clinics = await getListClinics();
       res.render('admin/clinic_view', {
         clinics,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //[GET] Apointment
+  async appoinmentPage(req, res, next) {
+    try {
+      let appointment = await getAppointment();
+      for (let p of appointment) {
+        let user = await getUserById(p.userID);
+        let doctor = await getUserById(p.doctorID);
+        p.nameUser = user.firstName + ' ' + user.lastName;
+        p.nameDoctor = doctor.firstName + ' ' + doctor.lastName;
+      }
+      res.render('admin/appointment_view', {
+        appointment,
       });
     } catch (err) {
       console.log(err);
