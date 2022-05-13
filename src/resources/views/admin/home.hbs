@@ -11,7 +11,7 @@
         <div class="row" style="width: 600px;">
               <h5 class="text-center font-bold text-xl">THỐNG KÊ</h5>
               <br>
-          <form id="getDateForm" action="/admin?startDate=2022-04-02&endDate=2022-04-09" Method="GET">
+          <form action="/admin/statisticsByDay" Method="POST">
             <div class="flex justify-center">
               <div class="relative">
                   <input type="date" id="startDate" name="startDate" required="required" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " >
@@ -41,12 +41,17 @@
           </div>
       </div>
        <br>
+         {{>search}} 
       <div class="row flex justify-center mt-6">
         <table class="w-full text-sm text-left text-gray-500 mt-4">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
+                     
                       <th scope="col" class="px-6 py-3 font-bold">
                           Stt
+                      </th>
+                       <th scope="col" class="px-6 py-3 font-bold">
+                          Ngày
                       </th>
                       <th scope="col" class="px-6 py-3 font-bold">
                           Cuộc hẹn
@@ -60,9 +65,7 @@
                       <th scope="col" class="px-6 py-3 font-bold">
                           Giờ kết thúc
                       </th>
-                      <th scope="col" class="px-6 py-3 font-bold">
-                          Ngày
-                      </th>
+                      
                   </tr>
               </thead>
               <tbody id="myTable">
@@ -71,6 +74,9 @@
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900  whitespace-nowrap">
                         {{sum @index}}
                     </th>
+                     <td class="px-6 py-4">
+                        {{{this.date}}}
+                    </td>
                     <td class="px-6 py-4">
                         {{{this.title}}}
                     </td>
@@ -83,9 +89,7 @@
                     <td class="px-6 py-4">
                         {{{this.endTime}}}
                     </td>
-                    <td class="px-6 py-4">
-                        {{{this.date}}}
-                    </td>
+                   
                     
                   </tr>
                   {{else}}
@@ -133,14 +137,14 @@
       </div>
 
 
-  <script>
+  {{!-- <script>
     $( "#getDateForm" ).submit(function( event ) {
       let startDate = $('#startDate').val();
       let endDate = $('#endDate').val();
 
       $(this).attr('action',`/admin?startDate=${startDate}&endDate=${endDate}`)
 });
-  </script>
+  </script> --}}
 
   <script>
     var ctx = document.getElementsByClassName('year_Chart');
@@ -163,27 +167,6 @@
     'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192,1)' ,
     'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ], borderWidth: 1 }] } ,
     })
-
-    const productQuantites = document.querySelectorAll(".p-quantity");
-    const productPrices = document.querySelectorAll(".card-price");
-    let totalPrice = 0, 
-      totalQuantity = 0,
-      quantity,
-      prices,
-      price;
-    for (let i = 0; i < productQuantites.length; i++) {
-      quantity = Number(productQuantites[i].textContent);
-      prices = productPrices[i].textContent.match(/\d+/g);
-      price = Number(prices[0]) + Number(`0.${prices[1]}`);
-      totalPrice += quantity * price;
-      totalQuantity += quantity;
-      //   console.log(quantiy);
-      //   console.log(price);
-    }
-
-    console.log(totalPrice);
-    document.querySelector(".total-price").innerHTML = `$${totalPrice}`;
-    document.querySelector(".total-quantity").innerHTML = `$${totalQuantity}`;
 
   </script>
           

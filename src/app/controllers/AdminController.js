@@ -4,36 +4,51 @@ const router = express.Router();
 import { getListAccounts } from '../service/AccountService';
 import { getUserById } from '../service/UserService';
 import { getListClinics } from '../service/ClinicService';
-import { getCountDoctos, statisticByDate, getTransaction } from '../service/StatisticService';
-
+import {
+  statisticalCalculation,
+  statisticsByDay,
+  statisticsAppointment,
+} from '../service/StatisticService';
 class AdminController {
-  //[APPOINMENT]
-  // async index(req, res, next) {
-  //   let appointment = await getTransaction();
-  //   for (let p of appointment) {
-  //     let user = await getUserById(p.userID);
-  //     let doctor = await getUserById(p.doctorID);
-  //     p.nameUser = user.firstName + ' ' + user.lastName;
-  //     p.nameDoctor = doctor.firstName + ' ' + doctor.lastName;
-  //   }
-  //   res.send(appointment);
-
+  //[GET] statistic
   async index(req, res, next) {
-    let startDate = req.query.startDate;
-    let endDate = req.query.endDate;
+    let statistics = await statisticalCalculation();
 
-    let statistic = await getCountDoctos();
+    let appoinments = await statisticsAppointment();
 
-    let detailTransaction = await getTransaction(startDate, endDate);
-    for (let e of detailTransaction) {
+    for (let e of appoinments) {
       e.tranBalence = e['TransactionHistory.balance'];
     }
+
+    let doctorNumberNumber = statistics[0];
+    let userNumber = statistics[1];
+    let clinicNumber = statistics[2];
+    let transacsionNumber = statistics[3];
+    let revenue = statistics[4];
+    res.render('admin/home', {
+      doctor: doctorNumberNumber,
+      user: userNumber,
+      clinicsss: clinicNumber,
+      transacsion: transacsionNumber,
+      revenue,
+      Transactions: appoinments,
+    });
+  }
+
+  //[POST]
+  async PickStatisticsPage(req, res, next) {
+    let statistic = await statisticalCalculation();
 
     let doctor = statistic[0];
     let user = statistic[1];
     let clinicsss = statistic[2];
     let transacsion = statistic[3];
     let revenue = statistic[4];
+
+    let detailTransaction = await statisticsByDay(req.body);
+    for (let e of detailTransaction) {
+      e.tranBalence = e['TransactionHistory.balance'];
+    }
 
     res.render('admin/home', {
       doctor,
@@ -44,22 +59,14 @@ class AdminController {
       Transactions: detailTransaction,
     });
   }
-
-  //[POST]
-  async PickStatisticsPage(req, res, next) {
-    let statistics = await statisticByDate(req.body.start_date, req.body.end_date);
-    let transacsion = statistics[5];
-    res.send(transacsion);
-    res.render('admin/home', transacsion);
-  }
-
+  //[GET] Account
   async accountPage(req, res, next) {
     let accountsAndClinics = await getListAccounts();
     let accounts = accountsAndClinics[0];
     let clinics = accountsAndClinics[1];
     res.render('admin/account_view', { accounts, clinics });
   }
-
+  //[GET] Clinic
   async clinicPage(req, res, next) {
     try {
       let clinics = await getListClinics();

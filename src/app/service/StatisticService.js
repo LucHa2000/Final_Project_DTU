@@ -1,6 +1,8 @@
 const db = require('../models/index');
 import { Op } from 'sequelize';
-let getCountDoctos = () => {
+
+//Thống kê tổng
+let statisticalCalculation = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let countDoctor = await db.User.count({
@@ -27,27 +29,24 @@ let getCountDoctos = () => {
       let revenue = await db.TransactionHistory.sum('balance', {
         raw: true,
       });
-      console.log(countTransaction);
-      resolve([countDoctor, countUser, countClinic, countTransaction, revenue, dateTran]);
+      if (countDoctor || countUser || countClinic || countTransaction || revenue || dateTran) {
+        resolve([countDoctor, countUser, countClinic, countTransaction, revenue, dateTran]);
+      } else {
+        resolve();
+      }
     } catch (e) {
       reject(e);
     }
   });
 };
-
-let getTransaction = (startDate, endDate) => {
+//Thống kê 5 giao dịch gần nhất
+let statisticsAppointment = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let transacsionDetail = await db.Appointment.findAll({
         raw: true,
         where: {
           isCanceled: 2,
-          date: {
-            [Op.gte]: startDate,
-          },
-          date: {
-            [Op.lte]: endDate,
-          },
         },
         include: [
           {
@@ -55,6 +54,9 @@ let getTransaction = (startDate, endDate) => {
             attributes: ['balance'],
           },
         ],
+        order: [['date', 'DESC']],
+
+        limit: 5,
       });
       if (transacsionDetail) {
         resolve(transacsionDetail);
@@ -67,69 +69,32 @@ let getTransaction = (startDate, endDate) => {
   });
 };
 
-//[appoinment]
-// let getAppointment = () => {
-//   return new Promise(async (resolve, reject) => {
-//     try {
-//       let appointment = await db.Appointment.findAll({
-//         raw: true,
-//       });
-//       if (appointment) {
-//         resolve(appointment);
-//       } else {
-//         resolve();
-//       }
-//     } catch (e) {
-//       reject(e);
-//     }
-//   });
-// };
-let statisticByDate = (startDate, endDate) => {
+//[Thống kê giaod dịch theo ngày
+let statisticsByDay = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let countDoctor = await db.User.count({
-        col: 'id',
+      let transacsionDetail = await db.Appointment.findAll({
+        raw: true,
         where: {
-          roleID: '2',
+          isCanceled: 2,
+          date: {
+            [Op.gte]: data.startDate,
+            [Op.lte]: data.endDate,
+          },
         },
-        raw: true,
+        include: [
+          {
+            model: db.TransactionHistory,
+            attributes: ['balance'],
+          },
+        ],
+        order: [['date', 'DESC']],
       });
-      let countUser = await db.User.count({
-        col: 'id',
-        where: { roleID: '3' },
-        raw: true,
-      });
-      let countClinic = await db.Clinic.count({
-        col: 'id',
-        raw: true,
-      });
-      let countTransaction = await db.TransactionHistory.count({
-        col: 'id',
-        raw: true,
-      });
-      let revenue = await db.TransactionHistory.sum('balance', {
-        raw: true,
-      });
-
-      // let transacsionDetail = await db.Appointment.findAll({
-      //   raw: true,
-      //   where: {
-      //     isCanceled: 2,
-      //     date: {
-      //       [Op.gte]: startDate,
-      //     },
-      //     date: {
-      //       [Op.lte]: endDate,
-      //     },
-      //   },
-      //   include: [
-      //     {
-      //       model: db.TransactionHistory,
-      //       attributes: ['balance'],
-      //     },
-      //   ],
-      // });
-      resolve([countDoctor, countUser, countClinic, countTransaction, revenue]);
+      if (transacsionDetail) {
+        resolve(transacsionDetail);
+      } else {
+        resolve();
+      }
     } catch (e) {
       reject(e);
     }
@@ -137,7 +102,7 @@ let statisticByDate = (startDate, endDate) => {
 };
 
 module.exports = {
-  getCountDoctos,
-  statisticByDate,
-  getTransaction,
+  statisticalCalculation,
+  statisticsByDay,
+  statisticsAppointment,
 };
