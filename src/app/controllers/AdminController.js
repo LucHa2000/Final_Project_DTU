@@ -20,16 +20,16 @@ class AdminController {
       e.tranBalence = e['TransactionHistory.balance'];
     }
 
-    let doctorNumberNumber = statistics[0];
+    let doctorNumber = statistics[0];
     let userNumber = statistics[1];
     let clinicNumber = statistics[2];
     let transacsionNumber = statistics[3];
     let revenue = statistics[4];
     res.render('admin/home', {
-      doctor: doctorNumberNumber,
-      user: userNumber,
-      clinicsss: clinicNumber,
-      transacsion: transacsionNumber,
+      doctorNumber,
+      userNumber,
+      clinicNumber,
+      transacsionNumber,
       revenue,
       Transactions: appoinments,
     });
