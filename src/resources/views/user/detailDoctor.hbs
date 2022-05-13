@@ -103,7 +103,7 @@
                 Lịch tư vấn qua video
               </h2>
               <form action="/detailDoctor/{{doctor.id}}" id="form" method="get">
-                <input id="datepicker" name="date" type="date" value="{{bookingDate}}" readonly>
+                <span class="font-bold">Ngày: </span><input class="border border-2 border-gray-300 my-2 text-sm rounded-lg p-1 cursor-pointer" id="datepicker" name="date" type="date" value="{{bookingDate}}" readonly>
               </form>
               
               <div class="flex flex-wrap">
