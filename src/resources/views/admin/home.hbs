@@ -4,77 +4,108 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
   >
-
   </script>
-      <div class="container">
-      <div class="row">
-        <div class="col s6">
-            <h5 class="center">Year Statistics</h5>
+      <div class="container  text-center mt-10 ml-10 mr-10">
+
+      <div class="flex justify-center">
+        <div class="row" style="width: 600px;">
+              <h5 class="text-center font-bold text-xl">THỐNG KÊ</h5>
+              <br>
+          <form id="getDateForm" action="/admin?startDate=2022-04-02&endDate=2022-04-09" Method="GET">
+            <div class="flex justify-center">
+              <div class="relative">
+                  <input type="date" id="startDate" name="startDate" required="required" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " >
+              </div>
+              <span class="mx-4 text-gray-500 ">Đến</span>
+              <div class="relative">
+                <input type="date" id="endDate" name="endDate" required="required" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  ">
+            </div>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <button type="submit" class=" btn--primary waves-effect waves-light text-center mr-2"><i class="material-icons right">filter_list</i>Thống kê</button>
+              <a href="/admin" class=" btn--primary waves-effect waves-light text-center"><i class="material-icons right">filter_list</i>Làm mới</a>
+          </div>
+          </form>
+          <br>     
+        </div>
+      </div>
+      <div class="row flex justify-center mt-6">
+         <div class="col s6 block">
+            <div class="flex justify-center">
+                <div class="font-bold">Bác sĩ: <span class="ml-2">{{doctor}}</span></div>
+                <div class="font-bold ml-60">Người dùng: <span class="ml-2">{{user}}</div>
+                <div class="font-bold ml-60">Khoa: <span class="ml-2">{{clinicsss}}</div>
+                <div class="font-bold ml-60">Giao dịch: <span class="ml-2">{{transacsion}}</div>
+                <div class="font-bold ml-60">Doanh thu: <span class="ml-2">{{revenue}}$</div>
+             </div>
+          </div>
+      </div>
+       <br>
+      <div class="row flex justify-center mt-6">
+        <table class="w-full text-sm text-left text-gray-500 mt-4">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                  <tr>
+                      <th scope="col" class="px-6 py-3 font-bold">
+                          Stt
+                      </th>
+                      <th scope="col" class="px-6 py-3 font-bold">
+                          Cuộc hẹn
+                      </th>
+                      <th scope="col" class="px-6 py-3 font-bold">
+                          Phí tư vấn
+                      </th>
+                      <th scope="col" class="px-6 py-3 font-bold">
+                          Giờ bắt đầu
+                      </th>
+                      <th scope="col" class="px-6 py-3 font-bold">
+                          Giờ kết thúc
+                      </th>
+                      <th scope="col" class="px-6 py-3 font-bold">
+                          Ngày
+                      </th>
+                  </tr>
+              </thead>
+              <tbody id="myTable">
+                {{#each Transactions}}
+                  <tr class="bg-white border-b  hover:bg-gray-50 ">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900  whitespace-nowrap">
+                        {{sum @index}}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{{this.title}}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{{this.tranBalence}}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{{this.startTime}}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{{this.endTime}}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{{this.date}}}
+                    </td>
+                    
+                  </tr>
+                  {{else}}
+                    <tr>
+                      <td colspan="6" class="center text-center">
+                          Chọn thời gian để xem thông tin
+                      </td>
+                    </tr>
+                  {{/each}}  
+              </tbody>
+            </table>
+      </div>
+       <br>
+      <div class="row mt-6 flex justify-center">
+        <div class="col s6 mr-10" style="width: 800px;">
+            <h2 class="text-center font-bold text-xl">Thống kê năm</h2>
             <canvas class="year_Chart"></canvas>
         </div>
-        <div class="col s6">
-              <h5 class="center">Pick Statistics</h5>
-          <form action="/admin/PickStatisticsPage" Method="POST">
-              <div class="col s6">
-                <input type="datetime-local" id="end_date" name="start_date" required="required">
-          <span class="helper-text" data-error="This field cannot be left blank">Start Date*</span>
-            <input type="datetime-local" id="end_date" name="end_date" required="required">
-          <span class="helper-text" data-error="This field cannot be left blank">End Date*</span> 
-            </div>
-          <button type="submit" class="waves-effect waves-light btn center"><i class="material-icons right">filter_list</i>search</button>
-            <a href="/admin" class="waves-effect waves-light btn center"><i class="material-icons right">filter_list</i>Reset</a>
-          </form>
-          
-                  <div class="col s6 center">
-                    <br>
-              
-          <div class="">Revenue: <span class="total-price"></span></div>
-          <div class="">Quantity: <span class="total-quantity"></div>
-        
-                  </div>
-                  
-
-      
-      
-              <table class=" responsive-table highlight " >
-          <thead>
-            <tr>           
-              <th>No</th>   
-              <th>Product</th>
-              <th>Quantity </th>
-            <th>Price</th>
-              <th>Date</th>
-            
-            
-            </tr>
-          </thead>
-          <tbody id="myTable">
-                {{#each  orderDetails }}
-              <tr>
-                  <td>{{sum @index}}</td>
-                  <td>{{{this.product_name}}}</td>
-                  <td class="p-quantity">{{{this.quantity}}}</td>
-                  <td class="card-price">{{{formatLongString (formatCurrency this.unit_price)}}}</td>
-                  <td>{{{ convertDate this.createdAt}}}</td>     
-              </tr>
-            
-              {{else}}
-                  <tr>
-                    <td colspan="5" class="center text-center">
-                      Empty Product
-                    </td>
-                  </tr>
-    
-              {{/each}}   
-          </tbody>
-            </table> 
-        </div>
-    
-        </div>
-    
-      <div class="row">
-        <div class="col s6 push-l3">  
-            <h5 class="center">Top Product</h5>
+        <div class="col s6 push-l3 "style="width: 800px;">  
+            <h5 class="text-center font-bold text-xl">Top Khoa</h5>
             <canvas id="product_Chart"></canvas>   
         </div>
         {{!-- <div class="col s3">
@@ -97,13 +128,25 @@
         </div> --}}
     
       </div>
+    
+      
       </div>
+
+
+  <script>
+    $( "#getDateForm" ).submit(function( event ) {
+      let startDate = $('#startDate').val();
+      let endDate = $('#endDate').val();
+
+      $(this).attr('action',`/admin?startDate=${startDate}&endDate=${endDate}`)
+});
+  </script>
 
   <script>
     var ctx = document.getElementsByClassName('year_Chart');
     var myChart = new Chart(ctx, {
-    type: 'bar', data: { labels: ['January', 'February', 'March', 'April', 'May',
-    'June','July','August','September','October','November','December'], datasets: [{ label: 'Year', data: [5000,6200, 9200,2000,2300,8944, 7100,2000,5000,1922, 1522, 6020],
+    type: 'bar', data: { labels: ['Tháng Giêng', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
+    'Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'], datasets: [{ label: 'Năm', data: [5000,6200, 9200,2000,2300,8944, 7100,2000,5000,1922, 1522, 6020],
     backgroundColor: [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
     'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102,255,0.2)'
     , 'rgba(255, 159, 64, 0.2)' ], borderColor: [ 'rgba(255, 99, 132,1)',
@@ -113,7 +156,7 @@
 
       var ctx2 = document.getElementById('product_Chart');
     var myChart2 = new Chart(ctx2,{
-        type: 'doughnut', data: { labels: ['Mask', 'Soap', 'Gloves'], datasets: [{ label: '# of Votes', data: [30, 20,50],
+        type: 'doughnut', data: { labels: ['Mắt', 'Sản Nhi', 'Răng Hàm Mặt'], datasets: [{ label: '# of Votes', data: [30, 20,50],
     backgroundColor: [ 'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
     'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102,255,0.2)'
     , 'rgba(255, 159, 64, 0.2)' ], borderColor: [ 'rgba(255, 99, 132,1)',
