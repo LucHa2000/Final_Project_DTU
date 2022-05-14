@@ -9,5 +9,7 @@ const adminController = require('../app/controllers/AdminController');
 
 router.get('/account', adminController.accountPage);
 router.get('/clinic', adminController.clinicPage);
+router.get('/appointment', adminController.appoinmentPage);
+router.post('/statisticsByDay', adminController.PickStatisticsPage);
 router.use('/', adminController.index);
 module.exports = router;

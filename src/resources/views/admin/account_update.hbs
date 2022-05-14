@@ -12,11 +12,12 @@
           Trở về
         </a>
       </div>
+     
         <div class="p-4 bg-gray-50 rounded-lg max-h-[90vh] min-h-[90vh] overflow-y-scroll">
 
         <div class="">
           <form class="" method="POST" action="/account/{{account.id}}/edit" autocomplete="off">
-            <div class="is-row">
+            <div class="is-row hidden">
               <div class="is-full">
                 <label class="block mb-2 text-sm font-bold text-gray-900 " for="email">Email *</label>
                 <input id="email" type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="email" value="{{account.email}}" required="required" />
@@ -27,7 +28,7 @@
             <div class="is-row">
               <div class="input-field is-half">
                 <label for="firstName" class="block mb-2 text-sm font-bold text-gray-900 ">Họ *</label>
-                <input id="firstName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="firstName" value="{{account.firstName}}" />
+                <input id="firstName" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="firstName" required="required" value="{{account.firstName}}" />
                 <span class="helper-text" data-error="This field is required!" data-success=""></span>
               </div>
               <div class="input-field ml-4 is-half">

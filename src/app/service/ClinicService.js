@@ -157,6 +157,25 @@ let deleteClinic = (id) => {
   });
 };
 
+let getClinicByEmail = (name) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findOne({
+        where: { name: name },
+        raw: true,
+      });
+      if (clinic) {
+        resolve(clinic);
+      } else {
+        resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+
 let getClinicByKeyWord = (keyWord) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -175,6 +194,7 @@ let getClinicByKeyWord = (keyWord) => {
   })
 }
 
+
 module.exports = {
   findAllClinicAnDoctorWithClinic,
   getListClinics,
@@ -183,5 +203,9 @@ module.exports = {
   getClinicById,
   deleteClinic,
   getListClinicsDoctor,
+
+  getClinicByEmail,
+
   getClinicByKeyWord
+
 };
