@@ -35,12 +35,14 @@ module.exports = {
     if (a == 1) return 'check text-green-600';
     if (a == 0) return 'close text-red-500';
     if (a == 2) return 'remove text-yellow-500';
+
   },
   styleAppointment: (a) => {
     if (a == 0) return 'remove text-yellow-500 ';
     if (a == 1) return 'close text-blue-500';
     if (a == 2) return 'check text-green-600';
     if (a == 3) return 'remove text-red-500';
+
   },
 
   converDateNewsfeed: (a) => moment(a).format('LLL'),
@@ -82,6 +84,12 @@ module.exports = {
     else if (a === 1) return 'Đang Diễn ra';
     else if (a === 2) return 'Đã Hoàn Thành';
     else if (a === 3) return 'Đã Huỷ';
+
+
+  },
+  hiddenButton: (a) => {
+    if (a === 3) return 'none';
+
   },
   confirmIsCanceled: (a) => {
     if (a == 0) return 'confirm';
@@ -169,5 +177,10 @@ module.exports = {
     const date = new Date();
     const newMonth = date.getMonth() / 9 <= 1 ? `0${date.getMonth()}` : date.getMonth();
     return `${date.getFullYear()}-${newMonth}-${date.getDate()}`;
+  },
+
+  formatLongWordText: (text, allowedLength = 7) => {
+    if (text) return text.length > allowedLength ? `${text.slice(0, allowedLength)}...` : text;
+    else return '';
   },
 };

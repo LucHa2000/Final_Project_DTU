@@ -16,16 +16,18 @@
         <span class='self-center text-xl font-semibold whitespace-nowrap'>MedicalS</span>
     </a>
     <div class='app-container__input medicals__navbar__search md:w-[600px] mx-5'>
-      <input
-        type='search'
-        name='search'
-        id='search'
-        placeholder='Nhập tên bác sĩ, tên cuộc họp, ...'
-        class='w-full hidden md:block'
-      />
-      <button type='submit'>
-        <i class='fa-solid fa-magnifying-glass app-container__icon'></i>
-      </button>
+      <form class="flex items-center justify-between w-full" action="search" method="get">
+        <input
+          type='search'
+          name='keyWord'
+          id='search'
+          placeholder='Nhập tên bác sĩ, tên khoa, ...'
+          class='w-full flex block'
+        />
+        <button type='submit'>
+          <i class='fa-solid fa-magnifying-glass app-container__icon'></i>
+        </button>
+      </form>
     </div>
   </div>
   <div class='medicals__navbar__right flex-2 flex items-center flex-end'>
@@ -37,7 +39,7 @@
               {{!-- used for notification --}}
               <p id="userID" hidden>{{userID}}</p>
            
-            <div id="displayNotification" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full max-h-[80vh] ">
+            <div id="displayNotification" tabindex="-1" aria-hidden="true" class=" absolute top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden md:inset-0 h-modal md:h-full animate__animated animate__fadeIn">
               {{!-- {{#each notifications}}
               <div id="notification-container">
                   <h1 style="color:red">{{this.title}}</h1> 
@@ -45,11 +47,11 @@
                   <p>{{this.content}}</p>  
               </div>
               {{/each}} --}}
-              <div class="relative w-full h-full max-w-2xl p-4 md:h-auto ">
+              <div class="relative w-full h-full max-w-2xl p-4 md:h-auto flex items-center justify-center">
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow ">
                     <!-- Modal header -->
-                    <div class="flex items-start justify-between p-4 border-b rounded-t ">
+                    <div class="flex items-start justify-between p-4 border-b rounded-t">
                         <h3 class="text-xl font-semibold text-gray-900 e">
                             Thông báo
                         </h3>
@@ -58,7 +60,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div class="px-4 pb-4">
+                    <div class="px-4 pb-4 overflow-y-scroll max-h-[80vh]">
                     {{#if userLogin}}
                           {{#if notifications}}
                             {{#each notifications}}

@@ -1,5 +1,6 @@
 const db = require('../models/index');
 const { v4: uuidv4 } = require('uuid');
+const { Op } = require("sequelize");
 
 let findAllClinicAnDoctorWithClinic = () => {
   return new Promise(async (resolve, reject) => {
@@ -155,6 +156,7 @@ let deleteClinic = (id) => {
     }
   });
 };
+
 let getClinicByEmail = (name) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -172,6 +174,27 @@ let getClinicByEmail = (name) => {
     }
   });
 };
+
+
+let getClinicByKeyWord = (keyWord) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let clinic = await db.Clinic.findAll({
+        where: { name: {[Op.like]: `%${keyWord}%`}},
+        raw: true
+      });
+      if(clinic){
+        resolve(clinic);
+      }else{
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
+
+
 module.exports = {
   findAllClinicAnDoctorWithClinic,
   getListClinics,
@@ -180,5 +203,9 @@ module.exports = {
   getClinicById,
   deleteClinic,
   getListClinicsDoctor,
+
   getClinicByEmail,
+
+  getClinicByKeyWord
+
 };

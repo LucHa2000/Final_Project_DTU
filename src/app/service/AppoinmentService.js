@@ -129,8 +129,7 @@ let createNewAppointment = (userID, data) => {
     }
   });
 };
-let checkingAvailableTime = (time, appointment) => {
-  let date = formatDate(new Date().toString());
+let checkingAvailableTime = (time, appointment,date) => {
   for (let i = 0; i < appointment.length; i++) {
     if (appointment[i].startTime === time && appointment[i].date === date) {
       return false;

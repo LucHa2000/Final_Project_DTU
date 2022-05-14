@@ -4,6 +4,7 @@ import { formatDate, getTimeNow } from "../../util/dateNow";
 import {
   findAllClinicAnDoctorWithClinic,
   getClinicById,
+  getClinicByKeyWord
 } from "../service/ClinicService";
 import { getServiceByDoctorId } from "../service/ServiceService";
 import {
@@ -11,17 +12,20 @@ import {
   getDoctorAppointmentAndResumeById,
   getAllDoctorClinicAndReview,
   getAllClinic,
+  getDoctorByKeyWord
 } from "../service/DoctorService";
 import { getAppointmentsByUserID } from "../service/AppoinmentService";
 class SiteController {
   async index(req, res, next) {
     try {
       let data = await findAllClinicAnDoctorWithClinic();
+      let currentDate = formatDate(new Date().toString());
       let clinics = data[0];
       let doctors = data[1];
       let doctorsWithClinicName = [];
       for (let e of doctors) {
         e.clinicName = e["Clinic.name"];
+        e.currentDate = currentDate;
         doctorsWithClinicName.push(e);
       }
       res.render("user/home", {
@@ -50,7 +54,10 @@ class SiteController {
   async doctorDetail(req, res, next) {
     try {
       const doctorId = req.params.doctorId;
+      let bookingDate = req.query.date;
+      const currentDate = formatDate(new Date().toString());
       let serviceFee = await getServiceByDoctorId(doctorId);
+      console.log(currentDate);
 
       let timeWorks = [
         {
@@ -98,16 +105,20 @@ class SiteController {
       doctor.clinicName = doctor["Clinic.name"];
       //check time book with time now
       let filterTimeWork = [];
-      for (let i = 0; i < timeWorks.length; i++) {
-        if (timeWorks[i].startTime >= getTimeNow()) {
-          filterTimeWork.push(timeWorks[i]);
+      if(bookingDate > currentDate){
+        filterTimeWork = filterTimeWork.concat(timeWorks)
+      }else{
+        for (let i = 0; i < timeWorks.length; i++) {
+          if (timeWorks[i].startTime >= getTimeNow()) {
+            filterTimeWork.push(timeWorks[i]);
+          }
         }
       }
       // check time book not match with time work
       for (let i = 0; i < filterTimeWork.length; i++) {
         for (let j = 0; j < doctorSchedules.length; j++) {
           if (filterTimeWork.length > 0) {
-            if (doctorSchedules[j].startTime == filterTimeWork[i].startTime) {
+            if (doctorSchedules[j].startTime == filterTimeWork[i].startTime && doctorSchedules[j].date == bookingDate) {
               filterTimeWork.splice(i, 1);
             }
           } else {
@@ -122,6 +133,7 @@ class SiteController {
         doctor: doctor,
         timeWorks: filterTimeWork,
         serviceFee: serviceFee,
+        bookingDate,
         messageBooking: req.session.messageBooking,
       });
       // res.send(doctor);
@@ -153,6 +165,18 @@ class SiteController {
   }
   aboutUs(req, res) {
     res.render("user/about");
+  }
+
+  async searchDoctorAndClinic(req, res, next) {
+    console.log(req.query.keyWord)
+    let keyWord = req.query.keyWord;
+    let doctors = await getDoctorByKeyWord(keyWord.trim());
+    let clinics = await getClinicByKeyWord(keyWord.trim());
+    
+    console.log(doctors);
+    console.log(clinics);
+
+    res.render("user/search", {doctors, clinics})
   }
 }
 module.exports = new SiteController();

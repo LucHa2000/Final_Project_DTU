@@ -41,6 +41,11 @@
                  {{/if}}
                {{/if}}
         </li>
+        <li class="medicals__sidenav__item ">
+          <a href="/aboutUs" class="medicals__sidenav__link"><i
+              class="medicals__sidenav__icon fa-solid fa-circle-question"
+            title="Về chúng tôi"></i></a>
+        </li>
       </ul>
     </div>
     <div class="app-section overflow-y-scroll">
@@ -86,7 +91,7 @@
             <div class="app-container__section__content">
               <div
                 class="main-carousel mt-4 px-2 py-3"
-                data-flickity='{ "groupCells": true, "autoPlay": true, "cellAlign": "left"  }'
+                data-flickity='{ "groupCells": true, "autoPlay": false, "cellAlign": "left"  }'
               >
                 {{#each clinics}}
                   {{!-- <div
@@ -142,7 +147,7 @@
             <div class="app-container__section__content w-full">
               <div
                 class="main-carousel mt-4"
-                data-flickity='{ "groupCells": true, "autoPlay": true, "cellAlign": "left"  }'
+                data-flickity='{ "groupCells": true, "autoPlay": false, "cellAlign": "left"  }'
               >
                 {{#each doctors}}
                   {{!-- <div
@@ -168,7 +173,7 @@
                       </div>
                     </a>
                   </div> --}}
-                  <a href="/detailDoctor/{{this.id}}" class="medicals__card block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 m-4  min-h-[250px]">
+                  <a href="/detailDoctor/{{this.id}}?date={{currentDate}}" class="medicals__card block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 m-4  min-h-[250px]">
                     <img
                       src="../uploads/{{this.image}}"
                       alt="image doctor"
