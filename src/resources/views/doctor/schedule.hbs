@@ -185,7 +185,7 @@
                             <div class="relative bg-white rounded-lg shadow ">
                                 <!-- Modal header -->
                                 <div class="flex justify-between items-start p-5 rounded-t border-b ">
-                                    <h3 class="cancel_title text-xl font-semibold text-gray-900 lg:text-2xl ">
+                                    <h3 class="accept_title text-xl font-semibold text-gray-900 lg:text-2xl ">
                                         Bạn có muốn chấp nhận lịch trên?
                                     </h3>
                                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="acceptAppointmentModal">
@@ -242,6 +242,7 @@
     } else {
       $('.cancel_title').text(`Bạn có chắc chắn muốn hủy lịch trên?`);
       $('#confirm_cancel_btn').attr('href', `/job/cancel/${this.id}`);
+      $('.cancel_content').text(`Số xu của bạn sẽ bị trừ sau khi chọn 'Xác nhận'`);
       $('.model_cancel_btn').show();
     }
   })
