@@ -7,6 +7,7 @@ import {
   updateAccount,
   getAccountById,
   deleteAcc,
+  getAccByEmail,
 } from '../service/AccountService';
 
 class AccountController {
@@ -45,6 +46,12 @@ class AccountController {
   //[POST]
   async storeAccount(req, res, next) {
     let formData = req.body;
+    let accExist = await getAccByEmail(req.body.email);
+
+    if (accExist) {
+      req.session.messageExist = 'Email đã được sử dụng, vui lòng chọn email khác';
+      return res.redirect('back');
+    }
 
     if (formData === null) return res.redirect('back');
 
@@ -56,7 +63,7 @@ class AccountController {
   }
 
   //[POST] UPDATE
-  async newAccount(req, res, next) {
+  async editAccount(req, res, next) {
     req.body.id = req.params.id;
 
     let accountUpdate = await updateAccount(req.body);

@@ -15,6 +15,13 @@
         </ul>
       </div>
       <div id="myTabContent">
+         {{#if messageExist}}
+         <br>
+       <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+        <span class="font-bold">{{messageExist}}</span> 
+      </div>
+      
+      {{/if}}
         <div class="hidden p-4 bg-gray-50 rounded-lg max-h-[90vh] min-h-[90vh] overflow-y-scroll" id="account-management" role="tabpanel" aria-labelledby="account-management-tab">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
              {{>search}} 

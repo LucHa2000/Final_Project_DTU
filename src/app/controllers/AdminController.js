@@ -11,74 +11,92 @@ import {
   statisticsAppointment,
 } from '../service/StatisticService';
 class AdminController {
-  //[GET] statistic
+  //[GET] statistic page
   async index(req, res, next) {
-    let statistics = await statisticalCalculation();
-
-    let appoinments = await statisticsAppointment();
-
-    for (let e of appoinments) {
-      e.tranBalence = e['TransactionHistory.balance'];
-    }
-
-    let doctorNumber = statistics[0];
-    let userNumber = statistics[1];
-    let clinicNumber = statistics[2];
-    let transacsionNumber = statistics[3];
-    let revenue = statistics[4];
-    res.render('admin/home', {
-      doctorNumber,
-      userNumber,
-      clinicNumber,
-      transacsionNumber,
-      revenue,
-      Transactions: appoinments,
-    });
-  }
-
-  //[POST]
-  async PickStatisticsPage(req, res, next) {
-    let statistic = await statisticalCalculation();
-
-    let doctor = statistic[0];
-    let user = statistic[1];
-    let clinicsss = statistic[2];
-    let transacsion = statistic[3];
-    let revenue = statistic[4];
-
-    let detailTransaction = await statisticsByDay(req.body);
-    for (let e of detailTransaction) {
-      e.tranBalence = e['TransactionHistory.balance'];
-    }
-
-    res.render('admin/home', {
-      doctor,
-      user,
-      clinicsss,
-      transacsion,
-      revenue,
-      Transactions: detailTransaction,
-    });
-  }
-  //[GET] Account
-  async accountPage(req, res, next) {
-    let accountsAndClinics = await getListAccounts();
-    let accounts = accountsAndClinics[0];
-    let clinics = accountsAndClinics[1];
-    res.render('admin/account_view', { accounts, clinics });
-  }
-  //[GET] Clinic
-  async clinicPage(req, res, next) {
     try {
-      let clinics = await getListClinics();
-      res.render('admin/clinic_view', {
-        clinics,
+      let statistics = await statisticalCalculation();
+      let appoinments = await statisticsAppointment();
+
+      for (let e of appoinments) {
+        e.tranBalence = e['TransactionHistory.balance'];
+      }
+
+      let doctorNumber = statistics[0];
+      let userNumber = statistics[1];
+      let clinicNumber = statistics[2];
+      let transacsionNumber = statistics[3];
+      let revenue = statistics[4];
+      res.render('admin/home', {
+        doctorNumber,
+        userNumber,
+        clinicNumber,
+        transacsionNumber,
+        revenue,
+        Transactions: appoinments,
       });
     } catch (err) {
       console.log(err);
     }
   }
-  //[GET] Apointment
+
+  //[POST] statistic by date page
+  async PickStatisticsPage(req, res, next) {
+    try {
+      let statistics = await statisticalCalculation();
+
+      let doctorNumber = statistics[0];
+      let userNumber = statistics[1];
+      let clinicNumber = statistics[2];
+      let transacsionNumber = statistics[3];
+      let revenue = statistics[4];
+
+      let detailTransaction = await statisticsByDay(req.body);
+      for (let e of detailTransaction) {
+        e.tranBalence = e['TransactionHistory.balance'];
+      }
+      req.session.messageDate = req.body;
+      res.render('admin/home', {
+        doctorNumber,
+        userNumber,
+        clinicNumber,
+        transacsionNumber,
+        revenue,
+        Transactions: detailTransaction,
+        messageDate: req.session.messageDate,
+      });
+      req.session.messageDate = null;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //[GET] Account page
+  async accountPage(req, res, next) {
+    try {
+      let accountsAndClinics = await getListAccounts();
+      let accounts = accountsAndClinics[0];
+      let clinics = accountsAndClinics[1];
+      let messageExist = req.session.messageExist;
+      res.render('admin/account_view', { accounts, clinics, messageExist });
+      req.session.messageExist = null;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //[GET] Clinic page
+  async clinicPage(req, res, next) {
+    try {
+      let messageExist = req.session.messageExist;
+      let clinics = await getListClinics();
+      res.render('admin/clinic_view', {
+        clinics,
+        messageExist,
+      });
+      req.session.messageExist = null;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //[GET] Apointment page
   async appoinmentPage(req, res, next) {
     try {
       let appointment = await getAppointment();

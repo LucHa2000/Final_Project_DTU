@@ -32,47 +32,39 @@ let createNewAccount = (data) => {
     try {
       let hashPassword = await hashUserPassword(data.password);
 
-      let acc = await db.User.findOne({
-        where: { email: data.email },
-        raw: true,
-      });
-      if (acc) {
-        resolve('Account exist');
-      } else {
-        const userId = uuidv4();
-        let serviceId = null;
-        let clinicId = null;
-        let resumeId = null;
-        let fee1 = null;
-        if (data.roleID == 2) {
-          clinicId = data.clinic;
-          fee1 = data.fee;
-          resumeId = uuidv4();
-          serviceId = uuidv4();
-          await db.Resume.create({ id: resumeId, title: '', description: '' });
-        }
-        await db.User.create({
-          id: userId,
-          email: data.email,
-          password: hashPassword,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          gender: data.gender,
-          phoneNumber: data.phoneNumber,
-          address: data.address,
-          roleID: data.roleID,
-          status: 1,
-          image:
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png',
-          resumeID: resumeId,
-          clinicID: clinicId,
-        });
-        if (data.roleID == 2) {
-          await db.Service.create({ id: serviceId, UserId: userId, fee: fee1 });
-        }
-
-        resolve('Thêm thành công !');
+      const userId = uuidv4();
+      let serviceId = null;
+      let clinicId = null;
+      let resumeId = null;
+      let fee1 = null;
+      if (data.roleID == 2) {
+        clinicId = data.clinic;
+        fee1 = data.fee;
+        resumeId = uuidv4();
+        serviceId = uuidv4();
+        await db.Resume.create({ id: resumeId, title: '', description: '' });
       }
+      await db.User.create({
+        id: userId,
+        email: data.email,
+        password: hashPassword,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        gender: data.gender,
+        phoneNumber: data.phoneNumber,
+        address: data.address,
+        roleID: data.roleID,
+        status: 1,
+        image:
+          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__480.png',
+        resumeID: resumeId,
+        clinicID: clinicId,
+      });
+      if (data.roleID == 2) {
+        await db.Service.create({ id: serviceId, UserId: userId, fee: fee1 });
+      }
+
+      resolve('Thêm thành công !');
     } catch (e) {
       reject(e);
     }
@@ -217,6 +209,24 @@ let changeAccStatus = (data) => {
     }
   });
 };
+
+let getAccByEmail = (email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let account = await db.User.findOne({
+        where: { email: email },
+        raw: true,
+      });
+      if (account) {
+        resolve(account);
+      } else {
+        resolve(null);
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getListAccounts,
   createNewAccount,
@@ -224,4 +234,5 @@ module.exports = {
   getAccountById,
   deleteAcc,
   changeAccStatus,
+  getAccByEmail,
 };

@@ -6,6 +6,7 @@ import {
   updateClinic,
   getClinicById,
   deleteClinic,
+  getClinicByEmail,
 } from '../service/ClinicService';
 
 class ClinicController {
@@ -26,10 +27,21 @@ class ClinicController {
     } else {
       req.body.image = req.file.path.split('\\').slice(3).join();
     }
+
     let formData = req.body;
+    let clinicExist = await getClinicByEmail(formData.name);
+
+    if (clinicExist) {
+      req.session.messageExist = 'Khoa bạn vừa thêm đã tồn tại trong hệ thống';
+      return res.redirect('back');
+    }
+
     if (formData === null) return res.redirect('back');
+
     let newClinic = await createNewClinic(formData);
+
     if (!newClinic) return res.redirect('/error');
+
     res.redirect('/admin/clinic');
   }
 

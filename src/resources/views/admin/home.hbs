@@ -11,7 +11,7 @@
         <div class="row" style="width: 600px;">
               <h5 class="text-center font-bold text-xl">THỐNG KÊ</h5>
               <br>
-          <form action="/admin/statisticsByDay" Method="POST">
+          <form id="getDateForm" action="/admin/statisticsByDay" Method="POST">
             <div class="flex justify-center">
               <div class="relative">
                   <input type="date" id="startDate" name="startDate" required="required" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " >
@@ -41,12 +41,18 @@
           </div>
       </div>
        <br>
+       
          {{>search}} 
+         {{#if messageDate}}
+         <br>
+       <div class="p-4 text-sm text-gray-700 bg-gray-100 rounded-lg text-left font-medium " role="alert">
+        <span class="font-bold">Cuộc hẹn từ: </span> {{messageDate.startDate}} - {{messageDate.endDate}}
+      </div>
+      {{/if}}
       <div class="row flex justify-center mt-6">
         <table class="w-full text-sm text-left text-gray-500 mt-4">
               <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
-                     
                       <th scope="col" class="px-6 py-3 font-bold">
                           Stt
                       </th>
@@ -136,15 +142,27 @@
       
       </div>
 
+{{!-- <script>
+  var startDate = $('#startDate').val();
+  var endDate = $('#endDate').val();
 
-  {{!-- <script>
+  if (startDate  endDate){
+    console.log("Ngày kết thúc phải lớn hơn ngày bắt đầu")
+}
+</script> --}}
+
+  <script>
     $( "#getDateForm" ).submit(function( event ) {
+      
       let startDate = $('#startDate').val();
       let endDate = $('#endDate').val();
 
-      $(this).attr('action',`/admin?startDate=${startDate}&endDate=${endDate}`)
+      if (startDate > endDate){
+        event.preventDefault();
+        alert("Ngày kết thúc phải lớn hơn ngày bắt đầu")
+      }
 });
-  </script> --}}
+  </script>
 
   <script>
     var ctx = document.getElementsByClassName('year_Chart');
