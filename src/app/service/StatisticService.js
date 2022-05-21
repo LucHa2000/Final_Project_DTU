@@ -1,36 +1,62 @@
-const db = require('../models/index');
-import { Op } from 'sequelize';
+const db = require("../models/index");
+import { Op } from "sequelize";
 
 //Thống kê tổng
 let statisticalCalculation = () => {
   return new Promise(async (resolve, reject) => {
     try {
       let countDoctor = await db.User.count({
-        col: 'id',
-        where: { roleID: '2' },
+        col: "id",
+        where: { roleID: "2", status: { [Op.ne]: 0 } },
         raw: true,
       });
       let countUser = await db.User.count({
-        col: 'id',
-        where: { roleID: '3' },
+        col: "id",
+        where: { roleID: "3", status: { [Op.ne]: 0 } },
         raw: true,
       });
       let countClinic = await db.Clinic.count({
-        col: 'id',
+        col: "id",
         raw: true,
       });
       let dateTran = await db.TransactionHistory.findAll({
         raw: true,
       });
-      let countTransaction = await db.TransactionHistory.count({
-        col: 'id',
+      let countTransaction = await db.Appointment.count({
+        col: "id",
+        where: {
+          isCanceled: 2,
+        },
         raw: true,
       });
-      let revenue = await db.TransactionHistory.sum('balance', {
+      let revenue = await db.TransactionHistory.sum("balance", {
         raw: true,
+        include: [
+          {
+            model: db.Appointment,
+            attributes: ["isCanceled"],
+            where: {
+              isCanceled: 2,
+            },
+          },
+        ],
       });
-      if (countDoctor || countUser || countClinic || countTransaction || revenue || dateTran) {
-        resolve([countDoctor, countUser, countClinic, countTransaction, revenue, dateTran]);
+      if (
+        countDoctor ||
+        countUser ||
+        countClinic ||
+        countTransaction ||
+        revenue ||
+        dateTran
+      ) {
+        resolve([
+          countDoctor,
+          countUser,
+          countClinic,
+          countTransaction,
+          revenue,
+          dateTran,
+        ]);
       } else {
         resolve();
       }
@@ -51,10 +77,10 @@ let statisticsAppointment = () => {
         include: [
           {
             model: db.TransactionHistory,
-            attributes: ['balance'],
+            attributes: ["balance"],
           },
         ],
-        order: [['date', 'DESC']],
+        order: [["date", "DESC"]],
 
         limit: 5,
       });
@@ -85,10 +111,10 @@ let statisticsByDay = (data) => {
         include: [
           {
             model: db.TransactionHistory,
-            attributes: ['balance'],
+            attributes: ["balance"],
           },
         ],
-        order: [['date', 'DESC']],
+        order: [["date", "DESC"]],
       });
       if (transacsionDetail) {
         resolve(transacsionDetail);

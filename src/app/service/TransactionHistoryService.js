@@ -76,10 +76,37 @@ let rollBackMoneyForDoctor = (doctorId, balance) => {
     }
   });
 };
-
+//[ADMIN] lịch sử giao dịch
+let transactionHistoryManage = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let transacsionHis = await db.Appointment.findAll({
+        raw: true,
+        where: {
+          isCanceled: 2,
+        },
+        include: [
+          {
+            model: db.TransactionHistory,
+            attributes: ["balance"],
+          },
+        ],
+        order: [["date", "DESC"]],
+      });
+      if (transacsionHis) {
+        resolve(transacsionHis);
+      } else {
+        resolve();
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   createNewTransactionHistory,
   rollBackMoneyForDoctor,
   rollBackMoneyForUser,
   getTransactionHistoryByAppointmentId,
+  transactionHistoryManage,
 };

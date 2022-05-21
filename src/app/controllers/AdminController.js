@@ -1,15 +1,16 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-import { getListAccounts } from '../service/AccountService';
-import { getUserById } from '../service/UserService';
-import { getListClinics } from '../service/ClinicService';
-import { getAppointment } from '../service/AppoinmentService';
+import { getListAccounts } from "../service/AccountService";
+import { getUserById } from "../service/UserService";
+import { getListClinics } from "../service/ClinicService";
+import { getAppointment } from "../service/AppoinmentService";
+import { transactionHistoryManage } from "../service/TransactionHistoryService";
 import {
   statisticalCalculation,
   statisticsByDay,
   statisticsAppointment,
-} from '../service/StatisticService';
+} from "../service/StatisticService";
 class AdminController {
   //[GET] statistic page
   async index(req, res, next) {
@@ -18,7 +19,7 @@ class AdminController {
       let appoinments = await statisticsAppointment();
 
       for (let e of appoinments) {
-        e.tranBalence = e['TransactionHistory.balance'];
+        e.tranBalence = e["TransactionHistory.balance"];
       }
 
       let doctorNumber = statistics[0];
@@ -26,7 +27,7 @@ class AdminController {
       let clinicNumber = statistics[2];
       let transacsionNumber = statistics[3];
       let revenue = statistics[4];
-      res.render('admin/home', {
+      res.render("admin/home", {
         doctorNumber,
         userNumber,
         clinicNumber,
@@ -40,7 +41,7 @@ class AdminController {
   }
 
   //[POST] statistic by date page
-  async PickStatisticsPage(req, res, next) {
+  async pickStatisticsPage(req, res, next) {
     try {
       let statistics = await statisticalCalculation();
 
@@ -52,10 +53,10 @@ class AdminController {
 
       let detailTransaction = await statisticsByDay(req.body);
       for (let e of detailTransaction) {
-        e.tranBalence = e['TransactionHistory.balance'];
+        e.tranBalence = e["TransactionHistory.balance"];
       }
       req.session.messageDate = req.body;
-      res.render('admin/home', {
+      res.render("admin/home", {
         doctorNumber,
         userNumber,
         clinicNumber,
@@ -76,7 +77,7 @@ class AdminController {
       let accounts = accountsAndClinics[0];
       let clinics = accountsAndClinics[1];
       let messageExist = req.session.messageExist;
-      res.render('admin/account_view', { accounts, clinics, messageExist });
+      res.render("admin/account_view", { accounts, clinics, messageExist });
       req.session.messageExist = null;
     } catch (err) {
       console.log(err);
@@ -87,7 +88,7 @@ class AdminController {
     try {
       let messageExist = req.session.messageExist;
       let clinics = await getListClinics();
-      res.render('admin/clinic_view', {
+      res.render("admin/clinic_view", {
         clinics,
         messageExist,
       });
@@ -103,10 +104,28 @@ class AdminController {
       for (let p of appointment) {
         let user = await getUserById(p.userID);
         let doctor = await getUserById(p.doctorID);
-        p.nameUser = user.firstName + ' ' + user.lastName;
-        p.nameDoctor = doctor.firstName + ' ' + doctor.lastName;
+        p.nameUser = user.firstName + " " + user.lastName;
+        p.nameDoctor = doctor.firstName + " " + doctor.lastName;
       }
-      res.render('admin/appointment_view', {
+      res.render("admin/appointment_view", {
+        appointment,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  //[GET] Transaction page
+  async transactionHistoryView(req, res, next) {
+    try {
+      let appointment = await transactionHistoryManage();
+      for (let p of appointment) {
+        let user = await getUserById(p.userID);
+        let doctor = await getUserById(p.doctorID);
+        p.nameUser = user.firstName + " " + user.lastName;
+        p.nameDoctor = doctor.firstName + " " + doctor.lastName;
+        p.balance = p["TransactionHistory.balance"];
+      }
+      res.render("admin/transactionHistory_view", {
         appointment,
       });
     } catch (err) {

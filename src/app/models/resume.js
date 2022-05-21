@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       attachments: DataTypes.STRING,
       starNo: DataTypes.INTEGER,
       isVerified: DataTypes.BOOLEAN,
+      bankNumber: DataTypes.STRING,
+      bankName: DataTypes.STRING,
     },
     {
       sequelize,
