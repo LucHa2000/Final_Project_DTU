@@ -1,18 +1,18 @@
-<div class="flex">
+<div class="flex h-screen w-screen overflow-hidden">
 
   {{>header_admin}}
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"
   >
   </script>
-      <div class="container  text-center mt-10 ml-10 mr-10">
+      <div class="container  text-center pt-10 pl-10 pr-10 overflow-y-scroll h-screen pb-32 w-full"> 
 
       <div class="flex justify-center">
         <div class="row" style="width: 600px;">
               <h5 class="text-center font-bold text-xl">THỐNG KÊ</h5>
               <br>
           <form id="getDateForm" action="/admin/statisticsByDay" Method="POST">
-            <div class="flex justify-center">
+            <div class="flex justify-center items-center">
               <div class="relative">
                   <input type="date" id="startDate" name="startDate" required="required" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " >
               </div>
@@ -22,8 +22,8 @@
             </div>
           </div>
           <div class="mt-4 flex justify-center">
-            <button type="submit" class=" btn--primary waves-effect waves-light text-center mr-2"><i class="material-icons right">filter_list</i>Thống kê</button>
-              <a href="/admin" class=" btn--primary waves-effect waves-light text-center"><i class="material-icons right">filter_list</i>Làm mới</a>
+            <button type="submit" class=" btn--primary waves-effect waves-light text-center mr-2"><i class="fa-solid fa-chart-area mr-4"></i>Thống kê</button>
+              <a href="/admin" class=" btn--primary waves-effect waves-light text-center"><i class="fa-solid fa-arrows-rotate mr-4"></i>Làm mới</a>
           </div>
           </form>
           <br>     
@@ -31,18 +31,20 @@
       </div>
       <div class="row flex justify-center mt-6">
          <div class="col s6 block">
-            <div class="flex justify-center">
-                <div class="font-bold">Bác sĩ: <span class="ml-2">{{doctorNumber}}</span></div>
-                <div class="font-bold ml-60">Người dùng: <span class="ml-2">{{userNumber}}</div>
-                <div class="font-bold ml-60">Khoa: <span class="ml-2">{{clinicNumber}}</div>
-                <div class="font-bold ml-60">Giao dịch: <span class="ml-2">{{transacsionNumber}}</div>
-                <div class="font-bold ml-60">Doanh thu: <span class="ml-2">{{revenue}}$</div>
+            <div class="flex justify-between px-8">
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Bác sĩ<span class="ml-2">{{doctorNumber}}</span></div>
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Người dùng<span class="ml-2">{{userNumber}}</div>
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Khoa<span class="ml-2">{{clinicNumber}}</div>
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Giao dịch<span class="ml-2">{{transacsionNumber}}</div>
+                <div class="font-bold whitespace-nowrap flex flex-col">Doanh thu<span class="ml-2">{{revenue}}$</div>
              </div>
           </div>
       </div>
        <br>
-       
+        <div class="flex justify-center items-center w-full"/>
+
          {{>search}} 
+        </div>
          {{#if messageDate}}
          <br>
        <div class="p-4 text-sm text-gray-700 bg-gray-100 rounded-lg text-left font-medium " role="alert">
@@ -109,7 +111,7 @@
             </table>
       </div>
        <br>
-      <div class="row mt-6 flex justify-center">
+      {{!-- <div class="row mt-6 flex justify-center">
         <div class="col s6 mr-10" style="width: 800px;">
             <h2 class="text-center font-bold text-xl">Thống kê năm</h2>
             <canvas class="year_Chart"></canvas>
@@ -117,7 +119,7 @@
         <div class="col s6 push-l3 "style="width: 800px;">  
             <h5 class="text-center font-bold text-xl">Top Khoa</h5>
             <canvas id="product_Chart"></canvas>   
-        </div>
+        </div> --}}
         {{!-- <div class="col s3">
           <h5></h5>
           <br>
