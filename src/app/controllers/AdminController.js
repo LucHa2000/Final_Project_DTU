@@ -114,7 +114,7 @@ class AdminController {
       console.log(err);
     }
   }
-  //[GET] Transaction page
+  //[GET] Transaction History page
   async transactionHistoryView(req, res, next) {
     try {
       let appointment = await transactionHistoryManage();

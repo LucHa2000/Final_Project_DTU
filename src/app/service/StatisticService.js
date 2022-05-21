@@ -126,7 +126,6 @@ let statisticsByDay = (data) => {
     }
   });
 };
-
 module.exports = {
   statisticalCalculation,
   statisticsByDay,
