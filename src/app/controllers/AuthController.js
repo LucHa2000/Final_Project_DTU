@@ -39,6 +39,10 @@ class AuthController {
       );
 
       if (user) {
+        if (user.status === 0) {
+          req.session.errorLogin = "Tài khoản của bạn đã bị khoá!";
+          res.redirect("back");
+        }
         const accountRole = user.roleID;
         const accountID = user.id;
         const firstName = user.firstName;
@@ -53,7 +57,8 @@ class AuthController {
         req.session.roleID = accountRole;
         req.session.image = image;
         req.session.resumeID = resumeID;
-        //console.log(req.session);
+        //check status account
+
         if (accountRole === 1) {
           res.redirect("/admin");
         }
@@ -66,12 +71,12 @@ class AuthController {
         }
       } else {
         //return message
-        req.session.errorLogin = "Email or password is wrong please re-enter !";
+        req.session.errorLogin = "Email hoặc mật khẩu sai! Vui lòng nhập lại";
         res.redirect("back");
       }
     } else {
       //return message
-      req.session.errorLogin = "Please confirm captcha !";
+      req.session.errorLogin = "Vui lòng xác nhận captCha!";
       res.redirect("back");
     }
   }
