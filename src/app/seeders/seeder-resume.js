@@ -9,8 +9,7 @@ module.exports = {
         title: "Bác sĩ Mark Lee - Người truyền cảm hứng cho thế hệ trẻ",
         description:
           "Tôi là người hiện đang sinh sống và làm việc tại Việt Nam đã được 10 năm, với kinh nghiệm chuyên sâu về răng hàm mặt, tôi tin sẽ đem lại cho bạn dịch vụ tốt nhất.",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -19,8 +18,7 @@ module.exports = {
         starNo: 5,
         title: "",
         description: "",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -29,8 +27,7 @@ module.exports = {
         starNo: 4,
         title: "",
         description: "",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -39,8 +36,7 @@ module.exports = {
         starNo: 3,
         title: "",
         description: "",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -49,8 +45,7 @@ module.exports = {
         starNo: 4,
         title: "",
         description: "",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -59,8 +54,7 @@ module.exports = {
         starNo: 5,
         title: "",
         description: "",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -69,8 +63,7 @@ module.exports = {
         starNo: 3,
         title: "",
         description: "",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -80,8 +73,7 @@ module.exports = {
         title: "John David - Chuyên khoa tai mũi họng",
         description:
           "Chào bạn, tôi là John David, tôi sinh ra và lớn lên ở California, hiện tôi đã làm việc và sinh sống ở Việt Nam 15 năm. Tôi tin rằng, với kinh nghiệm làm việc 10 năm ở mảng tai mũi họng, sẽ mang lại cho bạn trải nghiệm tốt nhất.",
-        bankNumber: "123123123",
-        bankName: "Agribank",
+
         createdAt: new Date(),
         updatedAt: new Date(),
       },

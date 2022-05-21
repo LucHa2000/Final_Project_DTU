@@ -79,12 +79,12 @@ class BookingController {
       let userAppointment = await getAppointmentsByUserID(userID, roleID);
       let doctorAppointment = await getAppointmentsByUserID(
         req.body.doctorID,
-        2,
+        2
       );
       let startTime = req.body.startTime;
       if (
-        checkingAvailableTime(startTime, userAppointment,date) === false ||
-        checkingAvailableTime(startTime, doctorAppointment,date) === false
+        checkingAvailableTime(startTime, userAppointment, date) === false ||
+        checkingAvailableTime(startTime, doctorAppointment, date) === false
       ) {
         req.session.error = "Bạn không thể đặt lịch vào thời gian này!";
         res.redirect("back");
@@ -93,23 +93,24 @@ class BookingController {
         res.redirect("back");
       } else {
         req.body.id = uuidv4();
-        console.log(req.body);
-        console.log(userID);
 
-        let newAppointmentId = await createNewAppointment(userID, req.body);
-        console.log(newAppointmentId);
-        if (newAppointmentId) {
+        let newAppointment = await createNewAppointment(userID, req.body);
+        console.log(newAppointment);
+        if (newAppointment) {
           let amountForDoctor = (req.body.serviceFee * 70) / 100;
           await addBalanceById(req.body.doctorID, amountForDoctor);
           await minusBalanceById(userID, req.body.serviceFee);
-          await createNewTransactionHistory(userID, req.body, newAppointmentId);
+          await createNewTransactionHistory(
+            userID,
+            req.body,
+            newAppointment.id
+          );
           req.session.successfullyMessage = "Đặt lịch thành công";
           //create notification
           const titleNotificationForAppointment = "Thông Báo Lịch Hẹn";
-          const contentNotificationForAppointment =
-            "Vừa có lịch hẹn được đặt, bạn có thể kiểm tra lịch !";
+          const contentNotificationForAppointment = `Vừa có lịch hẹn được đặt vào ngày ${newAppointment.date}, bạn có thể kiểm tra lịch !`;
           const notification = {
-            appointmentId: newAppointmentId,
+            appointmentId: newAppointment.id,
             title: titleNotificationForAppointment,
             content: contentNotificationForAppointment,
             link: `?date=${dateNow}`,
