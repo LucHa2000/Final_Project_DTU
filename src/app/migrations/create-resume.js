@@ -22,6 +22,12 @@ module.exports = {
       starNo: {
         type: Sequelize.INTEGER,
       },
+      bankNumber: {
+        type: Sequelize.STRING,
+      },
+      bankName: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

@@ -7,7 +7,7 @@
       <div class="mb-4 border-b border-gray-200 w-full ">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center justify-center w-full" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
             <li class="mr-2" role="presentation">
-                <button class=" font-bold text-gray-1000 inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 " id="account-management-tab" data-tabs-target="#account-management" type="button" role="tab" aria-controls="#account-management" aria-selected="false">Danh Sách Cuộc Hẹn</button>
+                <button class=" font-bold text-gray-1000 inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 " id="account-management-tab" data-tabs-target="#account-management" type="button" role="tab" aria-controls="#account-management" aria-selected="false">Lịch Sử Giao Dịch</button>
             </li>
         </ul>
       </div>
@@ -21,6 +21,9 @@
                   <tr>
                       <th scope="col" class="px-6 py-3 font-bold">
                           STT
+                      </th>
+                       <th scope="col" class="px-6 py-3 font-bold">
+                          Ngày 
                       </th>
                        <th scope="col" class="px-6 py-3 font-bold">
                           Tiêu đề
@@ -37,8 +40,8 @@
                       <th scope="col" class="px-6 py-3 font-bold">
                           Giờ kết thúc
                       </th>
-                      <th scope="col" class="px-6 py-3 font-bold">
-                          Ngày
+                     <th scope="col" class="px-6 py-3 font-bold">
+                          Phí
                       </th>
                       <th scope="col" class="px-6 py-3 font-bold">
                           Trạng thái
@@ -55,6 +58,9 @@
                         {{sum @index}}
                     </th>
                     <td class="px-6 py-4">
+                        {{{this.date}}}
+                    </td>
+                    <td class="px-6 py-4">
                         {{{this.title}}}
                     </td>
                     <td class="px-6 py-4">
@@ -70,7 +76,7 @@
                         {{{this.endTime}}}
                     </td>
                     <td class="px-6 py-4">
-                        {{{this.date}}}
+                        {{{this.balance}}}
                     </td>
                     <td class="px-6 py-4 {{{ styleAppointment this.isCanceled}}}">
                         {{{ statusIsCancel this.isCanceled}}}
@@ -79,7 +85,7 @@
                   {{else}}
                     <tr>
                       <td colspan="6" class="center text-center">
-                          Dịch vụ trống
+                          Lịch sử giao dịch trống
                       </td>
                     </tr>
                   {{/each}}  
