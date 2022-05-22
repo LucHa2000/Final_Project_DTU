@@ -14,14 +14,20 @@ import {
   getAllClinic,
   getDoctorByKeyWord
 } from "../service/DoctorService";
+import{
+  statisticalCalculation
+}from "../service/StatisticService";
 import { getAppointmentsByUserID } from "../service/AppoinmentService";
 class SiteController {
   async index(req, res, next) {
     try {
       let data = await findAllClinicAnDoctorWithClinic();
+      let count = await statisticalCalculation();
       let currentDate = formatDate(new Date().toString());
       let clinics = data[0];
       let doctors = data[1];
+      let countClinic = count[2];
+      let countDoctor = count[0];
       let doctorsWithClinicName = [];
       for (let e of doctors) {
         e.clinicName = e["Clinic.name"];
@@ -31,6 +37,8 @@ class SiteController {
       res.render("user/home", {
         clinics: clinics,
         doctors: doctorsWithClinicName,
+        countClinic,
+        countDoctor
       });
     } catch (err) {
       console.log(err);

@@ -18,6 +18,11 @@ import {
   getAppointmentById
 } from "../service/AppoinmentService";
 import {
+  rollBackMoneyForDoctor,
+  rollBackMoneyForUser,
+  getTransactionHistoryByAppointmentId,
+} from "../service/TransactionHistoryService";
+import {
   createNotification,
   socketServerNotification,
 } from "../service/NotificationService";
@@ -109,15 +114,18 @@ class BookingController {
           );
           req.session.successfullyMessage = "Đặt lịch thành công";
           
-          const appointment = await getAppointmentById(newAppointmentId)
-          const startTime = appointment.startTime;
-          const appointmentDate = appointment.Date
+          let appointment = await getAppointmentById(newAppointment.id)
+          let startTime = appointment.startTime;
+          console.log(appointment);
+          const appointmentDate = new Date(`2022-05-22 23:12:00`)
 
           // schedule cancel appointment if doctor don't accept appointment
-          schedule.scheduleJob(`${startTime} ${appointmentDate}`, function(){
+          schedule.scheduleJob(appointmentDate, async function(){
+            console.log(appointmentDate)
+            console.log(appointment);
             if(appointment.isCanceled === 0){
               let appointmentCanceled = await cancelAppointment(
-                newAppointmentId
+                newAppointment.id
               );
               if (appointmentCanceled) {
                 let transactionHistory = await getTransactionHistoryByAppointmentId(
