@@ -1,5 +1,6 @@
 const express = require("express");
 const moment = require("moment");
+const schedule = require("node-schedule")
 const app = express();
 const server = require("http").Server(app);
 var io = require("socket.io")(server);
@@ -14,7 +15,13 @@ import {
   updateAppointment,
   cancelAppointment,
   checkingAvailableTime,
+  getAppointmentById
 } from "../service/AppoinmentService";
+import {
+  rollBackMoneyForDoctor,
+  rollBackMoneyForUser,
+  getTransactionHistoryByAppointmentId,
+} from "../service/TransactionHistoryService";
 import {
   createNotification,
   socketServerNotification,
@@ -106,6 +113,41 @@ class BookingController {
             newAppointment.id
           );
           req.session.successfullyMessage = "Đặt lịch thành công";
+          
+          let appointment = await getAppointmentById(newAppointment.id)
+          let startTime = appointment.startTime;
+          console.log(appointment);
+          const appointmentDate = new Date(`2022-05-22 23:12:00`)
+
+          // schedule cancel appointment if doctor don't accept appointment
+          schedule.scheduleJob(appointmentDate, async function(){
+            console.log(appointmentDate)
+            console.log(appointment);
+            if(appointment.isCanceled === 0){
+              let appointmentCanceled = await cancelAppointment(
+                newAppointment.id
+              );
+              if (appointmentCanceled) {
+                let transactionHistory = await getTransactionHistoryByAppointmentId(
+                  appointmentCanceled.id
+                );
+        
+                let moneyRollBackForDoctor = (transactionHistory.balance * 70) / 100;
+                let moneyRollBackForUser = transactionHistory.balance;
+        
+                //rollback money
+                let rBDoctor = await rollBackMoneyForDoctor(
+                  appointmentCanceled.doctorID,
+                  moneyRollBackForDoctor
+                );
+                let rBUser = await rollBackMoneyForUser(
+                  appointmentCanceled.userID,
+                  moneyRollBackForUser
+                );
+              }
+            }
+          })
+
           //create notification
           const titleNotificationForAppointment = "Thông Báo Lịch Hẹn";
           const contentNotificationForAppointment = `Vừa có lịch hẹn được đặt vào ngày ${newAppointment.date}, bạn có thể kiểm tra lịch !`;
