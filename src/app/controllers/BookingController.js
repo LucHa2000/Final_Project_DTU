@@ -1,5 +1,6 @@
 const express = require("express");
 const moment = require("moment");
+const schedule = require("node-schedule")
 const app = express();
 const server = require("http").Server(app);
 var io = require("socket.io")(server);
@@ -14,6 +15,7 @@ import {
   updateAppointment,
   cancelAppointment,
   checkingAvailableTime,
+  getAppointmentById
 } from "../service/AppoinmentService";
 import {
   createNotification,
@@ -106,6 +108,38 @@ class BookingController {
             newAppointment.id
           );
           req.session.successfullyMessage = "Đặt lịch thành công";
+          
+          const appointment = await getAppointmentById(newAppointmentId)
+          const startTime = appointment.startTime;
+          const appointmentDate = appointment.Date
+
+          // schedule cancel appointment if doctor don't accept appointment
+          schedule.scheduleJob(`${startTime} ${appointmentDate}`, function(){
+            if(appointment.isCanceled === 0){
+              let appointmentCanceled = await cancelAppointment(
+                newAppointmentId
+              );
+              if (appointmentCanceled) {
+                let transactionHistory = await getTransactionHistoryByAppointmentId(
+                  appointmentCanceled.id
+                );
+        
+                let moneyRollBackForDoctor = (transactionHistory.balance * 70) / 100;
+                let moneyRollBackForUser = transactionHistory.balance;
+        
+                //rollback money
+                let rBDoctor = await rollBackMoneyForDoctor(
+                  appointmentCanceled.doctorID,
+                  moneyRollBackForDoctor
+                );
+                let rBUser = await rollBackMoneyForUser(
+                  appointmentCanceled.userID,
+                  moneyRollBackForUser
+                );
+              }
+            }
+          })
+
           //create notification
           const titleNotificationForAppointment = "Thông Báo Lịch Hẹn";
           const contentNotificationForAppointment = `Vừa có lịch hẹn được đặt vào ngày ${newAppointment.date}, bạn có thể kiểm tra lịch !`;
