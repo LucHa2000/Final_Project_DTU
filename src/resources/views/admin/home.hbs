@@ -10,7 +10,24 @@
       <div class="flex justify-center">
         <div class="row" style="width: 600px;">
               <h5 class="text-center font-bold text-xl">THỐNG KÊ</h5>
-              <br>
+              <br>   
+        </div>
+      </div>
+      <div class="row flex justify-center mt-6">
+         <div class="col s6 block">
+            <div class="flex justify-between px-8">
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Bác sĩ<span class="ml-2">{{doctorNumber}}</span></div>
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Người dùng<span class="ml-2">{{userNumber}}</div>
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Khoa<span class="ml-2">{{clinicNumber}}</div>
+                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Giao dịch<span class="ml-2">{{transacsionNumber}}</div>
+                <div class="font-bold whitespace-nowrap flex flex-col">Doanh thu<span class="ml-2">{{revenue}}$</div>
+             </div>
+          </div>
+      </div>
+       <br>
+       <br>
+        <div class="flex justify-center">
+        <div class="row" style="width: 600px;">
           <form id="getDateForm" action="/admin/statisticsByDay" Method="POST">
             <div class="flex justify-center items-center">
               <div class="relative">
@@ -29,18 +46,6 @@
           <br>     
         </div>
       </div>
-      <div class="row flex justify-center mt-6">
-         <div class="col s6 block">
-            <div class="flex justify-between px-8">
-                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Bác sĩ<span class="ml-2">{{doctorNumber}}</span></div>
-                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Người dùng<span class="ml-2">{{userNumber}}</div>
-                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Khoa<span class="ml-2">{{clinicNumber}}</div>
-                <div class="font-bold whitespace-nowrap flex flex-col mr-16">Giao dịch<span class="ml-2">{{transacsionNumber}}</div>
-                <div class="font-bold whitespace-nowrap flex flex-col">Doanh thu<span class="ml-2">{{revenue}}$</div>
-             </div>
-          </div>
-      </div>
-       <br>
         <div class="flex justify-center items-center w-full"/>
 
          {{>search}} 
@@ -48,7 +53,7 @@
          {{#if messageDate}}
          <br>
        <div class="p-4 text-sm text-gray-700 bg-gray-100 rounded-lg text-left font-medium " role="alert">
-        <span class="font-bold">Cuộc hẹn từ: </span> {{messageDate.startDate}} - {{messageDate.endDate}}
+        <span class="font-bold">Giao dịch từ: </span> {{messageDate.startDate}} - {{messageDate.endDate}}
       </div>
       {{/if}}
       <div class="row flex justify-center mt-6">
